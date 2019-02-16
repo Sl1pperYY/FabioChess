@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body>
+    <header>
+      <nav class="nav-extended cyan">
+     <div class="nav-wrapper">
+        <a href="index.html" class="brand-logo">Logo</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+         <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="aboutUs.html">About Us</a></li>
+        </ul>
+      </div>
+      <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+          <li class="tab"><a href="index.html">New Game</a></li>
+          <li class="tab"><a class="active" href="settings.html">Settings</a></li>
+          <li class="tab"><a href="help.html">Help</a></li>
+        </ul>
+      </div>
+      </nav>
+
+      <ul class="sidenav" id="mobile-demo">
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="aboutUs.html">About Us</a></li>
+      </ul>
+
+    </header>
+
+    <section>
+      <a class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-large">Single Player</a>
+      <a class="waves-effect hoverable cyan darken-2 btn-large">2 Player</a>
+    </section>
+
+    <section id="chess-board">
+      <div class="chess-row">
+        <div>8</div>
+        <div class="dark" id='a8'>r</div>
+        <div class="light" id='b8'>b</div>
+        <div class="dark" id='c8'>n</div>
+        <div class="light" id='d8'>q</div>
+        <div class="dark" id='e8'>k</div>
+        <div class="light" id='f8'>n</div>
+        <div class="dark" id='g8'>b</div>
+        <div class="light" id='h8'>r</div>
+      </div>
+
+      <div class="chess-row">
+        <div>7</div>
+        <div class="light" id='a7'>p</div>
+        <div class="dark" id='b7'>p</div>
+        <div class="light" id='c7'>p</div>
+        <div class="dark" id='d7'>p</div>
+        <div class="light" id='e7'>p</div>
+        <div class="dark" id='f7'>p</div>
+        <div class="light" id='g7'>p</div>
+        <div class="dark" id='h7'>p</div>
+      </div>
+
+      <div class="chess-row">
+        <div>6</div>
+        <div class="dark" id='a6'></div>
+        <div class="light" id='b6'></div>
+        <div class="dark" id='c6'></div>
+        <div class="light" id='d6'></div>
+        <div class="dark" id='e6'></div>
+        <div class="light" id='f6'></div>
+        <div class="dark" id='g6'></div>
+        <div class="light" id='h6'></div>
+      </div>
+
+      <div class="chess-row">
+        <div>5</div>
+        <div class="light" id='a5'></div>
+        <div class="dark" id='b5'></div>
+        <div class="light" id='c5'></div>
+        <div class="dark" id='d5'></div>
+        <div class="light" id='e5'></div>
+        <div class="dark" id='f5'></div>
+        <div class="light" id='g5'></div>
+        <div class="dark" id='h5'></div>
+      </div>
+
+      <div class="chess-row">
+        <div>4</div>
+        <div class="dark" id='a4'></div>
+        <div class="light" id='b4'></div>
+        <div class="dark" id='c4'></div>
+        <div class="light" id='d4'></div>
+        <div class="dark" id='e4'></div>
+        <div class="light" id='f4'></div>
+        <div class="dark" id='g4'></div>
+        <div class="light" id='h4'></div>
+      </div>
+
+      <div class="chess-row">
+        <div>3</div>
+        <div class="light" id='a3'></div>
+        <div class="dark" id='b3'></div>
+        <div class="light" id='c3'></div>
+        <div class="dark" id='d3'></div>
+        <div class="light" id='e3'></div>
+        <div class="dark" id='f3'></div>
+        <div class="light" id='g3'></div>
+        <div class="dark" id='h3'></div>
+      </div>
+
+      <div class="chess-row">
+        <div>2</div>
+        <div class="dark" id='a2'>P</div>
+        <div class="light" id='b2'>P</div>
+        <div class="dark" id='c2'>P</div>
+        <div class="light" id='d2'>P</div>
+        <div class="dark" id='e2'>P</div>
+        <div class="light" id='f2'>P</div>
+        <div class="dark" id='g2'>P</div>
+        <div class="light" id='h2'>P</div>
+      </div>
+
+      <div class="chess-row">
+        <div>1</div>
+        <div class="light" id='a1'>R</div>
+        <div class="dark" id='b1'>B</div>
+        <div class="light" id='c1'>N</div>
+        <div class="dark" id='d1'>Q</div>
+        <div class="light" id='e1'>K</div>
+        <div class="dark" id='f1'>N</div>
+        <div class="light" id='g1'>B</div>
+        <div class="dark" id='h1'>R</div>
+      </div>
+
+      <div class="chess-row">
+        <div></div>
+        <div>a</div>
+        <div>b</div>
+        <div>c</div>
+        <div>d</div>
+        <div>e</div>
+        <div>f</div>
+        <div>g</div>
+        <div>h</div>
+      </div>
+
+    </section>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
