@@ -15,9 +15,9 @@ class Pawn:
             self.rep = 'p'
 
     def possibleMoves(self,board,startx,starty,destx,desty):
-        if board[startx][starty].team == 'White' and desty-starty == -1 and startx == destx:
+        if board[starty][startx].team == 'White' and desty-starty == -1 and startx == destx:
             return True
-        elif board[startx][starty].team == 'Black' and desty-starty == 1 and startx == destx:
+        elif board[starty][startx].team == 'Black' and desty-starty == 1 and startx == destx:
             return True
         else:
             return False
