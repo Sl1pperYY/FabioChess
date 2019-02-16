@@ -1,11 +1,10 @@
 from pieceClasses import Pawn, Rook, Knight, Bishop, Queen, King, Empty
-from boardClass import ChessBoard
 
 #----------------------------------------------------------------------
-#All of the chess logic
+#All of the chess Logic
 #----------------------------------------------------------------------
 
-class logic:
+class Logic:
 
     #Checks if the input is in the correct format
     @staticmethod
@@ -24,7 +23,7 @@ class logic:
     #Checks if the input is the correct format
     @staticmethod
     def coordinateCheck(x):
-        return (len(x) == 2) or (logic.range(x))
+        return (len(x) == 2) or (Logic.range(x))
 
     #Checks if the coordinate selected is empty or not
     @staticmethod
@@ -41,10 +40,10 @@ class logic:
     def selectPiece(board):
         while True:
             piece = input('Please enter the coordinate you want to select (in the format of f3): ')
-            x,y = logic.convert(piece)
-            if not(logic.coordinateCheck(piece)):
+            x,y = Logic.convert(piece)
+            if not(Logic.coordinateCheck(piece)):
                 print ('You did not enter the coordinate in the right format or the coordinate is out of range.')
-            elif logic.emptyCheck(board,x,y):
+            elif Logic.emptyCheck(board,x,y):
                 print('The coordinate you entered is empty.')
             else:
                 return x,y
@@ -54,8 +53,8 @@ class logic:
     def selectDestination(board):
         while True:
             destination = input('Please enter the coordinate you want to move this piece to (in the format of f3): ')
-            x,y = logic.convert(destination)
-            if not(logic.coordinateCheck(destination)):
+            x,y = Logic.convert(destination)
+            if not(Logic.coordinateCheck(destination)):
                 print('You did not enter the coordinate in the right format or the coordinate is out of range.')
             else:
                 return x,y
@@ -173,3 +172,5 @@ class logic:
                             return True
             else:
                 return False
+        else:
+            return False

@@ -1,5 +1,5 @@
 from pieceClasses import Pawn, Rook, Knight, Bishop, Queen, King, Empty
-from logic import logic
+from myChessLogic import Logic
 
 #----------------------------------------------------------------------
 #Creating the Chess Board class
@@ -43,8 +43,8 @@ class ChessBoard:
 
     
     def move(self,colour):
-        startx,starty = logic.selectPiece(self.board)
-        destx,desty = logic.selectDestination(self.board)
+        startx,starty = Logic.selectPiece(self.board)
+        destx,desty = Logic.selectDestination(self.board)
 
         #Base Case is checkmate
         for i1 in range(8):
@@ -52,14 +52,14 @@ class ChessBoard:
                 if colour == True and self.board[j1][i1].team == 'White':
                     for i2 in range(8):
                         for j2 in range(8):
-                            if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) or not(logic.blocked(self.board,i1,j1,i2,j2)):
+                            if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) or (Logic.blocked(self.board,i1,j1,i2,j2)):
                                 ChessBoard.display(self)
                                 print('Checkmate, Black Won.')
                                 break
                 elif colour == False and self.board[j1][i1].team == 'Black':
                     for i2 in range(8):
                         for j2 in range(8):
-                            if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) or not(logic.blocked(self.board,i1,j1,i2,j2)):
+                            if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) or not(Logic.blocked(self.board,i1,j1,i2,j2)):
                                 ChessBoard.display(self)
                                 print('Checkmate, White Won.')
                                 break               
@@ -68,15 +68,15 @@ class ChessBoard:
 
         if colour == True and self.board[starty][startx].team == 'White':
             if self.board[starty][startx].possibleMoves(self.board,startx,starty,destx,desty):
-                if not(logic.sameTeam(self.board,startx,starty,destx,desty)):
+                if not(Logic.sameTeam(self.board,startx,starty,destx,desty)):
                     if self.board[starty][startx].name == 'Pawn' and self.board[starty][startx].first == 'Y':
                         self.board[starty][startx].first = 'N'
-                        self.board = logic.killPos(self.board,startx,starty,destx,desty)
+                        self.board = Logic.killPos(self.board,startx,starty,destx,desty)
                         ChessBoard.display(self)
                         colour = not colour
                         ChessBoard.move(self,colour)
                     else:
-                        self.board = logic.killPos(self.board,startx,starty,destx,desty)
+                        self.board = Logic.killPos(self.board,startx,starty,destx,desty)
                         ChessBoard.display(self)
                         colour = not colour
                         ChessBoard.move(self,colour)
@@ -90,15 +90,15 @@ class ChessBoard:
                 ChessBoard.move(self,colour)
         elif colour == False and self.board[starty][startx].team == 'Black':
             if self.board[starty][startx].possibleMoves(self.board,startx,starty,destx,desty):
-                if not(logic.sameTeam(self.board,startx,starty,destx,desty)):
+                if not(Logic.sameTeam(self.board,startx,starty,destx,desty)):
                     if self.board[starty][startx].name == 'Pawn' and self.board[starty][startx].first == 'Y':
                         self.board[starty][startx].first = 'N'
-                        self.board = logic.killPos(self.board,startx,starty,destx,desty)
+                        self.board = Logic.killPos(self.board,startx,starty,destx,desty)
                         ChessBoard.display(self)
                         colour = not colour
                         ChessBoard.move(self,colour)
                     else:
-                        self.board = logic.killPos(self.board,startx,starty,destx,desty)
+                        self.board = Logic.killPos(self.board,startx,starty,destx,desty)
                         ChessBoard.display(self)
                         colour = not colour
                         ChessBoard.move(self,colour)
@@ -119,6 +119,6 @@ class ChessBoard:
 
     """
     def move(self):
-        startx,starty = logic.selectPiece(self.board)
-        destx,desty = logic.selectDestination(self.board)
+        startx,starty = Logic.selectPiece(self.board)
+        destx,desty = Logic.selectDestination(self.board)
     """
