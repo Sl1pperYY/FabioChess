@@ -1,3 +1,6 @@
+from pieceClasses import Pawn, Rook, Knight, Bishop, Queen, King, Empty
+from boardClass import ChessBoard
+
 #----------------------------------------------------------------------
 #All of the chess logic
 #----------------------------------------------------------------------

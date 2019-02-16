@@ -1,3 +1,6 @@
+from pieceClasses import Pawn, Rook, Knight, Bishop, Queen, King, Empty
+from logic import logic
+
 #----------------------------------------------------------------------
 #Creating the Chess Board class
 #----------------------------------------------------------------------
@@ -50,14 +53,14 @@ class ChessBoard:
                     for i2 in range(8):
                         for j2 in range(8):
                             if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) or not(logic.blocked(self.board,i1,j1,i2,j2)):
-                                ChessBoard.display()
+                                ChessBoard.display(self)
                                 print('Checkmate, Black Won.')
                                 break
                 elif colour == False and self.board[j1][i1].team == 'Black':
                     for i2 in range(8):
                         for j2 in range(8):
                             if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) or not(logic.blocked(self.board,i1,j1,i2,j2)):
-                                ChessBoard.display()
+                                ChessBoard.display(self)
                                 print('Checkmate, White Won.')
                                 break               
 
@@ -69,48 +72,48 @@ class ChessBoard:
                     if self.board[starty][startx].name == 'Pawn' and self.board[starty][startx].first == 'Y':
                         self.board[starty][startx].first = 'N'
                         self.board = logic.killPos(self.board,startx,starty,destx,desty)
-                        ChessBoard.display()
+                        ChessBoard.display(self)
                         colour = not colour
-                        ChessBoard.move(colour)
+                        ChessBoard.move(self,colour)
                     else:
                         self.board = logic.killPos(self.board,startx,starty,destx,desty)
-                        ChessBoard.display()
+                        ChessBoard.display(self)
                         colour = not colour
-                        ChessBoard.move(colour)
+                        ChessBoard.move(self,colour)
                 else:
                     print('The destination coordinate is occupied by one of your pieces.')
-                    ChessBoard.display()
-                    ChessBoard.move(colour)
+                    ChessBoard.display(self)
+                    ChessBoard.move(self,colour)
             else:
                 print('This piece can not move there')
-                ChessBoard.display()
-                ChessBoard.move(colour)
+                ChessBoard.display(self)
+                ChessBoard.move(self,colour)
         elif colour == False and self.board[starty][startx].team == 'Black':
             if self.board[starty][startx].possibleMoves(self.board,startx,starty,destx,desty):
                 if not(logic.sameTeam(self.board,startx,starty,destx,desty)):
                     if self.board[starty][startx].name == 'Pawn' and self.board[starty][startx].first == 'Y':
                         self.board[starty][startx].first = 'N'
                         self.board = logic.killPos(self.board,startx,starty,destx,desty)
-                        ChessBoard.display()
+                        ChessBoard.display(self)
                         colour = not colour
-                        ChessBoard.move(colour)
+                        ChessBoard.move(self,colour)
                     else:
                         self.board = logic.killPos(self.board,startx,starty,destx,desty)
-                        ChessBoard.display()
+                        ChessBoard.display(self)
                         colour = not colour
-                        ChessBoard.move(colour)
+                        ChessBoard.move(self,colour)
                 else:
                     print('The destination coordinate is occupied by one of your pieces.')
-                    ChessBoard.display()
-                    ChessBoard.move(colour)
+                    ChessBoard.display(self)
+                    ChessBoard.move(self,colour)
             else:
                 print('This piece can not move there')
-                ChessBoard.display()
-                ChessBoard.move(colour)
+                ChessBoard.display(self)
+                ChessBoard.move(self,colour)
         else:
             print('The piece you chose is not on your team')
-            ChessBoard.display()
-            ChessBoard.move(colour)
+            ChessBoard.display(self)
+            ChessBoard.move(self,colour)
 
     
 
