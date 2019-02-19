@@ -19,6 +19,10 @@ class Pawn:
             return True
         elif board[starty][startx].team == 'Black' and desty-starty == 1 and startx == destx:
             return True
+        elif self.first == True and board[starty][startx].team == 'White' and desty-starty == -2 and startx == destx:
+            return True
+        elif self.first == True and board[starty][startx].team == 'Black' and desty-starty == 2 and startx == destx:
+            return True
         else:
             return False
 

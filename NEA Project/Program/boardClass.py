@@ -10,10 +10,10 @@ class ChessBoard:
         self.board = [[Empty(x='',y='',team='')]*8 for _ in range(8)]
 
         for i in range(8):
-            self.board[1][i] = Pawn(x=1, y=i+1, team='Black', first='Y')
+            self.board[1][i] = Pawn(x=1, y=i+1, team='Black', first=True)
 
         for i in range(8):
-            self.board[6][i] = Pawn(x=6, y=i+1, team='White', first='Y')
+            self.board[6][i] = Pawn(x=6, y=i+1, team='White', first=True)
 
         self.board[0][0] = Rook(x=0, y=0, team='Black')
         self.board[0][1] = Knight(x=0, y=1, team='Black')
@@ -41,28 +41,45 @@ class ChessBoard:
                 print(self.board[i][j].rep, end=' ')
             print()
 
+    def attackedGeneration(self):
+        attacked = []
+        for y in range(8):
+            for x in range(8):
+                if self.board[y][x].name != 'Empty':
+                    list(set(attacked.append(Logic.attackedPerPiece(self.board,x,y))))
+
+
     
     def move(self,colour):
         startx,starty = Logic.selectPiece(self.board)
         destx,desty = Logic.selectDestination(self.board)
 
         #Base Case is checkmate
-        for i1 in range(8):
-            for j1 in range (8):
-                if colour == True and self.board[j1][i1].team == 'White':
-                    for i2 in range(8):
-                        for j2 in range(8):
-                            if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) or (Logic.blocked(self.board,i1,j1,i2,j2)):
-                                ChessBoard.display(self)
-                                print('Checkmate, Black Won.')
-                                break
-                elif colour == False and self.board[j1][i1].team == 'Black':
-                    for i2 in range(8):
-                        for j2 in range(8):
-                            if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) or not(Logic.blocked(self.board,i1,j1,i2,j2)):
-                                ChessBoard.display(self)
-                                print('Checkmate, White Won.')
-                                break               
+        done = False
+        counter = 0
+
+        while not done:
+            for i1 in range(8):
+                for j1 in range (8):
+                    counter += 1
+                    if colour == True and self.board[j1][i1].team == 'White':
+                        for i2 in range(8):
+                            for j2 in range(8):
+                                if (self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) and not(Logic.blocked(self.board,i1,j1,i2,j2)):
+                                    ChessBoard.display(self)
+                                    print('Checkmate, Black Won.')
+                                    print(counter)
+                                    done = True
+                    elif colour == False and self.board[j1][i1].team == 'Black':
+                        for i2 in range(8):
+                            for j2 in range(8):
+                                if (self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) and not(Logic.blocked(self.board,i1,j1,i2,j2)):
+                                    ChessBoard.display(self)
+                                    print('Checkmate, White Won.')
+                                    print(counter)
+                                    done = True
+                    else:
+                        done = True
 
 
 

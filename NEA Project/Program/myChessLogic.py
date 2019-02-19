@@ -89,6 +89,13 @@ class Logic:
     #Checks if there is a piece in the way
     @staticmethod
     def blocked(board,x1,y1,x2,y2):
+        if board[y1][x1].name == 'Pawn':
+            if y1+2 == y2:
+                if board[y1+1][x1].name != 'Empty':
+                    return True
+            else:
+                return False
+
         if board[y1][x1].name == 'Rook':
             if x2>x1:
                 for i in range(x1+1,x2):
@@ -174,3 +181,137 @@ class Logic:
                 return False
         else:
             return False
+
+    @staticmethod
+    def attackedPerPiece(board,x,y):
+        if board[y][x].name == 'Pawn':
+            if board[y][x].team == 'White':
+                return [[x+1,y+1],[x-1,y+1]]
+            else:
+                return [[x+1,y-1],[x-1,y-1]]
+
+        elif board[y][x].name == 'Rook':
+            posnewx = x
+            posnewy = y
+            negnewx = x
+            negnewy = y
+            attacked = []
+            while posnewx < 9 or posnewy < 9 or negnewx > 0 or negnewy > 0:
+                if posnewx < 8:
+                    posnewx += 1
+                    attacked.append([posnewx,y])
+                elif posnewy < 8:
+                    posnewy += 1
+                    attacked.append([x,posnewy])
+                elif negnewx > 0:
+                    negnewx -= 1
+                    attacked.append([negnewx,y])
+                elif negnewy > 0:
+                    negnewy -= 1
+                    attacked.append([x,negnewy])
+
+        elif board[y][x].name == 'Knight':
+            posnewx1 = x+1
+            posnewx2 = x+2
+            posnewy1 = y+2
+            posnewy2 = y+1
+            negnewx1 = x-1
+            negnewx2 = x-2
+            negnewy1 = y-2
+            negnewy2 = y-1
+            attacked = []
+            if (0 < posnewx1 > 9) and (0 < posnewy1 >9):
+                attacked.append([posnewx1,posnewy1])
+            elif (0 < posnewx2 > 9) and (0 < posnewy2 >9):
+                attacked.append([posnewx2,posnewy2])
+            elif (0 < negnewx1 > 9) and (0 < negnewy1 >9):
+                attacked.append([negnewx1,negnewy1])
+            elif (0 < negnewx2 > 9) and (0 < negnewy2 >9):
+                attacked.append([negnewx2,negnewy2])
+            return attacked
+
+        elif board[y][x].name == 'Bishop':
+            posnewx = x
+            posnewy = y
+            negnewx = x
+            negnewy = y
+            attacked = []
+            while posnewx < 9 or posnewy < 9 or negnewx > 0 or negnewy > 0:
+                if posnewx < 8 and posnewy < 8:
+                    posnewx += 1
+                    posnewy += 1
+                    attacked.append([posnewx,posnewy])
+                elif posnewx < 8 and negnewy > 0:
+                    posnewx += 1
+                    negnewy -= 1
+                    attacked.append([posnewx,posnewy])
+                elif negnewx > 0 and posnewy < 8:
+                    negnewx -= 1
+                    posnewy += 1
+                    attacked.append([posnewx,posnewy])
+                elif negnewx > 0 and negnewy > 0:
+                    negnewx -= 1
+                    negnewy -= 1
+                    attacked.append([posnewx,posnewy])
+            return attacked
+        
+        elif board[y][x].name == 'Queen':
+            posnewx = x
+            posnewy = y
+            negnewx = x
+            negnewy = y
+            attacked = []
+            while posnewx < 9 or posnewy < 9 or negnewx > 0 or negnewy > 0:
+                if posnewx < 8 and posnewy < 8:
+                    posnewx += 1
+                    posnewy += 1
+                    attacked.append([posnewx,posnewy])
+                elif posnewx < 8 and negnewy > 0:
+                    posnewx += 1
+                    negnewy -= 1
+                    attacked.append([posnewx,posnewy])
+                elif negnewx > 0 and posnewy < 8:
+                    negnewx -= 1
+                    posnewy += 1
+                    attacked.append([posnewx,posnewy])
+                elif negnewx > 0 and negnewy > 0:
+                    negnewx -= 1
+                    negnewy -= 1
+                    attacked.append([posnewx,posnewy])
+                elif posnewx < 8:
+                    posnewx += 1
+                    attacked.append([posnewx,y])
+                elif posnewy < 8:
+                    posnewy += 1
+                    attacked.append([x,posnewy])
+                elif negnewx > 0:
+                    negnewx -= 1
+                    attacked.append([negnewx,y])
+                elif negnewy > 0:
+                    negnewy -= 1
+                    attacked.append([x,negnewy])
+            return attacked
+
+        elif board[y][x].name == 'King':
+            posnewx = x+1
+            posnewy = y+1
+            negnewx = x-1
+            negnewy = y-1
+            attacked = []
+            if posnewy < 9:
+                attacked.append([x,posnewy])
+            elif negnewy > 0:
+                attacked.append([x,negnewy])
+            elif posnewy < 9 and posnewx < 9:
+                attacked.append([posnewx,posnewy])
+            elif posnewx < 9:
+                attacked.append([posnewx,y])
+            elif posnewx < 9 and negnewy > 0:
+                attacked.append([posnewx,negnewy])
+            elif posnewy < 9 and negnewx > 0:
+                attacked.append([negnewx,posnewy])
+            elif negnewx > 0:
+                attacked.append([negnewx,y])
+            elif negnewx > 0 and negnewy > 0:
+                attacked.append([negnewx,negnewy])
+            return attacked
