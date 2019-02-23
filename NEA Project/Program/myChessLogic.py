@@ -182,13 +182,20 @@ class Logic:
         else:
             return False
 
+    #Returns all the coordinates of the piece at the 
     @staticmethod
     def attackedPerPiece(board,x,y):
         if board[y][x].name == 'Pawn':
             if board[y][x].team == 'White':
-                return [[x+1,y+1],[x-1,y+1]]
+                if (y < 9) and (x < 9):
+                    return [x+1,y+1]
+                elif (y < 9) and (x > 0):
+                    return [x-1,y+1]
             else:
-                return [[x+1,y-1],[x-1,y-1]]
+                if y > 0 and x < 9:
+                    return [x+1,y-1]
+                elif y < 0 and x > 0:
+                    return [x-1,y-1]
 
         elif board[y][x].name == 'Rook':
             posnewx = x
@@ -209,6 +216,7 @@ class Logic:
                 elif negnewy > 0:
                     negnewy -= 1
                     attacked.append([x,negnewy])
+            return attacked
 
         elif board[y][x].name == 'Knight':
             posnewx1 = x+1
