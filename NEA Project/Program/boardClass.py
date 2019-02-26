@@ -85,27 +85,23 @@ class ChessBoard:
 
         while not done:
             if [kingy,kingx] in attacked:
-                for i1 in range(8):
-                    for j1 in range (8):
+                for y1 in range(8):
+                    for x1 in range (8):
                         counter += 1
-                        if colour == True and self.board[j1][i1].team == 'White':
-                            for i2 in range(8):
-                                for j2 in range(8):
-                                    if not(self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) and (Logic.blocked(self.board,i1,j1,i2,j2)):
-                                        ChessBoard.display(self)
-                                        print('Checkmate, Black Won.')
+                        if colour == True and self.board[y1][x1].team == 'White':
+                            for y2 in range(8):
+                                for x2 in range(8):
+                                    if (self.board[y1][x1].possibleMoves(self.board,x1,y1,x2,y2)) and not(Logic.blocked(self.board,x1,y1,x2,y2)):
                                         print(counter)
                                         done = True
-                        elif colour == False and self.board[j1][i1].team == 'Black':
-                            for i2 in range(8):
-                                for j2 in range(8):
-                                    if (self.board[j1][i1].possibleMoves(self.board,i1,j1,i2,j2)) and not(Logic.blocked(self.board,i1,j1,i2,j2)):
-                                        ChessBoard.display(self)
-                                        print('Checkmate, White Won.')
+                        elif colour == False and self.board[y1][x1].team == 'Black':
+                            for y2 in range(8):
+                                for x2 in range(8):
+                                    if (self.board[y1][x1].possibleMoves(self.board,x1,y1,x2,y2)) and not(Logic.blocked(self.board,x1,y1,x2,y2)):
                                         print(counter)
                                         done = True
-                        else:
-                            done = True
+            else:
+                done = True
 
 
 
