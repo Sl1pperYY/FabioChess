@@ -42,16 +42,11 @@ interact('.draggable')
     target.setAttribute('data-y', y);
   }
 
-  // this is used later in the resizing and gesture demos
-  window.dragMoveListener = dragMoveListener;
-
-/* The dragging code for '.draggable' from the demo above
- * applies to this demo as well so it doesn't have to be repeated. */
-
 // enable draggables to be dropped into this
 interact('.dropzone').dropzone({
     // only accept elements matching this CSS selector
     accept: '#yes-drop',
+    
     // Require a 75% element overlap for a drop to be possible
     overlap: 0.75,
   
