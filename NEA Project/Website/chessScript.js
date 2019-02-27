@@ -24,7 +24,7 @@ interact('.draggable')
                      Math.pow(event.pageY - event.y0, 2) | 0))
             .toFixed(2) + 'px');
     }
-  });
+  }); 
 
   function dragMoveListener (event) {
     var target = event.target,
@@ -46,10 +46,8 @@ interact('.draggable')
 interact('.dropzone').dropzone({
     // only accept elements matching this CSS selector
     accept: '#yes-drop',
-    
     // Require a 75% element overlap for a drop to be possible
-    overlap: 0.75,
-  
+    overlap: 0.5,
     // listen for drop related events:
   
     ondropactivate: function (event) {
@@ -93,3 +91,4 @@ interact('.dropzone').dropzone({
       // dragMoveListener from the dragging demo above
       onmove: dragMoveListener,
     });
+

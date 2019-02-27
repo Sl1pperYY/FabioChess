@@ -6,8 +6,32 @@ h1 {
     margin: 20px;
 }
 
+
 label {
     margin: 30px;
+}
+
+#large-button{
+  margin: 360px 210px;
+}
+
+.piece{
+  position: relative;
+  height: 65px;
+  width: 65px;
+  cursor: pointer;
+}
+
+.hold {
+  border: solid #ccc 4px;
+}
+
+.hovered {
+  border-style: dashed;
+}
+
+.invisible {
+  display: none;
 }
 
 #chess-board .chess-row .dark{
@@ -17,7 +41,7 @@ label {
 #chess-board .chess-row .light{
   background: #efd9c1;
 }
-
+ 
 #chess-board .chess-row {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
