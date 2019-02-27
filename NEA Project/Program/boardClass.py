@@ -43,16 +43,28 @@ class ChessBoard:
 
     def attackedGeneration(self,colour):
         attacked = []
+        print(1)
         if colour:
+            print(2)
             for y in range(8):
+                print(3)
                 for x in range(8):
+                    print(4)
                     if self.board[y][x].team == 'Black':
+                        print(5)
                         list(set(attacked.append(Logic.attackedPerPiece(self.board,x,y))))
+                        print(6)
         else:
+            print(7)
             for y in range(8):
+                print(8)
                 for x in range(8):
+                    print(9)
                     if self.board[y][x].team == 'White':
+                        print(10)
                         list(set(attacked.append(Logic.attackedPerPiece(self.board,x,y))))
+                        print(11)
+        print(12)
         print (attacked)
         return attacked
 
@@ -79,27 +91,40 @@ class ChessBoard:
         #Base Case is checkmate
         done = False
         counter = 0
+        print(82)
         attacked = ChessBoard.attackedGeneration(self,colour)
+        print(84)
         '''possibleProttected = ChessBoard.attackedGeneration(self,(not colour))'''
         kingx, kingy = ChessBoard.findKing(self,colour)
 
+        print(86)
         while not done:
+            print(1)
             if [kingy,kingx] in attacked:
+                print(2)
                 for y1 in range(8):
+                    print(1)
                     for x1 in range (8):
                         counter += 1
+                        print(2)
                         if colour == True and self.board[y1][x1].team == 'White':
                             for y2 in range(8):
+                                print(3)
                                 for x2 in range(8):
+                                    print(4)
                                     if (self.board[y1][x1].possibleMoves(self.board,x1,y1,x2,y2)) and not(Logic.blocked(self.board,x1,y1,x2,y2)):
                                         print(counter)
                                         done = True
                         elif colour == False and self.board[y1][x1].team == 'Black':
                             for y2 in range(8):
+                                print(5)
                                 for x2 in range(8):
+                                    print(6)
                                     if (self.board[y1][x1].possibleMoves(self.board,x1,y1,x2,y2)) and not(Logic.blocked(self.board,x1,y1,x2,y2)):
                                         print(counter)
                                         done = True
+                        else:
+                            done = True
             else:
                 done = True
 

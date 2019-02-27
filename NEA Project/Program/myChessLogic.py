@@ -92,6 +92,7 @@ class Logic:
         if board[y1][x1].name == 'Pawn':
             if y1+2 == y2:
                 if board[y1+1][x1].name != 'Empty':
+                    
                     return True
             else:
                 return False
@@ -185,11 +186,16 @@ class Logic:
     #Returns all the coordinates of the piece at the 
     @staticmethod
     def attackedPerPiece(board,x,y):
+        print(1)
         if board[y][x].name == 'Pawn':
+            print(2)
             if board[y][x].team == 'White':
+                print(3)
                 if (y < 9) and (x < 9):
+                    print(191)
                     return [x+1,y+1]
                 elif (y < 9) and (x > 0):
+                    print(194)
                     return [x-1,y+1]
             else:
                 if y > 0 and x < 9:
@@ -197,7 +203,9 @@ class Logic:
                 elif y < 0 and x > 0:
                     return [x-1,y-1]
 
+        
         elif board[y][x].name == 'Rook':
+            print(207)
             posnewx = x
             posnewy = y
             negnewx = x
@@ -207,18 +215,25 @@ class Logic:
                 if posnewx < 8:
                     posnewx += 1
                     attacked.append([posnewx,y])
+                    print(1)
                 elif posnewy < 8:
                     posnewy += 1
                     attacked.append([x,posnewy])
+                    print(2)
                 elif negnewx > 0:
                     negnewx -= 1
                     attacked.append([negnewx,y])
+                    print(3)
                 elif negnewy > 0:
                     negnewy -= 1
                     attacked.append([x,negnewy])
+                    print(4)
+            print(5)
             return attacked
+        
 
-        elif board[y][x].name == 'Knight':
+        elif (board[y][x].name == 'Knight'):
+            print(3)
             posnewx1 = x+1
             posnewx2 = x+2
             posnewy1 = y+2
@@ -239,6 +254,7 @@ class Logic:
             return attacked
 
         elif board[y][x].name == 'Bishop':
+            print(4)
             posnewx = x
             posnewy = y
             negnewx = x
@@ -264,6 +280,7 @@ class Logic:
             return attacked
         
         elif board[y][x].name == 'Queen':
+            print(5)
             posnewx = x
             posnewy = y
             negnewx = x
@@ -301,6 +318,7 @@ class Logic:
             return attacked
 
         elif board[y][x].name == 'King':
+            print(6)
             posnewx = x+1
             posnewy = y+1
             negnewx = x-1
@@ -323,3 +341,6 @@ class Logic:
             elif negnewx > 0 and negnewy > 0:
                 attacked.append([negnewx,negnewy])
             return attacked
+
+        else:
+            print(404)
