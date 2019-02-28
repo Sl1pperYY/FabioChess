@@ -19,9 +19,23 @@ var SQUARES = {
 
 var BOOL = { FALSE:0, TRUE:1 };
 
+// Maximum values for amount of moves in one game, amount of moves for one position and the max depth at which the engine will search to
+var MAXGAMEMOVES = 2048;
+var MAXPOSITIONMOVES = 256;
+var MAXDEPTH = 64;
+
 // Arrays for both files boards and ranks boards
 var FilesBrd = new Array(BRD_SQ_NUM);
 var RanksBrd = new Array(BRD_SQ_NUM);
+
+// Starting FEN string
+var START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
+// Character strings to make things easier to print
+var PceChar = ".PNBRQKpnbrqk";
+var SideChar = "wb-";
+var RankChar = "12345678";
+var FileChar = "abcdefgh";
 
 // Function to convert the files and ranks into the correct coordinates for the board
 function FR2SQ(f,r) {
@@ -47,7 +61,20 @@ var PieceKeys = new Array(14 * 120); // Unique index for each piece and square
 var SideKey; // xor in or out
 var CastleKeys = new Array(16); // Unique index for each castle key
 
+// Variable definitions for changing between the two arrays
+var Sq120ToSq64 = new Array(BRD_SQ_NUM);
+var Sq64ToSq120 = new Array(64);
+
 // Function to generate a random number
 function RAND_32() {
     return (Math.floor((Math.random()*255)+1) << 23) | (Math.floor((Math.random()*255)+1) << 16) | (Math.floor((Math.random()*255)+1) << 8) | Math.floor((Math.random()*255)+1);
+}
+
+// Functions to interchange between the two values of in the arrays
+function SQ64(sq120) {
+    return Sq120ToSq64[(sq120)];
+}
+
+function SQ120(sq64) {
+    return Sq64ToSq120[(sq64)];
 }
