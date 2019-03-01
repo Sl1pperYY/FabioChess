@@ -134,6 +134,7 @@ function ResetBoard() {
 
 // Function to set up board to the FEN string given
 function ParseFen(fen) {
+    console.log('ParseFen() called')
 
     ResetBoard();
 

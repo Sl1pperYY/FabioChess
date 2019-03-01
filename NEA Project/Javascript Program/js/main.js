@@ -86,5 +86,6 @@ function InitSq120To64() {
 function init() {
 	console.log("init() called"); // Check to see if it is called
     InitFilesRanksBrd();
-    InitHashKeys()
+	InitHashKeys();
+	InitSq120To64();
 };
