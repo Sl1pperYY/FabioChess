@@ -91,19 +91,9 @@ function GeneratePosKey() {
     return finalKey;
 }
 
-function ResetBoard() {
+function UpdateListsMaterial() {
 
-    var index = 0
-
-    // Set all indexes to OFFBOARD
-    for(index = 0; index < BRD_SQ_NUM; ++index) {
-        GameBoard.pieces[index] = SQUARES.OFFBOARD;
-    }
-
-    // 64 square loop to set correct squares to empty and leave the OFFBOARD squares
-    for(index = 0; index < 64; ++index) {
-        GameBoard.pieces[SQ120(index)] = PIECES.EMPTY;
-    }
+    var piece,sq,index,colour;
 
     // Sets all the pieces in the piece list to empty
     for(index = 0; index < 14 * 120; ++index) {
@@ -119,6 +109,39 @@ function ResetBoard() {
     for(index = 0; index < 13; ++index) {
         GameBoard.pceNum[index] = 0;
     }
+
+    // For loop to loop thorugh each square of the board
+    for(index = 0; index < 64; ++index) {
+        sq = SQ120(index);
+        piece = GameBoard.pieces[sq];
+
+        // If the piece isnt emtpy than incrament the material value for that particular value with that pieces value
+        if(piece != PIECES.EMPTY) { 
+            console.log('piece ' + piece + ' on ' + sq);
+            colour = PieceCol[piece];
+
+            GameBoard.material[colour] += PieceVal[piece];
+
+            GameBoard.pList[PCEINDEX(piece,GameBoard.pceNum[piece])] = sq;
+            GameBoard.pceNum[piece]++;
+        }
+    }
+}
+
+function ResetBoard() {
+
+    var index = 0
+
+    // Set all indexes to OFFBOARD
+    for(index = 0; index < BRD_SQ_NUM; ++index) {
+        GameBoard.pieces[index] = SQUARES.OFFBOARD;
+    }
+
+    // 64 square loop to set correct squares to empty and leave the OFFBOARD squares
+    for(index = 0; index < 64; ++index) {
+        GameBoard.pieces[SQ120(index)] = PIECES.EMPTY;
+    }
+
 
     GameBoard.side = COLOURS.BOTH; // Setting colour to both so its nither blacks or whites turn
     GameBoard.enPas = SQUARES.NO_SQ; // Setting En Passant square to no square
@@ -231,6 +254,7 @@ function ParseFen(fen) {
     }
 
     GameBoard.posKey = GeneratePosKey();
+    UpdateListsMaterial();
 
 }
 
