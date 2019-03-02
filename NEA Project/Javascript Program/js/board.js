@@ -91,6 +91,17 @@ function GeneratePosKey() {
     return finalKey;
 }
 
+function PrintPieceLists() {
+
+    var piece, pceNum;
+
+    for(piece = PIECES.wP; piece <= PIECES.bK; ++piece) {
+        for(pceNum = 0; pceNum < GameBoard.pceNum[piece]; ++pceNum) {
+            console.log('Piece ' + PceChar[piece] + ' on ' + PrSq(GameBoard.pList[PCEINDEX(piece,pceNum)]))
+        }
+    }
+}
+
 function UpdateListsMaterial() {
 
     var piece,sq,index,colour;
@@ -126,6 +137,7 @@ function UpdateListsMaterial() {
             GameBoard.pceNum[piece]++;
         }
     }
+    PrintPieceLists();
 }
 
 function ResetBoard() {
