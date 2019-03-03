@@ -80,3 +80,30 @@ function SQ64(sq120) {
 function SQ120(sq64) {
     return Sq64ToSq120[(sq64)];
 }
+
+/*
+
+0000 0000 0000 0000 0000 0111 1111 -> From: bitwiseAnd 0x7F
+0000 0000 0000 0011 1111 1000 0000 -> To: shift 7 bits to the right, bitwiseAnd 0x7F
+0000 0000 0011 1100 0000 0000 0000 -> Capture: shift 14 bits to the right, bitwiseAnd 0xF
+0000 0000 0100 0000 0000 0000 0000 -> EP: bitwiseAnd 0x40000
+0000 0000 1000 0000 0000 0000 0000 -> Pawn Start: bitwiseAnd 0x80000
+0000 1111 0000 0000 0000 0000 0000 -> Promoted Piece: shift 20 bits to the right, bitwiseAnd 0xF
+0001 0000 0000 0000 0000 0000 0000 -> Castle: bitwiseAnd 0x1000000
+
+*/
+
+function FROMSQ(m) { return (m & 0x7F); }
+function TOSQ(m) { return ( (m >> 7) & 0x7F); }
+function CAPTURED(m) { return ( (m >> 14) & 0xF); }
+function PROMOTED(m) { return ( (m >> 20) & 0xF); }
+
+// Move flags
+var MFLAGEP = 0x40000; // En passant
+var MFLAGPS = 0x80000; // Pawn start
+var MFLAGCA = 0x1000000; // Castling
+
+var MFLAGCAP = 0x7C000; // Captured
+var MFLAGPROM = 0xF00000; // Promoted piece
+
+var NOMOVE = 0;
