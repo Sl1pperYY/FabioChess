@@ -61,6 +61,7 @@ function PrintBoard() {
 }
 
 
+
 function GeneratePosKey() {
 
     var sq = 0;
@@ -101,6 +102,8 @@ function PrintPieceLists() {
         }
     }
 }
+
+
 
 function UpdateListsMaterial() {
 
@@ -267,9 +270,103 @@ function ParseFen(fen) {
 
     GameBoard.posKey = GeneratePosKey();
     UpdateListsMaterial();
+    SqAttacked(21, 0);
+    PrintSqAttacked();
 
 }
 
+function PrintSqAttacked() {
+	
+	var sq,file,rank,piece;
+
+	console.log("\nAttacked:\n");
+    
+    // for loop to check which squares are being attacked by the current moving side
+	for(rank = RANKS.RANK_8; rank >= RANKS.RANK_1; rank--) {
+		var line =((rank+1) + "  ");
+		for(file = FILES.FILE_A; file <= FILES.FILE_H; file++) {
+			sq = FR2SQ(file,rank);
+			if(SqAttacked(sq, GameBoard.side) == true) piece = "X";
+			else piece = "-";
+			line += (" " + piece + " ");
+		}
+		console.log(line);
+	}
+	
+	console.log("");
+	
+}
+
+function SqAttacked(sq, side) {
+	var pce;
+	var t_sq;
+	var index;
+    
+    // if/else statement to check if a square is being attacked by a pawn
+	if(side == COLOURS.WHITE) {
+		if(GameBoard.pieces[sq - 11] == PIECES.wP || GameBoard.pieces[sq - 9] == PIECES.wP) {
+			return true;
+		}
+	} else {
+		if(GameBoard.pieces[sq + 11] == PIECES.bP || GameBoard.pieces[sq + 9] == PIECES.bP) {
+			return true;
+		}	
+	}
+    
+    // for loop to check if a square is being attacked by a knight
+	for(index = 0; index < 8; index++) {
+		pce = GameBoard.pieces[sq + KnDir[index]]; // looping through the array of possible moves for a knight
+		if(pce != SQUARES.OFFBOARD && PieceCol[pce] == side && PieceKnight[pce] == true) {
+			return true;
+		}
+	}
+    
+    // for loop to check if a square is being attacked by a rook or a queen
+	for(index = 0; index < 4; ++index) {		
+		dir = RkDir[index];
+		t_sq = sq + dir;
+		pce = GameBoard.pieces[t_sq];
+		while(pce != SQUARES.OFFBOARD) {
+			if(pce != PIECES.EMPTY) {
+				if(PieceRookQueen[pce] == true && PieceCol[pce] == side) {
+					return true;
+				}
+				break;
+			}
+			t_sq += dir;
+			pce = GameBoard.pieces[t_sq];
+		}
+	}
+    
+    // for loop to check if a square is being attacked by a bishop or a queen
+	for(index = 0; index < 4; ++index) {		
+		dir = BiDir[index];
+		t_sq = sq + dir;
+		pce = GameBoard.pieces[t_sq];
+		while(pce != SQUARES.OFFBOARD) {
+			if(pce != PIECES.EMPTY) {
+				if(PieceBishopQueen[pce] == true && PieceCol[pce] == side) {
+					return true;
+				}
+				break;
+			}
+			t_sq += dir;
+			pce = GameBoard.pieces[t_sq];
+		}
+	}
+    
+    // for loop to check if a square is being attacked by a king
+	for(index = 0; index < 8; index++) {
+		pce = GameBoard.pieces[sq + KiDir[index]]; // looping through the array of possible moves for a king
+		if(pce != SQUARES.OFFBOARD && PieceCol[pce] == side && PieceKing[pce] == true) {
+			return true;
+		}
+	}
+	
+	return false;
+	
+
+}
 
 
 

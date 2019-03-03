@@ -16,9 +16,6 @@ var SQUARES = {
     NO_SQ:99, OFFBOARD:100
 }; // Array of important squares
 
-
-var BOOL = { FALSE:0, TRUE:1 };
-
 // Maximum values for amount of moves in one game, amount of moves for one position and the max depth at which the engine will search to
 var MAXGAMEMOVES = 2048;
 var MAXPOSITIONMOVES = 256;
@@ -43,19 +40,24 @@ function FR2SQ(f,r) {
 }
 
 // (empty,white pawn,white knight,white bishop,white rook,white queen,white king,black pawn,black knight,black bishop,blackt rook,black queen,black king)
-var PieceBig = [ BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE ]; // Array to show if a piece is a big piece(non pawn)
-var PieceMaj = [ BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE ]; // Array to show if a piece is a major piece(Queen or Rook)
-var PieceMin = [ BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE ]; // Array to show if a piece is a minor piece(Bishop or Knight)
+var PieceBig = [ false, false, true, true, true, true, true, false, true, true, true, true, true ]; // Array to show if a piece is a big piece(non pawn)
+var PieceMaj = [ false, false, false, false, true, true, true, false, false, false, true, true, true ]; // Array to show if a piece is a major piece(Queen or Rook)
+var PieceMin = [ false, false, true, true, false, false, false, false, true, true, false, false, false ]; // Array to show if a piece is a minor piece(Bishop or Knight)
 var PieceVal= [ 0, 100, 325, 325, 550, 1000, 50000, 100, 325, 325, 550, 1000, 50000  ]; // Piece value for each piece
 var PieceCol = [ COLOURS.BOTH, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE,
 	COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK ]; // Index of the pieces colour
 
-var PiecePawn = [ BOOL.FALSE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE ]; // Array to show if the piece is a pawn
-var PieceKnight = [ BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE ]; // Array to show if the piece is a knight
-var PieceKing = [ BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE ]; // Array to show if the piece is a king
-var PieceRookQueen = [ BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.FALSE ]; // Array to show if the piece is a rook or a queen
-var PieceBishopQueen = [ BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.FALSE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.FALSE, BOOL.TRUE, BOOL.FALSE ]; // Array to show if the piece is a pawn bishop or a queen
-var PieceSlides = [ BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE, BOOL.FALSE, BOOL.FALSE, BOOL.FALSE, BOOL.TRUE, BOOL.TRUE, BOOL.TRUE, BOOL.FALSE ]; // Array to show if the piece slides or not
+var PiecePawn = [ false, true, false, false, false, false, false, true, false, false, false, false, false ]; // Array to show if the piece is a pawn
+var PieceKnight = [ false, false, true, false, false, false, false, false, true, false, false, false, false ]; // Array to show if the piece is a knight
+var PieceKing = [ false, false, false, false, false, false, true, false, false, false, false, false, true ]; // Array to show if the piece is a king
+var PieceRookQueen = [ false, false, false, false, true, true, false, false, false, false, true, true, false ]; // Array to show if the piece is a rook or a queen
+var PieceBishopQueen = [ false, false, false, true, false, true, false, false, false, true, false, true, false ]; // Array to show if the piece is a pawn bishop or a queen
+var PieceSlides = [ false, false, false, true, true, true, false, false, false, true, true, true, false ]; // Array to show if the piece slides or not
+
+var KnDir = [ -8, -19,	-21, -12, 8, 19, 21, 12 ]; // Array for the knight directions
+var RkDir = [ -1, -10,	1, 10 ]; // Array for the rook directions
+var BiDir = [ -9, -11, 11, 9 ]; // Array for the bishop directions
+var KiDir = [ -1, -10,	1, 10, -9, -11, 11, 9 ]; // Array for the king directions
 
 var PieceKeys = new Array(14 * 120); // Unique index for each piece and square
 var SideKey; // xor in or out
