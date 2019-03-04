@@ -16,9 +16,9 @@ h1 {
     margin: 20px;
 }
 
-
-label {
-    margin: 30px;
+#logo {
+  width: 60px;
+  margin: 10px;
 }
 
 #large-button{

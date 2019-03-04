@@ -19,13 +19,13 @@
     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="feedback.html">Feedback</a></li>
-      <li><a href="aboutUs.html">About Us</a></li>
+
     </ul>
   </div>
   <div class="nav-content">
     <ul class="tabs tabs-transparent">
       <li class="tab"><a href="index.html">New Game</a></li>
-      <li class="tab"><a class="active" href="settings.html">Settings</a></li>
+      <li class="tab"><a href="puzzles.html">Puzzels</a></li>
       <li class="tab"><a href="help.html">Help</a></li>
     </ul>
   </div>
@@ -33,7 +33,6 @@
 
   <ul class="sidenav" id="mobile-demo">
     <li><a href="feedback.html">Feedback</a></li>
-    <li><a href="aboutUs.html">About Us</a></li>
   </ul>
 
 
@@ -41,24 +40,24 @@
       <form class="col s12">
         <div class="row">
           <div class="input-field col s6">
-            <input id="fName" type="text" class="validate">
-            <label for="fName">First Name</label>
+            <input placeholder="Jhon" id="fName" type="text" class="validate">
+            <label class="active" for="fName">First Name</label>
           </div>
           <div class="input-field col s6">
-            <input id="lName" type="text" class="validate">
-            <label for="lName">Last Name</label>
+            <input placeholder="Smith" id="lName" type="text" class="validate">
+            <label class="active" for="lName">Last Name</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="email" type="email" class="validate">
-            <label for="email">email</label>
+            <input placeholder="example@gmail.com" id="email" type="email" class="validate">
+            <label class="active" for="email">email</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="message" type="text" class="validate">
-            <label for="message">Message</label>
+            <textarea id="message" class="materialize-textarea"></textarea>
+            <label class="active" for="message">Message</label>
           </div>
         </div>
 
