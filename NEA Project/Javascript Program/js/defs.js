@@ -64,8 +64,8 @@ var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, K
 var LoopNonSlidePce = [PIECES.wN, PIECES.wK, 0, PIECES.bN,  PIECES.bK];
 var LoopNonSlideIndex = [0, 3];
 
-var LoopSlidePiece = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB,  PIECES.bR, PIECES.wQ];
-var LoopSlidePieceIndex = [0, 4];
+var LoopSlidePce = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB,  PIECES.bR, PIECES.wQ];
+var LoopSlidePceIndex = [0, 4];
 
 var PieceKeys = new Array(14 * 120); // Unique index for each piece and square
 var SideKey; // xor in or out
