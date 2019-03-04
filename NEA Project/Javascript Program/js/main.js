@@ -5,6 +5,7 @@ $(function() {
 	ParseFen(START_FEN)
 	PrintBoard();
 	GenerateMoves();
+	PrintMoveList();
 });
 
 // Init of the files and ranks boards
