@@ -131,7 +131,7 @@ function UpdateListsMaterial() {
 
         // If the piece isnt emtpy than incrament the material value for that particular value with that pieces value
         if(piece != PIECES.EMPTY) { 
-            console.log('piece ' + piece + ' on ' + sq);
+            // console.log('piece ' + piece + ' on ' + sq);
             colour = PieceCol[piece];
 
             GameBoard.material[colour] += PieceVal[piece];
