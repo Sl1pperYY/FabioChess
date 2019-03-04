@@ -2,15 +2,12 @@
 
 <html>
 <head>
-  <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="style.css">
 
-  <!--Let browser know website is optimized for mobile-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="styles.css">
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
@@ -40,30 +37,31 @@
   </ul>
 
 
-  <div class="mdc-text-field">
-    <input type="text" id="my-text-field" class="mdc-text-field__input">
-    <label class="mdc-floating-label" for="my-text-field">First Name</label>
-    <div class="mdc-line-ripple"></div>
-  </div>
-  <div class="mdc-text-field">
-    <input type="text" id="my-text-field" class="mdc-text-field__input">
-    <label class="mdc-floating-label" for="my-text-field">Last name</label>
-    <div class="mdc-line-ripple"></div>
-  </div>
-  <div class="mdc-text-field">
-    <input type="text" id="my-text-field" class="mdc-text-field__input">
-    <label class="mdc-floating-label" for="my-text-field">Email</label>
-    <div class="mdc-line-ripple"></div>
-  </div>
-  <div class="mdc-text-field">
-    <input type="text" id="my-text-field" class="mdc-text-field__input">
-    <label class="mdc-floating-label" for="my-text-field">Message</label>
-    <div class="mdc-line-ripple"></div>
-  </div>
+  <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="fName" type="text" class="validate">
+            <label for="fName">First Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="lName" type="text" class="validate">
+            <label for="lName">Last Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="message" type="text" class="validate">
+            <label for="message">Message</label>
+          </div>
+        </div>
 
-  <!--JavaScript at end of body for optimized loading-->
-  <script type="text/javascript" src="js/materialize.min.js"></script>
-  <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
