@@ -6,19 +6,156 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>JSChess</title>
         <link rel="stylesheet" href="styles.css" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
         <script type="text/javascript">if (!window.console) console = {log:function() {}};</script>
     </head>
     <body>
         <header>
-            <h3>JS Chess</h3>
+            <nav class="nav-extended cyan">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="brand-logo">Logo</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><a href="feedback.html">Feedback</a></li>
+                            <li><a href="aboutUs.html">About Us</a></li>
+                        </ul>
+                </div>
+                <div class="nav-content">
+                    <ul class="tabs tabs-transparent">
+                        <li class="tab"><a href="index.html">New Game</a></li>
+                        <li class="tab"><a class="active" href="settings.html">Settings</a></li>
+                        <li class="tab"><a href="help.html">Help</a></li>
+                    </ul>
+                </div>
+            </nav>
+           
+                <ul class="sidenav" id="mobile-demo">
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="aboutUs.html">About Us</a></li>
+                </ul>
         </header>
+
         <div id="FenInDiv">
             Fen:<br/>
             <input type="text" id="fenIn"/>
-            <button type="button" id="SetFen">Set Position</button>
+            <a class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="SetFen">Set</a>
         </div>
 
+        <section id="chess-board">
+            <div class="chess-row">
+                <div>8</div>
+                <div class="dark dropzone" id='a8'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-rook'></i></div>
+                <div class="light dropzone" id='b8'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-bishop'></i></div>
+                <div class="dark dropzone" id='c8'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-knight'></i></div>
+                <div class="light dropzone" id='d8'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-queen'></i></div>
+                <div class="dark dropzone" id='e8'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-king'></i></div>
+                <div class="light dropzone" id='f8'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-knight'></i></div>
+                <div class="dark dropzone" id='g8'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-bishop'></i></div>
+                <div class="light dropzone" id='h8'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-rook piece'></i></div>
+            </div>
+      
+            <div class="chess-row">
+                <div>7</div>
+                <div class="light dropzone" id='a7'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn'></i></div>
+                <div class="dark dropzone" id='b7'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn'></i></div>
+                <div class="light dropzone" id='c7'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn'></i></div>
+                <div class="dark dropzone" id='d7'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn'></i></div>
+                <div class="light dropzone" id='e7'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn'></i></div>
+                <div class="dark dropzone" id='f7'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn'></i></div>
+                <div class="light dropzone" id='g7'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn'></i></div>
+                <div class="dark dropzone" id='h7'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn'></i></div>
+            </div>
+      
+            <div class="chess-row">
+                <div>6</div>
+                <div class="dark dropzone" id='a6'></div>
+                <div class="light dropzone" id='b6'></div>
+                <div class="dark dropzone" id='c6'></div>
+                <div class="light dropzone" id='d6'></div>
+                <div class="dark dropzone" id='e6'></div>
+                <div class="light dropzone" id='f6'></div>
+                <div class="dark dropzone" id='g6'></div>
+                <div class="light dropzone" id='h6'></div>
+            </div>
+      
+            <div class="chess-row">
+                <div>5</div>
+                <div class="light dropzone" id='a5'></div>
+                <div class="dark dropzone" id='b5'></div>
+                <div class="light dropzone" id='c5'></div>
+                <div class="dark dropzone" id='d5'></div>
+                <div class="light dropzone" id='e5'></div>
+                <div class="dark dropzone" id='f5'></div>
+                <div class="light dropzone" id='g5'></div>
+                <div class="dark dropzone" id='h5'></div>
+            </div>
+      
+            <div class="chess-row">
+                <div>4</div>
+                <div class="dark dropzone" id='a4'></div>
+                <div class="light dropzone" id='b4'></div>
+                <div class="dark dropzone" id='c4'></div>
+                <div class="light dropzone" id='d4'></div>
+                <div class="dark dropzone" id='e4'></div>
+                <div class="light dropzone" id='f4'></div>
+                <div class="dark dropzone" id='g4'></div>
+                <div class="light dropzone" id='h4'></div>
+            </div>
+      
+            <div class="chess-row">
+                <div>3</div>
+                <div class="light dropzone" id='a3'></div>
+                <div class="dark dropzone" id='b3'></div>
+                <div class="light dropzone" id='c3'></div>
+                <div class="dark dropzone" id='d3'></div>
+                <div class="light dropzone" id='e3'></div>
+                <div class="dark dropzone" id='f3'></div>
+                <div class="light dropzone" id='g3'></div>
+                <div class="dark dropzone" id='h3'></div>
+            </div>
+      
+            <div class="chess-row">
+                <div>2</div>
+                <div class="dark dropzone" id='a2'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn' style='color:white'></i></div>
+                <div class="light dropzone" id='b2'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn' style='color:white'></i></div>
+                <div class="dark dropzone" id='c2'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn' style='color:white'></i></div>
+                <div class="light dropzone" id='d2'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn' style='color:white'></i></div>
+                <div class="dark dropzone" id='e2'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn' style='color:white'></i></div>
+                <div class="light dropzone" id='f2'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn' style='color:white'></i></div>
+                <div class="dark dropzone" id='g2'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn' style='color:white'></i></div>
+                <div class="light dropzone" id='h2'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-pawn' style='color:white'></i></div>
+            </div>
+      
+            <div class="chess-row">
+                <div>1</div>
+                <div class="light dropzone" id='a1'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-rook' style='color:white'></i></div>
+                <div class="dark dropzone" id='b1'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-bishop' style='color:white'></i></div>
+                <div class="light dropzone" id='c1'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-knight' style='color:white'></i></div>
+                <div class="dark dropzone" id='d1'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-queen' style='color:white'></i></div>
+                <div class="light dropzone" id='e1'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-king' style='color:white'></i></div>
+                <div class="dark dropzone" id='f1'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-knight' style='color:white'></i></div>
+                <div class="light dropzone" id='g1'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-bishop' style='color:white'></i></div>
+                <div class="dark dropzone" id='h1'><div class="drag-drop" draggable="true"></div><i class='fas fa-chess-rook' style='color:white'></i></div>
+            </div>
+      
+            <div class="chess-row">
+                <div></div>
+                <div>a</div>
+                <div>b</div>
+                <div>c</div>
+                <div>d</div>
+                <div>e</div>
+                <div>f</div>
+                <div>g</div>
+                <div>h</div>
+            </div>
+      
+        </section>
+
         <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="js/defs.js"></script>
         <script src="js/io.js"></script>
         <script src="js/board.js"></script>
