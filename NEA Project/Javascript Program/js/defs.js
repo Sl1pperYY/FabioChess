@@ -59,6 +59,14 @@ var RkDir = [ -1, -10,	1, 10 ]; // Array for the rook directions
 var BiDir = [ -9, -11, 11, 9 ]; // Array for the bishop directions
 var KiDir = [ -1, -10,	1, 10, -9, -11, 11, 9 ]; // Array for the king directions
 
+var DirNum = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8];
+var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, KiDir, KiDir];
+var LoopNonSlidePce = [PIECES.wN, PIECES.wK, 0, PIECES.bN,  PIECES.bK];
+var LoopNonSlideIndex = [0, 3];
+
+var LoopSlidePiece = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB,  PIECES.bR, PIECES.wQ];
+var LoopSlidePieceIndex = [0, 4];
+
 var PieceKeys = new Array(14 * 120); // Unique index for each piece and square
 var SideKey; // xor in or out
 var CastleKeys = new Array(16); // Unique index for each castle key
@@ -107,3 +115,8 @@ var MFLAGCAP = 0x7C000; // Captured
 var MFLAGPROM = 0xF00000; // Promoted piece
 
 var NOMOVE = 0;
+
+function SQOFFBOARD(sq) {
+    if(FilesBrd[sq]==SQUARES.OFFBOARD) return true;
+    return false;
+}
