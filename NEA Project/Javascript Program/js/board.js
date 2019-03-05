@@ -21,6 +21,55 @@ GameBoard.moveList = new Array(MAXDEPTH * MAXPOSITIONMOVES); // Move list which 
 GameBoard.moveScores = new Array(MAXDEPTH * MAXPOSITIONMOVES); // Moves that are generate will be given a certain score
 GameBoard.moveListStart = new Array(MAXDEPTH); // Where the move list will actually start for a given depth
 
+function CheckBoard() {   
+ 
+	var t_pceNum = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	var t_material = [ 0, 0];
+	var sq64, t_piece, t_pce_num, sq120, colour, pcount;
+	
+	for(t_piece = PIECES.wP; t_piece <= PIECES.bK; ++t_piece) {
+		for(t_pce_num = 0; t_pce_num < GameBoard.pceNum[t_piece]; ++t_pce_num) {
+			sq120 = GameBoard.pList[PCEINDEX(t_piece,t_pce_num)];
+			if(GameBoard.pieces[sq120] != t_piece) {
+				console.log('Error Pce Lists');
+				return false;
+			}
+		}	
+	}
+	
+	for(sq64 = 0; sq64 < 64; ++sq64) {
+		sq120 = SQ120(sq64);
+		t_piece = GameBoard.pieces[sq120];
+		t_pceNum[t_piece]++;
+		t_material[PieceCol[t_piece]] += PieceVal[t_piece];
+	}
+	
+	for(t_piece = PIECES.wP; t_piece <= PIECES.bK; ++t_piece) {
+		if(t_pceNum[t_piece] != GameBoard.pceNum[t_piece]) {
+				console.log('Error t_pceNum');
+				return false;
+			}	
+	}
+	
+	if(t_material[COLOURS.WHITE] != GameBoard.material[COLOURS.WHITE] ||
+			 t_material[COLOURS.BLACK] != GameBoard.material[COLOURS.BLACK]) {
+				console.log('Error t_material');
+				return false;
+	}	
+	
+	if(GameBoard.side!=COLOURS.WHITE && GameBoard.side!=COLOURS.BLACK) {
+				console.log('Error GameBoard.side');
+				return false;
+	}
+	
+	if(GeneratePosKey()!=GameBoard.posKey) {
+				console.log('Error GameBoard.posKey');
+				return false;
+	}	
+	return true;
+}
+
+
 // Function to print the board
 function PrintBoard() {
 

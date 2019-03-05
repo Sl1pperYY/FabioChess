@@ -120,3 +120,11 @@ function SQOFFBOARD(sq) {
     if(FilesBrd[sq]==SQUARES.OFFBOARD) return true;
     return false;
 }
+
+function HASH_PCE(pce, sq) {
+    GameBoard.posKey ^= PieceKeys[(pce * 120) + sq];
+}
+
+function HASH_CA() {GameBoard.posKey ^= CastleKeys[GameBoard.castlePerm];}
+function HASH_SIDE() {GameBoard.posKey ^= SideKey;}
+function HASH_EP() {GameBoard.posKey ^= PieceKeys[GameBoard.enPas];}
