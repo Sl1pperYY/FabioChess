@@ -6,6 +6,7 @@ $(function() {
 	PrintBoard();
 	GenerateMoves();
 	PrintMoveList();
+	CheckBoard();
 });
 
 // Init of the files and ranks boards
@@ -85,9 +86,25 @@ function InitSq120To64() {
 
 }
 
+function InitBoardVars() {
+
+	var index = 0;
+	for(index = 0; index < MAXGAMEMOVES; ++index){
+		GameBoard.history.push( {
+			move: NOMOVE,
+			castelPerm: 0,
+			enPas: 0,
+			fiftyMove: 0,
+			posKey: 0
+		});
+	}
+
+}
+
 function init() {
 	console.log("init() called"); // Check to see if it is called
     InitFilesRanksBrd();
 	InitHashKeys();
 	InitSq120To64();
+	InitBoardVars()
 };

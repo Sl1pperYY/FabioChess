@@ -9,6 +9,7 @@ GameBoard.pieces = new Array(BRD_SQ_NUM); // Array of location of every piece
 GameBoard.side = COLOURS.WHITE; // Currect colour
 GameBoard.fiftyMove = 0; // Counter for the fifty move rule
 GameBoard.hisPly = 0; // Counter for every move made from the start
+GameBoard.history = [];
 GameBoard.ply = 0; // Counter for number of half moves made in the search tree
 GameBoard.enPas = 0; // Square set if a pawn advances 2 squares as its starting move (en Passant rule)
 GameBoard.castlePerm = 0; // Castling permission
@@ -51,8 +52,7 @@ function CheckBoard() {
 			}	
 	}
 	
-	if(t_material[COLOURS.WHITE] != GameBoard.material[COLOURS.WHITE] ||
-			 t_material[COLOURS.BLACK] != GameBoard.material[COLOURS.BLACK]) {
+	if(t_material[COLOURS.WHITE] != GameBoard.material[COLOURS.WHITE] || t_material[COLOURS.BLACK] != GameBoard.material[COLOURS.BLACK]) {
 				console.log('Error t_material');
 				return false;
 	}	
