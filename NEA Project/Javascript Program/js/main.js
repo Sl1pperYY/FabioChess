@@ -4,9 +4,6 @@ $(function() {
 	console.log("Main Init Called"); // Check to see if it is called
 	ParseFen(START_FEN)
 	PrintBoard();
-	GenerateMoves();
-	PrintMoveList();
-	CheckBoard();
 });
 
 // Init of the files and ranks boards

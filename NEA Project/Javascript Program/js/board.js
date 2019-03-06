@@ -22,6 +22,11 @@ GameBoard.moveList = new Array(MAXDEPTH * MAXPOSITIONMOVES); // Move list which 
 GameBoard.moveScores = new Array(MAXDEPTH * MAXPOSITIONMOVES); // Moves that are generate will be given a certain score
 GameBoard.moveListStart = new Array(MAXDEPTH); // Where the move list will actually start for a given depth
 
+GameBoard.PvTable = [];
+GameBoard.PvArray = new Array(MAXDEPTH);
+GameBoard.searchHistory = new Array( 14 * BRD_SQ_NUM);
+GameBoard.searchKillers = new Array(3 * MAXDEPTH);
+
 function CheckBoard() {   
  
 	var t_pceNum = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -178,7 +183,7 @@ function UpdateListsMaterial() {
         sq = SQ120(index);
         piece = GameBoard.pieces[sq];
 
-        // If the piece isnt emtpy than incrament the material value for that particular value with that pieces value
+        // If the piece isnt empty than incrament the material value for that particular value with that pieces value
         if(piece != PIECES.EMPTY) { 
             // console.log('piece ' + piece + ' on ' + sq);
             colour = PieceCol[piece];
@@ -189,7 +194,6 @@ function UpdateListsMaterial() {
             GameBoard.pceNum[piece]++;
         }
     }
-    PrintPieceLists();
 }
 
 function ResetBoard() {
@@ -311,7 +315,7 @@ function ParseFen(fen) {
 
     // If we are not looking at a dash set the En Passant Square
     if (fen[fenCnt] != '-') {
-        file = fen[fenCnt].charCodeAt() - 'a'.charCodeAt();
+        file = fen[fenCnt].charCodeAt() - 'a'.charCodeAt(0);
         rank = parseInt(fen[fenCnt], 10);
         console.log("fen[fenCnt]:" + fen[fenCnt] + " File:" + file + " Rank:" + rank);
         GameBoard.enPas = FR2SQ(file,rank);

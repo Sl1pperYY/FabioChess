@@ -63,6 +63,7 @@ var DirNum = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8];
 var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, KiDir, KiDir];
 var LoopNonSlidePce = [PIECES.wN, PIECES.wK, 0, PIECES.bN,  PIECES.bK];
 var LoopNonSlideIndex = [0, 3];
+var LoopSlideIndex = [ 0, 4];
 
 var LoopSlidePce = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB,  PIECES.bR, PIECES.wQ];
 var LoopSlidePceIndex = [0, 4];
@@ -148,5 +149,3 @@ function HASH_PCE(pce, sq) {
 function HASH_CA() {GameBoard.posKey ^= CastleKeys[GameBoard.castlePerm];}
 function HASH_SIDE() {GameBoard.posKey ^= SideKey;}
 function HASH_EP() {GameBoard.posKey ^= PieceKeys[GameBoard.enPas];}
-
-function PCEINDEX(pce, pceNum)

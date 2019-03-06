@@ -112,7 +112,7 @@ function GenerateMoves() {
 
 		
 		if (GameBoard.castlePerm & CASTLEBIT.WKCA) {
-			if(GameBoard.pieces[SQUARES.F1] == PIECES.EMTPY && GameBoard.pieces[SQUARES.G1] == PIECES.EMTPY) {
+			if(GameBoard.pieces[SQUARES.F1] == PIECES.EMPTY && GameBoard.pieces[SQUARES.G1] == PIECES.EMPTY) {
 				if(SqAttacked(SQUARES.F1, COLOURS.BLACK) == false && SqAttacked(SQUARES.E1, COLOURS.BLACK) == false) {
 					AddQuietMove(MOVE(SQUARES.E1, SQUARES.G1, PIECES.EMPTY, PIECES.EMPTY, MFLAGCA));
 				}
@@ -121,7 +121,7 @@ function GenerateMoves() {
 	
 
 		if (GameBoard.castlePerm & CASTLEBIT.WQCA) {
-			if(GameBoard.pieces[SQUARES.D1] == PIECES.EMTPY && GameBoard.pieces[SQUARES.C1] == PIECES.EMTPY && GameBoard.pieces[SQUARES.B1] == PIECES.EMTPY) {
+			if(GameBoard.pieces[SQUARES.D1] == PIECES.EMPTY && GameBoard.pieces[SQUARES.C1] == PIECES.EMPTY && GameBoard.pieces[SQUARES.B1] == PIECES.EMPTY) {
 				if(SqAttacked(SQUARES.D1, COLOURS.BLACK) == false && SqAttacked(SQUARES.E1, COLOURS.BLACK) == false) {
 					AddQuietMove(MOVE(SQUARES.E1, SQUARES.C1, PIECES.EMPTY, PIECES.EMPTY, MFLAGCA));
 				}
@@ -163,7 +163,7 @@ function GenerateMoves() {
 		}
 
 		if (GameBoard.castlePerm & CASTLEBIT.BKCA) {
-			if(GameBoard.pieces[SQUARES.F8] == PIECES.EMTPY && GameBoard.pieces[SQUARES.G8] == PIECES.EMTPY) {
+			if(GameBoard.pieces[SQUARES.F8] == PIECES.EMPTY && GameBoard.pieces[SQUARES.G8] == PIECES.EMPTY) {
 				if(SqAttacked(SQUARES.F8, COLOURS.WHITE) == false && SqAttacked(SQUARES.E8, COLOURS.WHITE) == false) {
 					AddQuietMove(MOVE(SQUARES.E8, SQUARES.G8, PIECES.EMPTY, PIECES.EMPTY, MFLAGCA));
 				}
@@ -171,7 +171,7 @@ function GenerateMoves() {
 		}
 
 		if (GameBoard.castlePerm & CASTLEBIT.BQCA) {
-			if(GameBoard.pieces[SQUARES.D8] == PIECES.EMTPY && GameBoard.pieces[SQUARES.C8] == PIECES.EMTPY && GameBoard.pieces[SQUARES.B8] == PIECES.EMTPY) {
+			if(GameBoard.pieces[SQUARES.D8] == PIECES.EMPTY && GameBoard.pieces[SQUARES.C8] == PIECES.EMPTY && GameBoard.pieces[SQUARES.B8] == PIECES.EMPTY) {
 				if(SqAttacked(SQUARES.D8, COLOURS.WHITE) == false && SqAttacked(SQUARES.E8, COLOURS.WHITE) == false) {
 					AddQuietMove(MOVE(SQUARES.E8, SQUARES.C8, PIECES.EMPTY, PIECES.EMPTY, MFLAGCA));
 				}
