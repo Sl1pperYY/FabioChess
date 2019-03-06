@@ -61,9 +61,9 @@ var KiDir = [ -1, -10,	1, 10, -9, -11, 11, 9 ]; // Array for the king directions
 
 var DirNum = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8];
 var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, KiDir, KiDir];
+
 var LoopNonSlidePce = [PIECES.wN, PIECES.wK, 0, PIECES.bN,  PIECES.bK];
 var LoopNonSlideIndex = [0, 3];
-var LoopSlideIndex = [ 0, 4];
 
 var LoopSlidePce = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB,  PIECES.bR, PIECES.wQ];
 var LoopSlidePceIndex = [0, 4];

@@ -1,3 +1,5 @@
+
+
 function ClearPiece(sq) {
 
     var pce = GameBoard.pieces[sq];
