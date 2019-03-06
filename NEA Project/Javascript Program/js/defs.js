@@ -89,6 +89,26 @@ function SQ120(sq64) {
     return Sq64ToSq120[(sq64)];
 }
 
+function PCEINDEX(pce, pceNum) {
+	return (pce * 10 + pceNum);
+}
+
+var Kings = [PIECES.wK, PIECES.bK];
+var CastlePerm = [
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 13, 15, 15, 15, 12, 15, 15, 14, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15,  7, 15, 15, 15,  3, 15, 15, 11, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+    15, 15, 15, 15, 15, 15, 15, 15, 15, 15
+];
+
 /*
 
 0000 0000 0000 0000 0000 0111 1111 -> From: bitwiseAnd 0x7F
@@ -128,3 +148,5 @@ function HASH_PCE(pce, sq) {
 function HASH_CA() {GameBoard.posKey ^= CastleKeys[GameBoard.castlePerm];}
 function HASH_SIDE() {GameBoard.posKey ^= SideKey;}
 function HASH_EP() {GameBoard.posKey ^= PieceKeys[GameBoard.enPas];}
+
+function PCEINDEX(pce, pceNum)
