@@ -5,7 +5,7 @@ $(function() {
 	ParseFen(START_FEN)
 	PrintBoard();
 });
-
+ 
 // Init of the files and ranks boards
 function InitFilesRanksBrd() {
     console.log('InitFilesRanksBrd() called')

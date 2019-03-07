@@ -123,7 +123,7 @@ function MakeMove(move) {
             HASH_EP();
         }
     }
-    
+     
     MovePiece(from, to);
     
     var prPce = PROMOTED(move);
@@ -137,7 +137,7 @@ function MakeMove(move) {
     
     if(SqAttacked(GameBoard.pList[PCEINDEX(Kings[side],0)], GameBoard.side))  {
         TakeMove();
-    	return false;
+        return false;
     }
     
     return true;

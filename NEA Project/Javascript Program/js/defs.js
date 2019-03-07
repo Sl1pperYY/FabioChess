@@ -14,7 +14,7 @@ var SQUARES = {
     A1:21, B1:22, C1:23, D1:24, E1:25, F1:26, G1:27, H1:28,  
     A8:91, B8:92, C8:93, D8:94, E8:95, F8:96, G8:97, H8:98, 
     NO_SQ:99, OFFBOARD:100
-}; // Array of important squares
+}; // Array of important squares 
 
 // Maximum values for amount of moves in one game, amount of moves for one position and the max depth at which the engine will search to
 var MAXGAMEMOVES = 2048;
@@ -62,11 +62,11 @@ var KiDir = [ -1, -10,	1, 10, -9, -11, 11, 9 ]; // Array for the king directions
 var DirNum = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8];
 var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, KiDir, KiDir];
 
-var LoopNonSlidePce = [PIECES.wN, PIECES.wK, 0, PIECES.bN,  PIECES.bK];
+var LoopNonSlidePce = [PIECES.wN, PIECES.wK, 0, PIECES.bN,  PIECES.bK, 0];
 var LoopNonSlideIndex = [0, 3];
 
-var LoopSlidePce = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB,  PIECES.bR, PIECES.wQ];
-var LoopSlidePceIndex = [0, 4];
+var LoopSlidePce = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB,  PIECES.bR, PIECES.wQ, 0];
+var LoopSlideIndex = [0, 4];
 
 var PieceKeys = new Array(14 * 120); // Unique index for each piece and square
 var SideKey; // xor in or out
