@@ -152,7 +152,7 @@ function PrintPieceLists() {
 
     for(piece = PIECES.wP; piece <= PIECES.bK; ++piece) {
         for(pceNum = 0; pceNum < GameBoard.pceNum[piece]; ++pceNum) {
-            console.log('Piece ' + PceChar[piece] + ' on ' + PrSq(GameBoard.pList[PCEINDEX(piece,pceNum)]))
+            console.log('Piece ' + PceChar[piece] + ' on ' + PrSq(GameBoard.pList[PCEINDEX(piece,pceNum)]));
         }
     }
 }
@@ -198,7 +198,7 @@ function UpdateListsMaterial() {
 
 function ResetBoard() {
 
-    var index = 0
+    var index = 0;
 
     // Set all indexes to OFFBOARD
     for(index = 0; index < BRD_SQ_NUM; ++index) {
@@ -225,7 +225,7 @@ function ResetBoard() {
 
 // Function to set up board to the FEN string given
 function ParseFen(fen) {
-    console.log('ParseFen() called')
+    console.log('ParseFen() called');
 
     ResetBoard();
 

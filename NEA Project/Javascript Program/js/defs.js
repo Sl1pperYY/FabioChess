@@ -8,7 +8,7 @@ var RANKS =  { RANK_1:0, RANK_2:1, RANK_3:2, RANK_4:3, RANK_5:4, RANK_6:5, RANK_
 
 var COLOURS = { WHITE:0, BLACK:1, BOTH:2 }; // Number representation for the colours
 
-var CASTLEBIT = { WKCA:1, WQCA:2, BKCA:4, BQCA:8 } // Values for castling permissions
+var CASTLEBIT = { WKCA:1, WQCA:2, BKCA:4, BQCA:8 }; // Values for castling permissions
 
 var SQUARES = {
     A1:21, B1:22, C1:23, D1:24, E1:25, F1:26, G1:27, H1:28,  
@@ -26,7 +26,7 @@ var FilesBrd = new Array(BRD_SQ_NUM);
 var RanksBrd = new Array(BRD_SQ_NUM);
 
 // Starting FEN string
-var START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+var START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 // Character strings to make things easier to print
 var PceChar = ".PNBRQKpnbrqk";
@@ -60,7 +60,7 @@ var BiDir = [ -9, -11, 11, 9 ]; // Array for the bishop directions
 var KiDir = [ -1, -10,	1, 10, -9, -11, 11, 9 ]; // Array for the king directions
 
 var DirNum = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8];
-var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, KiDir, KiDir];
+var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0];
 
 var LoopNonSlidePce = [PIECES.wN, PIECES.wK, 0, PIECES.bN,  PIECES.bK, 0];
 var LoopNonSlideIndex = [0, 3];

@@ -93,7 +93,7 @@ function GenerateMoves() {
 				AddWhitePawnCaptureMove(sq, sq + 11, GameBoard.pieces[sq+11]);
 			}			
 			
-			if(GameBoard.enPas != SQUARES.NOSQ) {
+			if(GameBoard.enPas != SQUARES.NO_SQ) {
 				if(sq + 9 == GameBoard.enPas) {
 					AddEnPassantMove( MOVE(sq, sq+9, PIECES.EMPTY, PIECES.EMPTY, MFLAGEP ) );
 				}
@@ -141,7 +141,7 @@ function GenerateMoves() {
 				AddBlackPawnCaptureMove(sq, sq - 11, GameBoard.pieces[sq-11]);
 			}			
 			
-			if(GameBoard.enPas != SQUARES.NOSQ) {
+			if(GameBoard.enPas != SQUARES.NO_SQ) {
 				if(sq - 9 == GameBoard.enPas) {
 					AddEnPassantMove( MOVE(sq, sq-9, PIECES.EMPTY, PIECES.EMPTY, MFLAGEP ) );
 				}
@@ -151,7 +151,6 @@ function GenerateMoves() {
 				}
 			}
 		}
-
 		if(GameBoard.castlePerm & CASTLEBIT.BKCA) {	
 			if(GameBoard.pieces[SQUARES.F8] == PIECES.EMPTY && GameBoard.pieces[SQUARES.G8] == PIECES.EMPTY) {
 				if(SqAttacked(SQUARES.F8, COLOURS.WHITE) == false && SqAttacked(SQUARES.E8, COLOURS.WHITE) == false) {
@@ -166,11 +165,12 @@ function GenerateMoves() {
 					AddQuietMove( MOVE(SQUARES.E8, SQUARES.C8, PIECES.EMPTY, PIECES.EMPTY, MFLAGCA ));
 				}
 			}
-		}
+		}	
 	}	
+	
 	pceIndex = LoopNonSlideIndex[GameBoard.side];
 	pce = LoopNonSlidePce[pceIndex++];
- 
+	
 	while (pce != 0) {
 		for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
 			sq = GameBoard.pList[PCEINDEX(pce, pceNum)];
