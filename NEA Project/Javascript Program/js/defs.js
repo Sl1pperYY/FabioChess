@@ -16,10 +16,12 @@ var SQUARES = {
     NO_SQ:99, OFFBOARD:100
 }; // Array of important squares 
 
-// Maximum values for amount of moves in one game, amount of moves for one position and the max depth at which the engine will search to
+// Maximum values for amount of moves in one game, amount of moves for one position, the max depth at which the engine will search to and an infinite value and a mate value which is in the range of the infinite value
 var MAXGAMEMOVES = 2048;
 var MAXPOSITIONMOVES = 256;
 var MAXDEPTH = 64;
+var INFINITE = 30000;
+var MATE = 29000;
 
 // Arrays for both files boards and ranks boards
 var FilesBrd = new Array(BRD_SQ_NUM);
