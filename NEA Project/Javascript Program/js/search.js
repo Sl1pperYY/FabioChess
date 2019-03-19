@@ -34,7 +34,7 @@ function AlphaBeta(alpha, beta, depth) {
 
     // Base case
     if(depth <= 0) {
-        // Return Evaluate()
+        return EvalPosition();
     }
 
     // Checks if time is up
