@@ -10,6 +10,25 @@ SearchController.stop; // Boolean to see if it is stoped or not
 SearchController.best; // Best move from last completed depth
 SearchController.thinking; // Flag to check if the engine is thinking or not
 
+// Function to check for a timeout
+function CheckUp() {
+    if (( $.now() -SearchController.start) > SearchController.time) {
+        SearchController.stop == true;
+    }
+}
+
+// Checks for repetition of moves
+function IsRepetition() {
+    var index = 0;
+
+    for(index = GameBoard.hisPly - GameBoard.fiftyMove; index < GameBoard.hisPly - 1; ++index) {
+        if(GameBoard.posKey == GameBoard.history[index].posKey) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // Alpha beta function
 function AlphaBeta(alpha, beta, depth) {
 
@@ -18,12 +37,17 @@ function AlphaBeta(alpha, beta, depth) {
         // Return Evaluate()
     }
 
- 
-    // Check time up function
+    // Checks if time is up
+    if ((SearchController.nodes & 2047) == 0) {
+        CheckUp();
+    }
 
     SearchController.nodes++;
 
-    // Check repetitions and fifty move rule
+    // Checks for repetition
+    if ((IsRepetition() || GameBoard.fiftyMove >= 100) && GameBoard.ply != 0) {
+        return 0;
+    }
 
     if(GameBoard.ply > MAXDEPTH - 1) {
         // Return Evaluate
@@ -43,9 +67,11 @@ function AlphaBeta(alpha, beta, depth) {
     // Order Principal Variation move
 
     for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum) {
-	
+    
+        // Pick next best move
+
 		Move = GameBoard.moveList[MoveNum];	
-		if(MakeMove(move) == false) {
+		if(MakeMove(Move) == false) {
 			continue;
         }
         
