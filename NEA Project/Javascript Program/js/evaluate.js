@@ -38,7 +38,7 @@ var RookTable = [0	,	0	,	5	,	10	,	10	,	5	,	0	,	0	,
                 25	,	25	,	25	,	25	,	25	,	25	,	25	,	25	,
                 0	,	0	,	5	,	10	,	10	,	5	,	0	,	0];
 
-// Bonus if a side has a double bishop
+// Bonus if a side has 2 bishops
 var BishopPair = 40;
 
 
@@ -113,21 +113,21 @@ function EvalPosition() {
 	pce = PIECES.wQ;	
 	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
 		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
-		score += RookTable[SQ64(sq)]/2;
+		score += RookTable[SQ64(sq)];
 	}	
 
     // Using the Piece-Square Tables for black queens
 	pce = PIECES.bQ;	
 	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
 		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
-		score -= RookTable[MIRROR64(SQ64(sq))]/2;
+		score -= RookTable[MIRROR64(SQ64(sq))];
 	}	
     
     // Bishop pair bonuses for each side
-	if(GameBoard.pceNum[wB] >= 2) {
+	if(GameBoard.pceNum[PIECES.wB] >= 2) {
 		score += BishopPair;
 	}
-	if(GameBoard.pceNum[bB] >= 2) {
+	if(GameBoard.pceNum[PIECES.bB] >= 2) {
 		score -= BishopPair;
 	}
     

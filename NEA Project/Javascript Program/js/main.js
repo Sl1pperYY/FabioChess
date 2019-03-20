@@ -2,7 +2,7 @@
 $(function() {
     init();
 	console.log("Main Init Called"); // Check to see if it is called
-	ParseFen(START_FEN)
+	ParseFen(START_FEN);
 	PrintBoard();
 });
  
@@ -39,9 +39,9 @@ function InitFilesRanksBrd() {
 
 // Filling up various arrays and variables using RAND_32()
 function InitHashKeys(){
-    console.log('InitHashKeys() called')
+    console.log('InitHashKeys() called');
 
-    var index = 0
+    var index = 0;
 
     for(index = 0; index < 14 * 120; ++index) {
         PieceKeys[index] = RAND_32();
@@ -96,6 +96,9 @@ function InitBoardVars() {
 		});
 	}
 
+	for(index = 0; index < PVENTRIES; ++index) {
+		GameBoard.PvTable.push({move : NOMOVE, posKey : 0});
+	}
 }
 
 function init() {
@@ -103,5 +106,5 @@ function init() {
     InitFilesRanksBrd();
 	InitHashKeys();
 	InitSq120To64();
-	InitBoardVars()
-};
+	InitBoardVars();
+}

@@ -1,8 +1,29 @@
+// Function to check if a move exists
+function MoveExists(move) {
+	
+	GenerateMoves();
+    
+	var index;
+	var moveFound = NOMOVE;
+	for(index = GameBoard.moveListStart[GameBoard.ply]; index < GameBoard.moveListStart[GameBoard.ply + 1]; ++index) {
+	
+		moveFound = GameBoard.moveList[index];	
+		if(MakeMove(moveFound) == false) {
+			continue;
+		}				
+		TakeMove();
+		if(move == moveFound) {
+			return true;
+		}
+	}
+	return false;
+}
+
 
 function MOVE(from, to, captured, promoted, flag) {
 	return (from | (to << 7) | (captured << 14) | (promoted << 20) | flag);
 }
-
+ 
 function AddCaptureMove(move) {
 	GameBoard.moveList[GameBoard.moveListStart[GameBoard.ply+1]] = move;
 	GameBoard.moveScores[GameBoard.moveListStart[GameBoard.ply+1]++] = 0;

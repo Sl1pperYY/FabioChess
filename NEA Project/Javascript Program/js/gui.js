@@ -1,6 +1,6 @@
 $("#SetFen").click(function() {
     var fenStr = $("#fenIn").val();
-    ParseFen(fenStr);
+    ParseFen(START_FEN);
     PrintBoard(); 
-    PerftTest(5);
+    SearchPosition();
 });

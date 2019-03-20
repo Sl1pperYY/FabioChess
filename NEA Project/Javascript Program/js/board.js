@@ -22,12 +22,13 @@ GameBoard.moveList = new Array(MAXDEPTH * MAXPOSITIONMOVES); // Move list which 
 GameBoard.moveScores = new Array(MAXDEPTH * MAXPOSITIONMOVES); // Moves that are generate will be given a certain score
 GameBoard.moveListStart = new Array(MAXDEPTH); // Where the move list will actually start for a given depth
 
-GameBoard.PvTable = [];
-GameBoard.PvArray = new Array(MAXDEPTH);
-GameBoard.searchHistory = new Array( 14 * BRD_SQ_NUM);
-GameBoard.searchKillers = new Array(3 * MAXDEPTH);
+GameBoard.PvTable = []; // Array for pv table
+GameBoard.PvArray = new Array(MAXDEPTH); // array will be filled up to maxdepth to show the best line which the engine is finding
+GameBoard.searchHistory = new Array( 14 * BRD_SQ_NUM); // Search history array
+GameBoard.searchKillers = new Array(3 * MAXDEPTH); // Search killers array
 
-function CheckBoard() {   
+// Function to check the board for errors
+function CheckBoard() {  
  
 	var t_pceNum = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	var t_material = [ 0, 0];
@@ -78,13 +79,13 @@ function CheckBoard() {
 // Function to print the board
 function PrintBoard() {
 
-    var sq,file,rank,piece;
+    var sq,file,rank,piece,line;
 
     console.log("\nGame Board:\n");
 
     // For loop to print out the board
     for(rank = RANKS.RANK_8; rank >= RANKS.RANK_1; rank--) {
-		var line =(RankChar[rank] + "  ");
+		line =(RankChar[rank] + "  ");
 		for(file = FILES.FILE_A; file <= FILES.FILE_H; file++) {
 			sq = FR2SQ(file,rank);
 			piece = GameBoard.pieces[sq];
@@ -94,7 +95,7 @@ function PrintBoard() {
 	}
 	
 	console.log("");
-	var line = "   ";
+	line = "   ";
 	for(file = FILES.FILE_A; file <= FILES.FILE_H; file++) {
 		line += (' ' + FileChar[file] + ' ');	
 	}
@@ -353,7 +354,8 @@ function PrintSqAttacked() {
 function SqAttacked(sq, side) {
 	var pce;
 	var t_sq;
-	var index;
+    var index;
+    var dir;
     
     // if/else statement to check if a square is being attacked by a pawn
 	if(side == COLOURS.WHITE) {

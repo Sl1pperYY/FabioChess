@@ -1,6 +1,6 @@
 
 var PIECES =  { EMPTY : 0, wP : 1, wN : 2, wB : 3,wR : 4, wQ : 5, wK : 6, bP : 7, bN : 8, bB : 9, bR : 10, bQ : 11, bK : 12  }; // Number representation of each piece
-    
+
 var BRD_SQ_NUM = 120; // Number of squares on the board
 
 var FILES =  { FILE_A:0, FILE_B:1, FILE_C:2, FILE_D:3, FILE_E:4, FILE_F:5, FILE_G:6, FILE_H:7, FILE_NONE:8 }; // Number representation of each file
@@ -16,12 +16,13 @@ var SQUARES = {
     NO_SQ:99, OFFBOARD:100
 }; // Array of important squares 
 
-// Maximum values for amount of moves in one game, amount of moves for one position, the max depth at which the engine will search to and an infinite value and a mate value which is in the range of the infinite value
+// Maximum values for amount of moves in one game, amount of moves for one position, the max depth at which the engine will search to and an infinite value and a mate value which is in the range of the infinite value and the amount of entries we will have in pvtable
 var MAXGAMEMOVES = 2048;
 var MAXPOSITIONMOVES = 256;
 var MAXDEPTH = 64;
 var INFINITE = 30000;
 var MATE = 29000;
+var PVENTRIES = 10000;
 
 // Arrays for both files boards and ranks boards
 var FilesBrd = new Array(BRD_SQ_NUM);
@@ -95,7 +96,7 @@ var Mirror64 = [56	,	57	,	58	,	59	,	60	,	61	,	62	,	63	,
 
 // Function to return the position of the square on the mirrored 64 square board
 function MIRROR64(sq) {
-    return Mirror64
+    return Mirror64;
 }
 
 // Functions to interchange between the two values of in the arrays
