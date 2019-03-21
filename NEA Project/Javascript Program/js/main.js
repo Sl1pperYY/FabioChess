@@ -1,14 +1,11 @@
 // Main Init
 $(function() {
     init();
-	console.log("Main Init Called"); // Check to see if it is called
-	ParseFen(START_FEN);
-	PrintBoard();
+	NewGame(START_FEN);
 });
  
 // Init of the files and ranks boards
 function InitFilesRanksBrd() {
-    console.log('InitFilesRanksBrd() called')
 
 	var index = 0;
 	var file = FILES.FILE_A;
@@ -29,17 +26,10 @@ function InitFilesRanksBrd() {
 			RanksBrd[sq] = rank;
 		}
 	}
-    
-    // Check
-	console.log("FilesBrd[0]:" + FilesBrd[0] + " RanksBrd[0]:" + RanksBrd[0]);
-	console.log("FilesBrd[SQUARES.A1]:" + FilesBrd[SQUARES.A1] + " RanksBrd[SQUARES.A1]:" + RanksBrd[SQUARES.A1]);
-	console.log("FilesBrd[SQUARES.E8]:" + FilesBrd[SQUARES.E8] + " RanksBrd[SQUARES.E8]:" + RanksBrd[SQUARES.E8]);
-
 }
 
 // Filling up various arrays and variables using RAND_32()
 function InitHashKeys(){
-    console.log('InitHashKeys() called');
 
     var index = 0;
 
@@ -102,7 +92,6 @@ function InitBoardVars() {
 }
 
 function init() {
-	console.log("init() called"); // Check to see if it is called
     InitFilesRanksBrd();
 	InitHashKeys();
 	InitSq120To64();

@@ -226,7 +226,9 @@ function ResetBoard() {
 
 // Function to set up board to the FEN string given
 function ParseFen(fen) {
-    console.log('ParseFen() called');
+    if (fen == '') {
+        return;
+    }
 
     ResetBoard();
 
@@ -316,7 +318,8 @@ function ParseFen(fen) {
 
     // If we are not looking at a dash set the En Passant Square
     if (fen[fenCnt] != '-') {
-        file = fen[fenCnt].charCodeAt() - 'a'.charCodeAt(0);
+        console.log(fen[fenCnt].charCodeAt(), 'a'.charCodeAt())
+        file = fen[fenCnt].charCodeAt() - 'a'.charCodeAt();
         rank = parseInt(fen[fenCnt], 10);
         console.log("fen[fenCnt]:" + fen[fenCnt] + " File:" + file + " Rank:" + rank);
         GameBoard.enPas = FR2SQ(file,rank);
@@ -325,7 +328,6 @@ function ParseFen(fen) {
     GameBoard.posKey = GeneratePosKey();
     UpdateListsMaterial();
     SqAttacked(21, 0);
-    PrintSqAttacked();
 
 }
 

@@ -1,3 +1,9 @@
+// Character strings to make things easier to print
+var PceName = [".", "pawn", "knight", "bishop", "rook", "queen", "king", "pawn", "knight", "bishop", "rook", "queen", "king"];
+var PceChar = ".PNBRQKpnbrqk";
+var SideChar = "wb-";
+var RankChar = "12345678";
+var FileChar = "abcdefgh";
 
 var PIECES =  { EMPTY : 0, wP : 1, wN : 2, wB : 3,wR : 4, wQ : 5, wK : 6, bP : 7, bN : 8, bB : 9, bR : 10, bQ : 11, bK : 12  }; // Number representation of each piece
 
@@ -30,12 +36,6 @@ var RanksBrd = new Array(BRD_SQ_NUM);
 
 // Starting FEN string
 var START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-
-// Character strings to make things easier to print
-var PceChar = ".PNBRQKpnbrqk";
-var SideChar = "wb-";
-var RankChar = "12345678";
-var FileChar = "abcdefgh";
 
 // Function to convert the files and ranks into the correct coordinates for the board
 function FR2SQ(f,r) {
@@ -167,3 +167,12 @@ function HASH_PCE(pce, sq) {
 function HASH_CA() {GameBoard.posKey ^= CastleKeys[GameBoard.castlePerm];}
 function HASH_SIDE() {GameBoard.posKey ^= SideKey;}
 function HASH_EP() {GameBoard.posKey ^= PieceKeys[GameBoard.enPas];}
+
+var GameController = {};
+GameController.EngineSide = COLOURS.BOTH;
+GameController.PlayerSide = COLOURS.BOTH;
+GameController.GameOver = false;
+
+var UserMove = {};
+UserMove.from = SQUARES.NO_SQ;
+UserMove.to = SQUARES.NO_SQ;

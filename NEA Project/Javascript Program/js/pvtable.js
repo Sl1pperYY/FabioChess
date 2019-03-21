@@ -1,5 +1,3 @@
-
-
 function GetPvLine(depth) {
 	
 	var move = ProbePvTable();
@@ -13,7 +11,7 @@ function GetPvLine(depth) {
 		} else {
 			break;
 		}		
-		move = ProbePvTable();	
+		move = ProbePvTable();
 	}
 	
 	while(GameBoard.ply > 0) {

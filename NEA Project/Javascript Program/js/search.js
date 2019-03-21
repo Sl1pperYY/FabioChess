@@ -10,25 +10,30 @@ SearchController.stop; // Boolean to see if it is stoped or not
 SearchController.best; // Best move from last completed depth
 SearchController.thinking; // Flag to check if the engine is thinking or not
 
+// Function to pick the next best move
 function PickNextMove(MoveNum) {
 
 	var index = 0;
 	var bestScore = -1;
 	var bestNum = MoveNum;
-	
+    
+    // For loop to check if the move score at the index is better than the best score than make that move the new best score
 	for(index = MoveNum; index < GameBoard.moveListStart[GameBoard.ply+1]; ++index) {
 		if(GameBoard.moveScores[index] > bestScore) {
 			bestScore = GameBoard.moveScores[index];
 			bestNum = index;			
 		}
 	} 
-	
+    
 	if(bestNum != MoveNum) {
-		var temp = 0;
+        var temp = 0;
+        
+        // Switching the Score
 		temp = GameBoard.moveScores[MoveNum];
 		GameBoard.moveScores[MoveNum] = GameBoard.moveScores[bestNum];
 		GameBoard.moveScores[bestNum] = temp;
-		
+        
+        // Switching the move
 		temp = GameBoard.moveList[MoveNum];
 		GameBoard.moveList[MoveNum] = GameBoard.moveList[bestNum];
 		GameBoard.moveList[bestNum] = temp;
@@ -63,10 +68,11 @@ function IsRepetition() {
     return false;
 }
 
+
 // Alpha beta function
 function AlphaBeta(alpha, beta, depth) {
 
-    SearchController.nodes++;
+    
     // Base case
     if(depth <= 0) {
         return EvalPosition();
@@ -76,6 +82,8 @@ function AlphaBeta(alpha, beta, depth) {
     if ((SearchController.nodes & 2047) == 0) {
         CheckUp();
     }
+
+    SearchController.nodes++;
 
     // Checks for repetition
     if ((IsRepetition() || GameBoard.fiftyMove >= 100) && GameBoard.ply != 0) {
@@ -107,12 +115,21 @@ function AlphaBeta(alpha, beta, depth) {
     var BestMove = NOMOVE;
     var Move = NOMOVE; // Current move being made
 
+
     // Get Principal Variation move
-    // Order Principal Variation move
+    var PvMove = ProbePvTable();
+	if(PvMove != NOMOVE) {
+		for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum) {
+			if(GameBoard.moveList[MoveNum] == PvMove) {
+				GameBoard.moveScores[MoveNum] = 2000000;
+				break;
+			}
+		}
+	}
     
     for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum) {
 
-        // Pick next best move
+        PickNextMove(MoveNum);
         
 		Move = GameBoard.moveList[MoveNum];	
 		if(MakeMove(Move) == false) {
@@ -122,7 +139,7 @@ function AlphaBeta(alpha, beta, depth) {
 
         Legal++; // Adding on 1 to legal because we have found a legal move
         
-        Score = -(AlphaBeta(-beta, -alpha, depth-1)); // Recursive call of the function
+        Score = -AlphaBeta(-beta, -alpha, depth-1); // Recursive call of the function
 
         TakeMove();
 
@@ -139,9 +156,16 @@ function AlphaBeta(alpha, beta, depth) {
                 }
                 SearchController.fh++; // fhf divided by fh tells us how often we get a beta cut off in the first move
                 // Update killer moves
+                if((Move & MFLAGCAP) == 0) {
+					GameBoard.searchKillers[MAXDEPTH + GameBoard.ply] = GameBoard.searchKillers[GameBoard.ply];
+					GameBoard.searchKillers[GameBoard.ply] = Move;
+				}
 				return beta;
             }
             // Update History table
+            if((Move & MFLAGCAP) == 0) {
+				GameBoard.searchHistory[GameBoard.pieces[FROMSQ(Move)] * BRD_SQ_NUM + TOSQ(Move)] += depth * depth;
+			}
             alpha = Score;
             BestMove = Move;
         }
@@ -151,7 +175,7 @@ function AlphaBeta(alpha, beta, depth) {
     // Mate check
     if(Legal == 0) {
 		if(InCheck == true) {
-			return -MATE + GameBoard.ply;
+			return -MATE + GameBoard.ply; // Distance to mate from root
 		} else {
 			return 0;
 		}
@@ -163,6 +187,79 @@ function AlphaBeta(alpha, beta, depth) {
     
     return alpha;
 }
+
+// Qsearch function (alpha beta but only for capture moves)
+function Quiescence(alpha, beta) {
+
+	if ((SearchController.nodes & 2047) == 0) {
+		CheckUp();
+	}
+	
+	SearchController.nodes++;
+	
+	if( (IsRepetition() || GameBoard.fiftyMove >= 100) && GameBoard.ply != 0) {
+		return 0;
+	}
+	
+	if(GameBoard.ply > MAXDEPTH -1) {
+		return EvalPosition();
+	}	
+	
+	var Score = EvalPosition();
+    
+    // Standing pat (choosing not to do anything)
+	if(Score >= beta) {
+		return beta;
+	}
+    
+	if(Score > alpha) {
+		alpha = Score;
+	}
+	
+	GenerateCaptures();
+	
+	var MoveNum = 0;
+	var Legal = 0;
+	var OldAlpha = alpha;
+	var BestMove = NOMOVE;
+	var Move = NOMOVE;	
+	
+	for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum) {
+	
+		PickNextMove(MoveNum);
+		
+		Move = GameBoard.moveList[MoveNum];	
+
+		if(MakeMove(Move) == false) {
+			continue;
+		}		
+		Legal++;
+		Score = -Quiescence( -beta, -alpha);
+		
+		TakeMove();
+		
+		if(SearchController.stop == true) {
+			return 0;
+		}
+	
+		if(Score > alpha) {
+			if(Score >= beta) {
+				if(Legal == 1) {
+					SearchController.fhf++;
+				}
+				SearchController.fh++;	
+				return beta;
+			}
+			alpha = Score;
+			BestMove = Move;
+		}		
+	}
+	if(alpha != OldAlpha) {
+		StorePvMove(BestMove);
+    }
+	return alpha;
+}
+
 
 // Function to clear everything for a new search
 function ClearForSearch() {
@@ -218,8 +315,12 @@ function SearchPosition() {
 		line += ' Pv:';
 		for( c = 0; c < PvNum; ++c) {
 			line += ' ' + PrMove(GameBoard.PvArray[c]);
-		}
+        }
 
+        // Checking how good the move is
+        if(currentDepth != 1) {
+            line += (' Ordering:' + ((SearchController.fhf/SearchController.fh)*100).toFixed(2) + '%');
+        }
         console.log(line);
     }
     SearchController.best = bestMove;
