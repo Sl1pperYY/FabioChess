@@ -96,7 +96,7 @@ var Mirror64 = [56	,	57	,	58	,	59	,	60	,	61	,	62	,	63	,
 
 // Function to return the position of the square on the mirrored 64 square board
 function MIRROR64(sq) {
-    return Mirror64;
+    return Mirror64[sq];
 }
 
 // Functions to interchange between the two values of in the arrays

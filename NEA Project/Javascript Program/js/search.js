@@ -121,8 +121,8 @@ function AlphaBeta(alpha, beta, depth) {
         
 
         Legal++; // Adding on 1 to legal because we have found a legal move
-        Score = AlphaBeta(-beta, -alpha, depth-1); // Recursive call of the function
-        console.log(Score);
+        
+        Score = -(AlphaBeta(-beta, -alpha, depth-1)); // Recursive call of the function
 
         TakeMove();
 
@@ -138,8 +138,7 @@ function AlphaBeta(alpha, beta, depth) {
                     SearchController.fhf++; // The more the better
                 }
                 SearchController.fh++; // fhf divided by fh tells us how often we get a beta cut off in the first move
-                // Update killer moves	
-                console.log(beta);		
+                // Update killer moves
 				return beta;
             }
             // Update History table
@@ -161,8 +160,7 @@ function AlphaBeta(alpha, beta, depth) {
     if(alpha != OldAlpha) {
         StorePvMove(BestMove);
     }
-
-    console.log(alpha);	
+    
     return alpha;
 }
 
@@ -203,7 +201,7 @@ function SearchPosition() {
     ClearForSearch();
 
     // Iterative deepening
-    for(currentDepth = 1; currentDepth <= /*SearchController.depth*/ 2; ++currentDepth) {
+    for(currentDepth = 1; currentDepth <= /*SearchController.depth*/ 5; ++currentDepth) {
 
         // Alpha Beta algorithm
         bestScore = AlphaBeta(-INFINITE, INFINITE, currentDepth);

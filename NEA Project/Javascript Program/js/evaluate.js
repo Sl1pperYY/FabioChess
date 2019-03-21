@@ -93,22 +93,22 @@ function EvalPosition() {
 	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
 		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
 		score -= BishopTable[MIRROR64(SQ64(sq))];
-	}
+    }
     
     // Using the Piece-Square Tables for white rooks
 	pce = PIECES.wR;	
 	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
 		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
 		score += RookTable[SQ64(sq)];
-	}	
+    }
 
     // Using the Piece-Square Tables for black rooks
 	pce = PIECES.bR;	
 	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
 		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
 		score -= RookTable[MIRROR64(SQ64(sq))];
-	}
-    
+    }
+
     // Using the Piece-Square Tables for white queens
 	pce = PIECES.wQ;	
 	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
@@ -121,7 +121,7 @@ function EvalPosition() {
 	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
 		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
 		score -= RookTable[MIRROR64(SQ64(sq))];
-	}	
+    }	
     
     // Bishop pair bonuses for each side
 	if(GameBoard.pceNum[PIECES.wB] >= 2) {

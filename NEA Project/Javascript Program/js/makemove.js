@@ -184,11 +184,11 @@ function TakeMove() {
     MovePiece(to, from);
     
     var captured = CAPTURED(move);
-    if(captured != PIECES.EMPTY) {      
+    if(captured != PIECES.EMPTY) { 
         AddPiece(to, captured);
     }
     
-    if(PROMOTED(move) != PIECES.EMPTY)   {        
+    if(PROMOTED(move) != PIECES.EMPTY)   {         
         ClearPiece(from);
         AddPiece(from, (PieceCol[PROMOTED(move)] == COLOURS.WHITE ? PIECES.wP : PIECES.bP));
     }
