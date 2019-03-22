@@ -176,3 +176,33 @@ GameController.GameOver = false;
 var UserMove = {};
 UserMove.from = SQUARES.NO_SQ;
 UserMove.to = SQUARES.NO_SQ;
+
+bPImg = new Image(0,0);
+bRImg = new Image();
+bNImg = new Image();
+bBImg = new Image();
+bQImg = new Image();
+bKImg = new Image();
+
+wPImg = new Image();
+wRImg = new Image();
+wNImg = new Image();
+wBImg = new Image();
+wQImg = new Image();
+wKImg = new Image();
+
+bPImg.src = "Assets/PieceSVGs/bP.svg"
+bPImg.naturalWidth = 10;
+bRImg.src = "Assets/PieceSVGs/bR.svg"
+bNImg.src = "Assets/PieceSVGs/bN.svg"
+bBImg.src = "Assets/PieceSVGs/bB.svg"
+bQImg.src = "Assets/PieceSVGs/bQ.svg"
+bKImg.src = "Assets/PieceSVGs/bK.svg"
+
+wPImg.src = "Assets/PieceSVGs/bP.svg"
+wPImg.style.background = "white";
+wRImg.src = "Assets/PieceSVGs/wR.svg"
+wNImg.src = "Assets/PieceSVGs/wN.svg"
+wBImg.src = "Assets/PieceSVGs/wB.svg"
+wQImg.src = "Assets/PieceSVGs/wQ.svg"
+wKImg.src = "Assets/PieceSVGs/wK.svg"

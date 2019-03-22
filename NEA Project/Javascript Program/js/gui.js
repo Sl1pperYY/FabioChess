@@ -25,7 +25,7 @@ function AddGUIPiece(sq, pce) {
     }
 
 	var pieceImageString = "<i class=\'fas fa-chess-" + piece + "\'" + colour + "></i>";
-    var	pieceString = "<div class=\'piece\' id=\'" + id + "piece\'>" /*draggable=\'true\' ondragstart=\'drag(event)\'*/ + pieceImageString + "</div>";
+    var	pieceString = "<div class=\'piece\' id=\'" + id + "piece\' draggable=\'true\' ondragstart=\'drag(event)\'>" + pieceImageString + "</div>";
     id = '#' + id;
     $(id).append(pieceString);
     $(id).removeClass("square");
@@ -58,7 +58,7 @@ function NewGame(fenStr) {
 // Drag and Drop
 //================================================================================
 
-/*
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -66,17 +66,61 @@ function allowDrop(ev) {
 function drag(ev) {
     ev.dataTransfer.effectAllowed = 'move';
     ev.dataTransfer.setData("text", ev.target.id);
-    $(ev.currentTarget).addClass('invisible');
+    var pce = ev.target.id
+    pce = pce[0] + pce[1];
+
+
+    var img = new Image();
+    
+    if (pce[1] == '7') {
+        img = bPImg;
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if (pce[1] == '2') {
+        img = wPImg;
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if ((pce[0] == 'a' && pce[1] == '8') || (pce[0] == 'h' && pce[1] == '8')) {
+        img = bRImg;
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if ((pce[0] == 'a' && pce[1] == '1') || (pce[0] == 'h' && pce[1] == '1')) {
+        img = wRImg;
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if ((pce[0] == 'b' && pce[1] == '8') || (pce[0] == 'g'  && pce[1] == '8')) {
+        img = bNImg
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if ((pce[0] == 'b' && pce[1] == '1') || (pce[0] == 'g'  && pce[1] == '1')) {
+        img.src = "Assets/PieceSVGs/wN.svg";
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if ((pce[0] == 'c' && pce[1] == '8') || (pce[0] == 'f' && pce[1] == '8')) {
+        img.src = "Assets/PieceSVGs/bB.svg";
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if ((pce[0] == 'c' && pce[1] == '1') || (pce[0] == 'f' && pce[1] == '1')) {
+        img.src = "Assets/PieceSVGs/wB.svg";
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if (pce[0] == 'd' && pce[1] == '8') {
+        img.src = "Assets/PieceSVGs/bQ.svg";
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if (pce[0] == 'd' && pce[1] == '1') {
+        img.src = "Assets/PieceSVGs/wQ.svg";
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if (pce[0] == 'e' && pce[1] == '8') {
+        img.src = "Assets/PieceSVGs/bK.svg";
+        ev.dataTransfer.setDragImage(img, 10, 10);
+    } else if (pce[0] == 'e' && pce[1] == '1') {
+        img.src = "Assets/PieceSVGs/wK.svg";
+        ev.dataTransfer.setDragImage(img, 0, 0);
+    }
+    
+
 }
   
 function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    $(ev.currentTarget).removeClass('invisible');
-    ev.target.appendChild(document.getElementById(data));
-    
+    if ($(ev.currentTarget).children().length == 0) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.currentTarget.appendChild(document.getElementById(data));
+    }
 }
-*/
+
 
 //================================================================================
 // Moving with clicking
