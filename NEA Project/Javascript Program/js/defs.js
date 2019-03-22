@@ -192,7 +192,7 @@ wQImg = new Image();
 wKImg = new Image();
 
 bPImg.src = "Assets/PieceSVGs/bP.svg"
-bPImg.naturalWidth = 10;
+bPImg.naturalWidth = 2;
 bRImg.src = "Assets/PieceSVGs/bR.svg"
 bNImg.src = "Assets/PieceSVGs/bN.svg"
 bBImg.src = "Assets/PieceSVGs/bB.svg"
