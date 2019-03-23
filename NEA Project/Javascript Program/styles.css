@@ -29,12 +29,12 @@ h1 {
   cursor: pointer;
 }
 
-.hold {
-  border: solid #ccc 4px;
-}
-
 .invisible {
   display: none;
+}
+
+.selected {
+  box-shadow: 0 0 0 0.2rem black;
 }
 
 #chess-board .chess-row .dark{
