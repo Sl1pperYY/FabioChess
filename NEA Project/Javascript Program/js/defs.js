@@ -177,7 +177,7 @@ var UserMove = {};
 UserMove.from = SQUARES.NO_SQ;
 UserMove.to = SQUARES.NO_SQ;
 
-bPImg = new Image(0,0);
+bPImg = new Image();
 bRImg = new Image();
 bNImg = new Image();
 bBImg = new Image();
@@ -192,15 +192,13 @@ wQImg = new Image();
 wKImg = new Image();
 
 bPImg.src = "Assets/PieceSVGs/bP.svg"
-bPImg.naturalWidth = 2;
 bRImg.src = "Assets/PieceSVGs/bR.svg"
 bNImg.src = "Assets/PieceSVGs/bN.svg"
 bBImg.src = "Assets/PieceSVGs/bB.svg"
 bQImg.src = "Assets/PieceSVGs/bQ.svg"
 bKImg.src = "Assets/PieceSVGs/bK.svg"
 
-wPImg.src = "Assets/PieceSVGs/bP.svg"
-wPImg.style.background = "white";
+wPImg.src = "Assets/PieceSVGs/wP.svg"
 wRImg.src = "Assets/PieceSVGs/wR.svg"
 wNImg.src = "Assets/PieceSVGs/wN.svg"
 wBImg.src = "Assets/PieceSVGs/wB.svg"

@@ -66,45 +66,45 @@ function allowDrop(ev) {
 function drag(ev) {
     ev.dataTransfer.effectAllowed = 'move';
     ev.dataTransfer.setData("text", ev.target.id);
-    var pce = ev.target.id
+    var pce = ev.target.id;
     pce = pce[0] + pce[1];
 
-    $(ev.target.id).addClass('.invisible');
+    $(ev.target.id).children().addClass('.invisible');
     var img = new Image();
     
     if (pce[1] == '7') {
         img = bPImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if (pce[1] == '2') {
         img = wPImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if ((pce[0] == 'a' && pce[1] == '8') || (pce[0] == 'h' && pce[1] == '8')) {
         img = bRImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if ((pce[0] == 'a' && pce[1] == '1') || (pce[0] == 'h' && pce[1] == '1')) {
         img = wRImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if ((pce[0] == 'b' && pce[1] == '8') || (pce[0] == 'g'  && pce[1] == '8')) {
         img = bNImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if ((pce[0] == 'b' && pce[1] == '1') || (pce[0] == 'g'  && pce[1] == '1')) {
         img = wNImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if ((pce[0] == 'c' && pce[1] == '8') || (pce[0] == 'f' && pce[1] == '8')) {
         img = bBImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if ((pce[0] == 'c' && pce[1] == '1') || (pce[0] == 'f' && pce[1] == '1')) {
         img = wBImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if (pce[0] == 'd' && pce[1] == '8') {
         img = bQImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if (pce[0] == 'd' && pce[1] == '1') {
         img = wQImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if (pce[0] == 'e' && pce[1] == '8') {
         img = bKImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+        ev.dataTransfer.setDragImage(img, 50, 50);
     } else if (pce[0] == 'e' && pce[1] == '1') {
         img = wKImg;
         ev.dataTransfer.setDragImage(img, 0, 0);
