@@ -43,3 +43,39 @@ function PrintMoveList() {
 		num++;
 	}
 }
+
+// Function to check if it is a legal move or not
+function ParseMove(from, to) {
+	
+	GenerateMoves();
+
+	var Move = NOMOVE;
+	var PromPce = PIECES.EMPTY;
+	var found = false;
+
+	for(var index = GameBoard.moveListStart[GameBoard.ply]; index < GameBoard.moveListStart[GameBoard.ply + 1]; ++index) {
+		Move = GameBoard.moveList[index];
+		if(FROMSQ(Move) == from && TOSQ(Move) == to) {
+			PromPce = PROMOTED(Move);
+			if(PromPce != PIECES.EMPTY) {
+				if((PromPce == PIECES.wQ && GameBoard.side == COLOURS.WHITE) || (PromPce == PIECES.bQ && GameBoard.side == COLOURS.BLACK)); {
+					found = true;
+					break;
+				}
+				continue;
+			}
+			found = true;
+			break;
+		}
+	}
+
+	if(found != false) {
+		if(MakeMove(Move) == false) {
+			return NOMOVE;
+		}
+		TakeMove();
+		return Move;
+	}
+
+	return NOMOVE;
+}
