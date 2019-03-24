@@ -143,7 +143,6 @@ function drop(ev) {
             MakeMove(move);
             $(ev.target).parent().remove();
 
-            var from = FROMSQ(move);
             var to = TOSQ(move);
 
             ev.preventDefault();
@@ -167,7 +166,6 @@ function drop(ev) {
         if(move != NOMOVE) {
             MakeMove(move);
 
-            var from = FROMSQ(move);
             var to = TOSQ(move);
     
             // Removing the pawn on an enpassant move
@@ -184,12 +182,16 @@ function drop(ev) {
                 switch(to) {
                     case SQUARES.G1:
                         $("f1").append($("h1piece"));
+                        break;
                     case SQUARES.C1:
                         $("d1").parent().append($("a1"));
+                        break;
                     case SQUARES.G8:
                         $("f8").parent().append($("h8"));
+                        break;
                     case SQUARES.C8:
                         $("d8").parent().append($("a8"));
+                        break;
                 }
             }
             
@@ -228,13 +230,6 @@ function SetToSq(sq) {
     coordinate = FR2SQ(file,rank);
     UserMove.to = coordinate;
 }
-
-
-//================================================================================
-// Move Detection
-//================================================================================
-
-
 
 //================================================================================
 // Checking Game State
@@ -332,5 +327,83 @@ function ThreeFoldRep() {
 	return r;
 }
 
+//================================================================================
+// Searching
+//================================================================================
 
+function PreSearch() {
+	if(GameController.GameOver == false) {
+		SearchController.thinking = true;
+		setTimeout( function() { StartSearch(); }, 200 );
+	}
+}
 
+function UpdateDOMStats(dom_score, dom_depth) {
+
+    var scoreText = "Score: " + (dom_score / 100).toFixed(2);
+    if(Math.abs(dom_score) > MATE - MAXDEPTH) {
+        scoreText = "Score: Mate In " + (MATE - Math.abs(dom_score)) + " moves";
+    }
+
+	$("#OrderingOut").text("Ordering: " + ((SearchController.fhf/SearchController.fh)*100).toFixed(2) + "%");
+	$("#DepthOut").text("Depth: " + dom_depth);
+	$("#ScoreOut").text(scoreText);
+	$("#NodesOut").text("Nodes: " + SearchController.nodes);
+	$("#TimeOut").text("Time: " + (($.now()-SearchController.start)/1000).toFixed(1) + "s");
+	$("#BestOut").text("BestMove: " + PrMove(SearchController.best));
+}
+
+function StartSearch() {
+    SearchController.depth = MAXDEPTH;
+    var t = $.now();
+    var tt = 3; // Thinking time
+
+    SearchController.time = tt * 1000;
+    SearchPosition();
+
+    /*
+    MakeMove(SearchController.best);
+
+    var from = FROMSQ(move);
+	var to = TOSQ(move);	
+	
+	if(move & MFLAGEP) {
+		var epRemove;
+		if(GameBoard.side == COLOURS.BLACK) {
+			epRemove = to - 10;
+		} else {
+			epRemove = to + 10;
+		}
+		RemoveGUIPiece(epRemove);
+	} else if(CAPTURED(move)) {
+		RemoveGUIPiece(to);
+	}
+	
+	var file = FilesBrd[to];
+	var rank = RanksBrd[to];
+	var rankName = "rank" + (rank+1);
+	var	fileName = "file" + (file+1);
+	
+	$('.Piece').each( function(index) {
+		if(PieceIsOnSq(from, $(this).position().top, $(this).position().left) == BOOL.TRUE) {
+			$(this).removeClass();
+			$(this).addClass("Piece " + rankName + " " + fileName);
+		}
+	} );
+	
+	if(move & MFLAGCA) {
+		switch(to) {
+			case SQUARES.G1: RemoveGUIPiece(SQUARES.H1); AddGUIPiece(SQUARES.F1, PIECES.wR); break;
+			case SQUARES.C1: RemoveGUIPiece(SQUARES.A1); AddGUIPiece(SQUARES.D1, PIECES.wR); break;
+			case SQUARES.G8: RemoveGUIPiece(SQUARES.H8); AddGUIPiece(SQUARES.F8, PIECES.bR); break;
+			case SQUARES.C8: RemoveGUIPiece(SQUARES.A8); AddGUIPiece(SQUARES.D8, PIECES.bR); break;
+		}
+	} else if (PROMOTED(move)) {
+		RemoveGUIPiece(to);
+		AddGUIPiece(to, PROMOTED(move));
+	}
+    */
+   
+    CheckAndSet();
+
+}

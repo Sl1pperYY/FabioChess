@@ -52,7 +52,7 @@ function ClearPvTable() {
 // Function to check for a timeout
 function CheckUp() {
     if (( $.now() -SearchController.start) > SearchController.time) {
-        SearchController.stop == true;
+        SearchController.stop = true;
     }
 }
 
@@ -298,7 +298,7 @@ function SearchPosition() {
     ClearForSearch();
 
     // Iterative deepening
-    for(currentDepth = 1; currentDepth <= /*SearchController.depth*/ 5; ++currentDepth) {
+    for(currentDepth = 1; currentDepth <= SearchController.depth; ++currentDepth) {
 
         // Alpha Beta algorithm
         bestScore = AlphaBeta(-INFINITE, INFINITE, currentDepth);
@@ -324,5 +324,6 @@ function SearchPosition() {
         console.log(line);
     }
     SearchController.best = bestMove;
-    SearchController.thinking = false;
+	SearchController.thinking = false;
+	UpdateDOMStats(bestScore, currentDepth);
 }
