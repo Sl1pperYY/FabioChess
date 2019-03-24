@@ -1,6 +1,22 @@
+//================================================================================
+// Buttons
+//================================================================================
+
 $("#SetFen").click(function() {
     var fenStr = $("#fenIn").val();
     NewGame(fenStr);
+});
+
+$('#Undo').click( function () {
+	if(GameBoard.hisPly > 0) {
+		TakeMove();
+		GameBoard.ply = 0;
+		SetInitialBoardPieces();
+	}
+});
+
+$('#NewGameButton').click( function () {
+	NewGame(START_FEN);
 });
 
 //================================================================================
@@ -55,7 +71,8 @@ function SetInitialBoardPieces() {
 function NewGame(fenStr) {
     ParseFen(fenStr);
     PrintBoard();
-    SetInitialBoardPieces()
+    SetInitialBoardPieces();
+    CheckAndSet();
 }
 
 //================================================================================
@@ -115,27 +132,81 @@ function drag(ev) {
 }
   
 function drop(ev) {
-    // ev.currentTarget.childNode.style.boxShadow = '';
-    SetToSq($(ev.target).attr('id'));
 
-    var parsed = ParseMove(UserMove.from, UserMove.to);
+    if ($(ev.target).parent().attr('class') == 'piece') {
+        squareid = $(ev.target).parent().parent().attr('id');
+        SetToSq(squareid);
 
-    if(parsed != NOMOVE && $(ev.currentTarget).children().length == 0) {
-        MakeMove(parsed);
-        
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        ev.currentTarget.appendChild(document.getElementById(data));
-    } else if(parsed != NOMOVE && $(ev.currentTarget).children().length == 1) {
-        MakeMove(parsed);
-        
-        ev.currentTarget.removeChild();
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        ev.currentTarget.appendChild(document.getElementById(data));
+        var move = ParseMove(UserMove.from, UserMove.to);
+
+        if(move != NOMOVE) {
+            MakeMove(move);
+            $(ev.target).parent().remove();
+
+            var from = FROMSQ(move);
+            var to = TOSQ(move);
+
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.currentTarget.appendChild(document.getElementById(data));
+            
+            // Changing Pawn into a queen on promotion
+            if (PROMOTED(move)) {
+                $(ev.currentTarget).children().children().removeClass();
+                $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
+            }
+        } else {
+            console.log('Illegal Move')
+        }
     } else {
-        console.log('Illegal Move')
+        squareid = $(ev.target).attr('id');
+        SetToSq(squareid);
+
+        var move = ParseMove(UserMove.from, UserMove.to);
+
+        if(move != NOMOVE) {
+            MakeMove(move);
+
+            var from = FROMSQ(move);
+            var to = TOSQ(move);
+    
+            // Removing the pawn on an enpassant move
+            if(move & MFLAGEP) {
+                if(GameBoard.side == COLOURS.WHITE) {
+                    enPassantSqRank == (parseInt(squareid[1]) - 1).toString();
+                    enPassantSqId == ((squareid.replace(squareid[1], enPassantSqRank)));
+                    $(enPassantSqId).parent().remove();
+                }    
+            }
+
+            // Moving the rook if its a castling move
+            if (move & MFLAGCA) {
+                switch(to) {
+                    case SQUARES.G1:
+                        $("f1").append($("h1piece"));
+                    case SQUARES.C1:
+                        $("d1").parent().append($("a1"));
+                    case SQUARES.G8:
+                        $("f8").parent().append($("h8"));
+                    case SQUARES.C8:
+                        $("d8").parent().append($("a8"));
+                }
+            }
+            
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.currentTarget.appendChild(document.getElementById(data));
+
+            // Changing Pawn into a queen on promotion
+            if (PROMOTED(move)) {
+                $(ev.currentTarget).children().children().removeClass();
+                $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
+            }
+        } else {
+            console.log('Illegal Move')
+        }
     }
+    CheckAndSet()
 }
 
 function allowDrop(ev) {
@@ -152,7 +223,6 @@ function SetFromSq(sq) {
 
 // Function to set the square which the piece is being moved to
 function SetToSq(sq) {
-    console.log(sq); 
     file = (sq.charCodeAt(0) - 97);
     rank = (parseInt(sq[1], 10) - 1);
     coordinate = FR2SQ(file,rank);
@@ -164,12 +234,103 @@ function SetToSq(sq) {
 // Move Detection
 //================================================================================
 
-/*
-$(document).on('click','.piece', function (e) {
-    console.log('Piece Click');
-});
 
-$(document).on('click','.square', function (e) {
-    console.log('Square Click');
-});
-*/
+
+//================================================================================
+// Checking Game State
+//================================================================================
+
+// Function to let the engine know the game is over and prints it on the website
+function CheckAndSet() {
+	if(CheckResult() == true) {
+		GameController.GameOver = true;
+	} else {
+		GameController.GameOver = false;
+	}
+}
+
+// Function to check the gamestate (true = game over)
+function CheckResult() {
+
+    // Fifty move rule draw
+    if(GameBoard.fiftyMove >= 100) {
+        $("#GameStatus").text("GAME DRAWN {fifty move rule}"); 
+        return true;
+    }
+
+    // 3-fold repetition draw
+    if (ThreeFoldRep() >= 2) {
+        $("#GameStatus").text("GAME DRAWN {3-fold repetition}"); 
+        return true;
+    }
+
+    // Insufficient material to mate draw
+    if (DrawMaterial() == true) {
+        $("#GameStatus").text("GAME DRAWN {insufficient material to mate}"); 
+        return true;
+    }
+
+    GenerateMoves();
+
+    var MoveNum = 0;
+    var found = 0;
+
+    for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum)  {	
+      
+        if ( MakeMove(GameBoard.moveList[MoveNum]) == false)  {
+            continue;
+        }
+        found++;
+        TakeMove();
+        break;
+    }
+
+    if(found != 0) {return false};
+
+    var InCheck = SqAttacked(GameBoard.pList[PCEINDEX(Kings[GameBoard.side],0)], GameBoard.side^1);
+
+    if(InCheck == true) {
+        if(GameBoard.side == COLOURS.WHITE) {
+
+            // Black wins
+            $("#GameStatus").text("GAME OVER {black mates}");
+            return true;
+        } else {
+
+            // White wins
+            $("#GameStatus").text("GAME OVER {white mates}");
+            return true;
+        }
+    } else {
+        
+        // Stalemate draw
+        $("#GameStatus").text("GAME DRAWN {stalemate}");return true;
+    }
+}
+
+// Function to determine a material draw
+function DrawMaterial() {
+	if (GameBoard.pceNum[PIECES.wP]!=0 || GameBoard.pceNum[PIECES.bP]!=0) return false;
+	if (GameBoard.pceNum[PIECES.wQ]!=0 || GameBoard.pceNum[PIECES.bQ]!=0 || GameBoard.pceNum[PIECES.wR]!=0 || GameBoard.pceNum[PIECES.bR]!=0) return false;
+	if (GameBoard.pceNum[PIECES.wB] > 1 || GameBoard.pceNum[PIECES.bB] > 1) {return false;}
+    if (GameBoard.pceNum[PIECES.wN] > 1 || GameBoard.pceNum[PIECES.bN] > 1) {return false;}
+	if (GameBoard.pceNum[PIECES.wN]!=0 && GameBoard.pceNum[PIECES.wB]!=0) {return false;}
+	if (GameBoard.pceNum[PIECES.bN]!=0 && GameBoard.pceNum[PIECES.bB]!=0) {return false;}
+	 
+	return true;
+}
+
+// Function for three fold repetition
+function ThreeFoldRep() {
+    var i = 0, r = 0;
+	
+	for(i = 0; i < GameBoard.hisPly; ++i) {
+		if (GameBoard.history[i].posKey == GameBoard.posKey) {
+		    r++;
+		}
+	}
+	return r;
+}
+
+
+
