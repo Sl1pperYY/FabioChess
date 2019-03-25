@@ -90,44 +90,46 @@ function drag(ev) {
 
     // $(ev.target).addClass('.selected');
     var img = new Image();
+
+    console.log(pce);
     
     // Sets the correct drag image
     if (pce[1] == '7') {
         img = bPImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if (pce[1] == '2') {
         img = wPImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if ((pce[0] == 'a' && pce[1] == '8') || (pce[0] == 'h' && pce[1] == '8')) {
         img = bRImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if ((pce[0] == 'a' && pce[1] == '1') || (pce[0] == 'h' && pce[1] == '1')) {
         img = wRImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if ((pce[0] == 'b' && pce[1] == '8') || (pce[0] == 'g'  && pce[1] == '8')) {
         img = bNImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if ((pce[0] == 'b' && pce[1] == '1') || (pce[0] == 'g'  && pce[1] == '1')) {
         img = wNImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if ((pce[0] == 'c' && pce[1] == '8') || (pce[0] == 'f' && pce[1] == '8')) {
         img = bBImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if ((pce[0] == 'c' && pce[1] == '1') || (pce[0] == 'f' && pce[1] == '1')) {
         img = wBImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if (pce[0] == 'd' && pce[1] == '8') {
         img = bQImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if (pce[0] == 'd' && pce[1] == '1') {
         img = wQImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if (pce[0] == 'e' && pce[1] == '8') {
         img = bKImg;
-        ev.dataTransfer.setDragImage(img, 50, 50);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     } else if (pce[0] == 'e' && pce[1] == '1') {
         img = wKImg;
-        ev.dataTransfer.setDragImage(img, 0, 0);
+        ev.dataTransfer.setDragImage(img, 200, 200);
     }
 }
   
