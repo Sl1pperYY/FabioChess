@@ -163,7 +163,7 @@ function drop(ev) {
             }
             PreSearch();
         } else {
-            console.log('Illegal Move')
+            $("#GameStatus").text("Illegal Move");
         }
         
     } else {
@@ -225,7 +225,7 @@ function drop(ev) {
 
             PreSearch();
         } else {
-            console.log('Illegal Move')
+            $("#GameStatus").text("Illegal Move");
         }
     }
     CheckAndSet();
@@ -379,6 +379,9 @@ function StartSearch() {
     var t = $.now();
     var tt = 1; // Thinking time
 
+    $(SearchController.fromId).removeClass("selected");
+    $(SearchController.toId).removeClass("selected");
+
     SearchController.time = tt * 1000;
     SearchPosition();
 
@@ -393,10 +396,15 @@ function StartSearch() {
     var toRank = (RanksBrd[to] + 1).toString();
     var fromId = ("#" + fromFile + fromRank);
     var toId = ("#" + toFile + toRank);
+
+    SearchController.fromId = fromId;
+    SearchController.toId = toId;
     
     var piece = $(fromId).children().detach();
     $(toId).children().remove();
     $(toId).append(piece);
+    $(fromId).addClass("selected");
+    $(toId).addClass("selected");
 	
 	if(SearchController.best & MFLAGEP) {
         var enPassantCap;

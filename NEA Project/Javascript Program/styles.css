@@ -34,7 +34,7 @@ h1 {
 }
 
 .selected {
-  box-shadow: 0 0 0 0.2rem green;
+  box-shadow: 0 0 0 0.2rem #006064;
 }
 
 #chess-board .chess-row .dark{

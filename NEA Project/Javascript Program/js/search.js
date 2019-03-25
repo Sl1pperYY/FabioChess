@@ -9,6 +9,8 @@ SearchController.start; // Time when started
 SearchController.stop; // Boolean to see if it is stoped or not
 SearchController.best; // Best move from last completed depth
 SearchController.thinking; // Flag to check if the engine is thinking or not
+SearchController.fromId;
+SearchController.toId;
 
 // Function to pick the next best move
 function PickNextMove(MoveNum) {
