@@ -16,7 +16,9 @@ $('#Undo').click( function () {
 });
 
 $('#NewGameButton').click( function () {
-	NewGame(START_FEN);
+    NewGame(START_FEN);
+    $(SearchController.fromId).removeClass("selected");
+    $(SearchController.toId).removeClass("selected");
 });
 
 //================================================================================
