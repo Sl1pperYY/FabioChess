@@ -169,15 +169,18 @@ function HASH_CA() {GameBoard.posKey ^= CastleKeys[GameBoard.castlePerm];}
 function HASH_SIDE() {GameBoard.posKey ^= SideKey;}
 function HASH_EP() {GameBoard.posKey ^= PieceKeys[GameBoard.enPas];}
 
+// GameController variable for engine side
 var GameController = {};
 GameController.EngineSide = COLOURS.BOTH;
 GameController.PlayerSide = COLOURS.BOTH;
 GameController.GameOver = false;
 
+// User Move variables
 var UserMove = {};
 UserMove.from = SQUARES.NO_SQ;
 UserMove.to = SQUARES.NO_SQ;
 
+// Drag Images
 bPImg = new Image();
 bRImg = new Image();
 bNImg = new Image();
@@ -205,3 +208,39 @@ wNImg.src = "Assets/PieceSVGs/wN.svg"
 wBImg.src = "Assets/PieceSVGs/wB.svg"
 wQImg.src = "Assets/PieceSVGs/wQ.svg"
 wKImg.src = "Assets/PieceSVGs/wK.svg"
+
+// Puzzle Images and FEN strings
+mateIn2_1img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn2_1";
+mateIn2_2img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn2_2";
+mateIn2_3img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn2_3";
+
+mateIn2_1FEN = "r2qkb1r/pp2nppp/3p4/2pNN1B1/2BnP3/3P4/PPP2PPP/R2bK2R w KQkq - 1 0";
+mateIn2_2FEN = "r1b2k1r/ppp1bppp/8/1B1Q4/5q2/2P5/PPP2PPP/R3R1K1 w - - 1 0";
+mateIn2_3FEN = "5rkr/pp2Rp2/1b1p1Pb1/3P2Q1/2n3P1/2p5/P4P2/4R1K1 w - - 1 0";
+
+mateIn3_1img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn3_1";
+mateIn3_2img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn3_2";
+mateIn3_3img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn3_3";
+
+mateIn3_1FEN = "4r2k/4Q1bp/4B1p1/1q2n3/4pN2/P1B3P1/4pP1P/4R1K1 w - - 1 0";
+mateIn3_2FEN = "1qr1k3/pb2p3/1p2N3/1NpPp3/8/7Q/PPP5/2K1R3 w - - 1 0";
+mateIn3_3FEN = "r6k/pb4bp/5Q2/2p1Np2/1qB5/8/P4PPP/4RK2 w - - 1 0";
+
+
+mateIn4_1img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn4_1";
+mateIn4_2img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn4_2";
+mateIn4_3img = new Image();
+mateIn2_1img.src = "Assets/Puzzles/mateIn4_3";
+
+mateIn4_1FEN = "r7/p1n2p1R/qp1p1k2/3Pp3/bPp1P3/2P1BBN1/3Q2K1/8 w - - 1 0";
+mateIn4_2FEN = "5rk1/pR4bp/6p1/6B1/5Q2/4P3/q2r1PPP/5RK1 w - - 1 0";
+mateIn4_3FEN = "1r2r2k/1q1n1p1p/p1b1pp2/3pP3/1b5R/2N1BBQ1/1PP3PP/3R3K w - - 1 0";
+

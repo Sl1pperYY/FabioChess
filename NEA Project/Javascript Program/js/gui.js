@@ -5,13 +5,17 @@
 $("#SetFen").click(function() {
     var fenStr = $("#fenIn").val();
     NewGame(fenStr);
+    $(SearchController.fromId).removeClass("selected");
+    $(SearchController.toId).removeClass("selected");
 });
 
 $('#Undo').click( function () {
 	if(GameBoard.hisPly > 0) {
 		TakeMove();
 		GameBoard.ply = 0;
-		SetInitialBoardPieces();
+        SetInitialBoardPieces();
+        $(SearchController.fromId).removeClass("selected");
+        $(SearchController.toId).removeClass("selected");
 	}
 });
 
