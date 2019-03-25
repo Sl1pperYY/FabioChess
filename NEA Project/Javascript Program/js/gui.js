@@ -154,9 +154,11 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().removeClass();
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
+            PreSearch();
         } else {
             console.log('Illegal Move')
         }
+        
     } else {
         squareid = $(ev.target).attr('id');
         SetToSq(squareid);
@@ -181,16 +183,16 @@ function drop(ev) {
             if (move & MFLAGCA) {
                 switch(to) {
                     case SQUARES.G1:
-                        $("f1").append($("h1piece"));
+                        $("#f1").parent().append($("#h1"));
                         break;
                     case SQUARES.C1:
-                        $("d1").parent().append($("a1"));
+                        $("#d1").parent().append($("#a1"));
                         break;
                     case SQUARES.G8:
-                        $("f8").parent().append($("h8"));
+                        $("#f8").parent().append($("#h8"));
                         break;
                     case SQUARES.C8:
-                        $("d8").parent().append($("a8"));
+                        $("#d8").parent().append($("#a8"));
                         break;
                 }
             }
@@ -204,11 +206,13 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().removeClass();
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
+
+            PreSearch();
         } else {
             console.log('Illegal Move')
         }
     }
-    CheckAndSet()
+    CheckAndSet();
 }
 
 function allowDrop(ev) {
@@ -356,53 +360,47 @@ function UpdateDOMStats(dom_score, dom_depth) {
 function StartSearch() {
     SearchController.depth = MAXDEPTH;
     var t = $.now();
-    var tt = 3; // Thinking time
+    var tt = 1; // Thinking time
 
     SearchController.time = tt * 1000;
     SearchPosition();
 
-    /*
+    
     MakeMove(SearchController.best);
 
-    var from = FROMSQ(move);
-	var to = TOSQ(move);	
+    var from = FROMSQ(SearchController.best);
+    var to = TOSQ(SearchController.best);
+    var fromFile = String.fromCharCode(FilesBrd[from] + 97);
+    var fromRank = (RanksBrd[from] + 1).toString();
+    var toFile = String.fromCharCode(FilesBrd[to] + 97);
+    var toRank = (RanksBrd[to] + 1).toString();
+    var fromId = ("#" + fromFile + fromRank);
+    var toId = ("#" + toFile + toRank);
+    
+    var piece = $(fromId).children().detach();
+    $(toId).children().remove();
+    $(toId).append(piece);
 	
-	if(move & MFLAGEP) {
-		var epRemove;
-		if(GameBoard.side == COLOURS.BLACK) {
-			epRemove = to - 10;
-		} else {
-			epRemove = to + 10;
-		}
-		RemoveGUIPiece(epRemove);
-	} else if(CAPTURED(move)) {
-		RemoveGUIPiece(to);
+	if(SearchController.best & MFLAGEP) {
+        if (GameBoard.side == COLOURS.WHITE){
+            // Remove Pawn from 1 rank less
+        } else {
+            // Remove Pawn from 1 rank more if black
+        }
 	}
 	
-	var file = FilesBrd[to];
-	var rank = RanksBrd[to];
-	var rankName = "rank" + (rank+1);
-	var	fileName = "file" + (file+1);
 	
-	$('.Piece').each( function(index) {
-		if(PieceIsOnSq(from, $(this).position().top, $(this).position().left) == BOOL.TRUE) {
-			$(this).removeClass();
-			$(this).addClass("Piece " + rankName + " " + fileName);
-		}
-	} );
-	
-	if(move & MFLAGCA) {
+	if(SearchController.best & MFLAGCA) {
 		switch(to) {
-			case SQUARES.G1: RemoveGUIPiece(SQUARES.H1); AddGUIPiece(SQUARES.F1, PIECES.wR); break;
-			case SQUARES.C1: RemoveGUIPiece(SQUARES.A1); AddGUIPiece(SQUARES.D1, PIECES.wR); break;
-			case SQUARES.G8: RemoveGUIPiece(SQUARES.H8); AddGUIPiece(SQUARES.F8, PIECES.bR); break;
-			case SQUARES.C8: RemoveGUIPiece(SQUARES.A8); AddGUIPiece(SQUARES.D8, PIECES.bR); break;
+            // case SQUARES.G1: Move rook from H1 to F1;
+            // case SQUARES.C1: Move rook from A1 to D1;
+            // case SQUARES.G8: Move rook from H8 to F8;
+            // case Squares.C8: Move rook from A8 to D8;
 		}
-	} else if (PROMOTED(move)) {
-		RemoveGUIPiece(to);
-		AddGUIPiece(to, PROMOTED(move));
+	} else if (PROMOTED(SearchController.best)) {
+		// Remove the pawn and replace it with a queen
 	}
-    */
+    
    
     CheckAndSet();
 
