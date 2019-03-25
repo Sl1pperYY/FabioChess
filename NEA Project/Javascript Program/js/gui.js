@@ -103,6 +103,7 @@ function drag(ev) {
             ev.dataTransfer.setDragImage(img, 50, 50);
         } else if (pceType == 'fas fa-chess-knight') {
             img = wNImg;
+            
             ev.dataTransfer.setDragImage(img, 50, 50);
         } else if (pceType == 'fas fa-chess-bishop') {
             img = wBImg;
@@ -160,7 +161,7 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().removeClass();
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
-            // PreSearch();
+            PreSearch();
         } else {
             console.log('Illegal Move')
         }
@@ -222,7 +223,7 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
 
-            // PreSearch();
+            PreSearch();
         } else {
             console.log('Illegal Move')
         }

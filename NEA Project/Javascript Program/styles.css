@@ -34,15 +34,15 @@ h1 {
 }
 
 .selected {
-  box-shadow: 0 0 0 0.2rem black;
+  box-shadow: 0 0 0 0.2rem green;
 }
 
 #chess-board .chess-row .dark{
-  background: #51390b;
+  background: #0097a7;
 }
 
 #chess-board .chess-row .light{
-  background: #efd9c1;
+  background: #b2ebf2;
 }
  
 #chess-board .chess-row {
