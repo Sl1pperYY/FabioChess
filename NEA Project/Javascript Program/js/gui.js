@@ -448,8 +448,17 @@ function StartSearch() {
         $(toId).children().children().removeClass();
         $(toId).children().children().addClass("fas fa-chess-queen");
 	}
-    
-   
     CheckAndSet();
+}
 
+//================================================================================
+// Puzzle
+//================================================================================
+
+function setPuzzle(puzzle) {
+    var puzzle = document.getElementById(puzzle);
+    var FEN = puzzle + "FEN";
+
+    window.location = "https://fabio.hu/bf/index.html";
+    NewGame(FEN);
 }
