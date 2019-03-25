@@ -85,51 +85,55 @@ function drag(ev) {
     // ev.currentTarget.style.boxShadow = '0 0 0 0.2rem cyan';
     var pce = ev.target.id;
     pce = pce[0] + pce[1];
+    side = $(ev.target).children().attr('style');
+    pceType = $(ev.target).children().attr('class');
 
     SetFromSq($(ev.target).parent().attr('id'));
 
     // $(ev.target).addClass('.selected');
     var img = new Image();
-
-    console.log(pce);
     
     // Sets the correct drag image
-    if (pce[1] == '7') {
-        img = bPImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if (pce[1] == '2') {
-        img = wPImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if ((pce[0] == 'a' && pce[1] == '8') || (pce[0] == 'h' && pce[1] == '8')) {
-        img = bRImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if ((pce[0] == 'a' && pce[1] == '1') || (pce[0] == 'h' && pce[1] == '1')) {
-        img = wRImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if ((pce[0] == 'b' && pce[1] == '8') || (pce[0] == 'g'  && pce[1] == '8')) {
-        img = bNImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if ((pce[0] == 'b' && pce[1] == '1') || (pce[0] == 'g'  && pce[1] == '1')) {
-        img = wNImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if ((pce[0] == 'c' && pce[1] == '8') || (pce[0] == 'f' && pce[1] == '8')) {
-        img = bBImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if ((pce[0] == 'c' && pce[1] == '1') || (pce[0] == 'f' && pce[1] == '1')) {
-        img = wBImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if (pce[0] == 'd' && pce[1] == '8') {
-        img = bQImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if (pce[0] == 'd' && pce[1] == '1') {
-        img = wQImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if (pce[0] == 'e' && pce[1] == '8') {
-        img = bKImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
-    } else if (pce[0] == 'e' && pce[1] == '1') {
-        img = wKImg;
-        ev.dataTransfer.setDragImage(img, 200, 200);
+    if (side == 'color:white') {
+        if (pceType == 'fas fa-chess-pawn') {
+            img = wPImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-rook') {
+            img = wRImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-knight') {
+            img = wNImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-bishop') {
+            img = wBImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-queen') {
+            img = wQImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-king') {
+            img = wKImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        }
+    } else {
+        if (pceType == 'fas fa-chess-pawn') {
+            img = bPImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-rook') {
+            img = bRImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-knight') {
+            img = bNImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-bishop') {
+            img = bBImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-queen') {
+            img = bQImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        } else if (pceType == 'fas fa-chess-king') {
+            img = bKImg;
+            ev.dataTransfer.setDragImage(img, 50, 50);
+        }
     }
 }
   
@@ -156,7 +160,7 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().removeClass();
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
-            PreSearch();
+            // PreSearch();
         } else {
             console.log('Illegal Move')
         }
@@ -169,32 +173,41 @@ function drop(ev) {
 
         if(move != NOMOVE) {
             MakeMove(move);
+            $(ev.target).children().remove();
 
             var to = TOSQ(move);
     
             // Removing the pawn on an enpassant move
             if(move & MFLAGEP) {
-                if(GameBoard.side == COLOURS.WHITE) {
-                    enPassantSqRank == (parseInt(squareid[1]) - 1).toString();
-                    enPassantSqId == ((squareid.replace(squareid[1], enPassantSqRank)));
-                    $(enPassantSqId).parent().remove();
-                }    
+                if(GameBoard.side == COLOURS.BLACK) {
+                    var enPassantSqRank = (parseInt(squareid[1]) - 1).toString();
+                    var enPassantSqId = ("#" + squareid[0] + enPassantSqRank);
+                    $(enPassantSqId).children().remove();
+                } else {
+                    var enPassantSqRank = (parseInt(squareid[1]) + 1).toString();
+                    var enPassantSqId = ("#" + squareid[0] + enPassantSqRank);
+                    $(enPassantSqId).children().remove();
+                }
             }
 
             // Moving the rook if its a castling move
             if (move & MFLAGCA) {
                 switch(to) {
                     case SQUARES.G1:
-                        $("#f1").parent().append($("#h1"));
+                        rook = $("#h1").children().detach();
+                        $("#f1").append(rook);
                         break;
                     case SQUARES.C1:
-                        $("#d1").parent().append($("#a1"));
+                        rook = $("#a1").children().detach();
+                        $("#d1").append(rook);
                         break;
                     case SQUARES.G8:
-                        $("#f8").parent().append($("#h8"));
+                        rook = $("#h8").children().detach();
+                        $("#f8").append(rook);
                         break;
                     case SQUARES.C8:
-                        $("#d8").parent().append($("#a8"));
+                        rook = $("#a8").children().detach();
+                        $("#d8").append(rook);
                         break;
                 }
             }
@@ -209,7 +222,7 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
 
-            PreSearch();
+            // PreSearch();
         } else {
             console.log('Illegal Move')
         }
@@ -246,7 +259,8 @@ function CheckAndSet() {
 	if(CheckResult() == true) {
 		GameController.GameOver = true;
 	} else {
-		GameController.GameOver = false;
+        GameController.GameOver = false;
+        $("#GameStatus").text("");
 	}
 }
 
@@ -340,7 +354,7 @@ function ThreeFoldRep() {
 function PreSearch() {
 	if(GameController.GameOver == false) {
 		SearchController.thinking = true;
-		setTimeout( function() { StartSearch(); }, 200 );
+		setTimeout( function() { StartSearch(); }, 0 );
 	}
 }
 
@@ -384,23 +398,40 @@ function StartSearch() {
     $(toId).append(piece);
 	
 	if(SearchController.best & MFLAGEP) {
-        if (GameBoard.side == COLOURS.WHITE){
-            // Remove Pawn from 1 rank less
+        var enPassantCap;
+        if (GameBoard.side == COLOURS.BLACK){
+            enPassantCap = (RanksBrd[to]).toString();
+            $("#" + toFile + enPassantCap).children().remove()
         } else {
-            // Remove Pawn from 1 rank more if black
+            enPassantCap = (RanksBrd[to] + 2).toString();
+            $("#" + toFile + enPassantCap).children().remove()
         }
 	}
 	
-	
+	console.log(to);
 	if(SearchController.best & MFLAGCA) {
+        var rook;
 		switch(to) {
-            // case SQUARES.G1: Move rook from H1 to F1;
-            // case SQUARES.C1: Move rook from A1 to D1;
-            // case SQUARES.G8: Move rook from H8 to F8;
-            // case Squares.C8: Move rook from A8 to D8;
+            case SQUARES.G1:
+                rook = $("#h1").children().detach();
+                $("#f1").append(rook);
+                break;
+            case SQUARES.C1:
+                rook = $("#a1").children().detach();
+                $("#d1").append(rook);
+                break;
+            case SQUARES.G8:
+                rook = $("#h8").children().detach();
+                $("#f8").append(rook);
+                break;
+            case SQUARES.C8:
+                rook = $("#a8").children().detach();
+                $("#d8").append(rook);
+                break;
 		}
 	} else if (PROMOTED(SearchController.best)) {
-		// Remove the pawn and replace it with a queen
+        $(toId).children().children().removeClass();
+        $(toId).children().children().addClass("fas fa-chess-queen");
 	}
     
    

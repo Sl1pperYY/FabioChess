@@ -16,6 +16,7 @@ var COLOURS = { WHITE:0, BLACK:1, BOTH:2 }; // Number representation for the col
 
 var CASTLEBIT = { WKCA:1, WQCA:2, BKCA:4, BQCA:8 }; // Values for castling permissions
 
+// Important Squares (Castling)
 var SQUARES = {
     A1:21, B1:22, C1:23, D1:24, E1:25, F1:26, G1:27, H1:28,  
     A8:91, B8:92, C8:93, D8:94, E8:95, F8:96, G8:97, H8:98, 
