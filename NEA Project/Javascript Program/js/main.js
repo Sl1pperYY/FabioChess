@@ -1,7 +1,11 @@
 // Main Init
 $(function() {
-    init();
-	NewGame(START_FEN);
+	init();
+	if (params.puzzle != null) {
+        NewGame(params.puzzle);
+    } else {
+		NewGame(START_FEN);
+	}
 });
  
 // Init of the files and ranks boards

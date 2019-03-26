@@ -456,11 +456,14 @@ function StartSearch() {
 //================================================================================
 
 function redirect(puzzle) {
-    window.location.href="/bf/index.html?puzzle=' + puzzle'";
+    var index = "/bf/index.html?puzzle="
+    window.location.href= index + puzzle;
 }
 
 function getSearchParameters() {
     var prmstr = window.location.search.substr(1);
+    prmstr = decodeURIComponent(prmstr);
+    console.log(prmstr);
     return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
 }
 
@@ -471,13 +474,8 @@ function transformToAssocArray( prmstr ) {
         var tmparr = prmarr[i].split("=");
         params[tmparr[0]] = tmparr[1];
     }
+    console.log(params);
     return params;
 }
 
-var puzzle = getSearchParameters();
-
-$(window).on("load", function() {
-    NewGame(puzzle);
-    $(SearchController.fromId).removeClass("selected");
-    $(SearchController.toId).removeClass("selected");
-})
+var params = getSearchParameters();
