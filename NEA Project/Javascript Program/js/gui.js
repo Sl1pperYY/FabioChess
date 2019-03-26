@@ -369,7 +369,7 @@ function UpdateDOMStats(dom_score, dom_depth) {
 
     var scoreText = "Score: " + (dom_score / 100).toFixed(2);
     if(Math.abs(dom_score) > MATE - MAXDEPTH) {
-        scoreText = "Score: Mate In " + (MATE - Math.abs(dom_score)) + " moves";
+        scoreText = "Score: Mate In " + (MATE - Math.abs(dom_score)-1) + " moves";
     }
 
 	$("#OrderingOut").text("Ordering: " + ((SearchController.fhf/SearchController.fh)*100).toFixed(2) + "%");
@@ -455,10 +455,6 @@ function StartSearch() {
 // Puzzle
 //================================================================================
 
-function setPuzzle(puzzle) {
-    var puzzle = document.getElementById(puzzle);
-    var FEN = puzzle + "FEN";
-
-    window.location = "https://fabio.hu/bf/index.html";
-    NewGame(FEN);
+function redirect(puzzle) {
+    window.location.href="'/bf/index.html?puzzle=' + puzzle";
 }
