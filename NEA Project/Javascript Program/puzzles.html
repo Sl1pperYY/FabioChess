@@ -26,65 +26,63 @@
     </div>
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-          <li class="tab"><a  href="index.html"><i class="fas fa-chess"></i>  New Game</a></li>
-          <li class="tab"><a href="puzzles.html"><i class="fas fa-puzzle-piece"></i>  Puzzles</a></li>
-          <li class="tab"><a href="help.html"><i class="fas fa-question"></i>  Help</a></li>
+        <li class="tab"><a  href="index.html"><i class="fas fa-chess"></i>  New Game</a></li>
+        <li class="tab"><a href="puzzles.html"><i class="fas fa-puzzle-piece"></i>  Puzzles</a></li>
+        <li class="tab"><a href="help.html"><i class="fas fa-question"></i>  Help</a></li>
       </ul>
     </div>
     </nav>
 
     <div id="FenInDiv">
-      Fen:<br/>
-      <input type="text" id="fenIn"/>
-      <button onclick="redirect()" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="SetFen">Set</a>
-  </div>
+        Fen:<br/>
+        <input type="text" id="fenIn"/>
+        <button onclick="redirect($('#fenIn').val())" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="SetFen">Set</a>
+    </div>
 
-    <h2>Mate In 2 Puzzles</h2>
-    <div id="mateIn2_1">
-      <img src="Assets/Puzzles/mateIn2_1.png">
-      <button onclick="redirect(mateIn2_1FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn2_1Button">Set Board</button>
+    <div class="puzzle-row" id="MI2">
+      <h2>Mate In 2 Puzzles</h2>
+      <div class="puzzle-container" id="mateIn2_1">
+        <img src="Assets/Puzzles/mateIn2_1.png">
+        <button onclick="redirect(mateIn2_1FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn2_1Button">Set Board</button>
+      </div>
+      <div class="puzzle-container" id="mateIn2_2">
+        <img src="Assets/Puzzles/mateIn2_2.png">
+        <button onclick="redirect(mateIn2_2FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn2_2Button">Set Board</button>
+      </div>
+      <div class="puzzle-container" id="mateIn2_3">
+        <img src="Assets/Puzzles/mateIn2_3.png">
+        <button onclick="redirect(mateIn2_3FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn2_3Button">Set Board</button>
+      </div>
     </div>
-    <br>
-    <div id="mateIn2_2">
-      <img src="Assets/Puzzles/mateIn2_2.png">
-      <button onclick="redirect(mateIn2_2FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn2_2Button">Set Board</button>
+    <div class="puzzle-row" id="MI3">
+      <h2>Mate In 3 Puzzles</h2>
+      <div class="puzzle-container" id="mateIn3_1">
+        <img src="Assets/Puzzles/mateIn3_1.png">
+        <button onclick="redirect(mateIn3_1FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn3_1Button">Set Board</button>
+      </div>
+      <div class="puzzle-container" id="mateIn3_2">
+        <img src="Assets/Puzzles/mateIn3_2.png">
+        <button onclick="redirect(mateIn3_2FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn3_2Button">Set Board</button>
+      </div>
+      <div class="puzzle-container" id="mateIn3_3">
+        <img src="Assets/Puzzles/mateIn3_3.png">
+        <button onclick="redirect(mateIn3_3FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn3_3Button">Set Board</button>
+      </div>
     </div>
-    <br>
-    <div id="mateIn2_3">
-      <img src="Assets/Puzzles/mateIn2_3.png">
-      <button onclick="redirect(mateIn2_3FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn2_3Button">Set Board</button>
-    </div>
-    <br>
-    <h2>Mate In 3 Puzzles</h2>
-    <div id="mateIn3_1">
-      <img src="Assets/Puzzles/mateIn3_1.png">
-      <button onclick="redirect(mateIn3_1FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn3_1Button">Set Board</button>
-    </div>
-    <br>
-    <div id="mateIn3_2">
-      <img src="Assets/Puzzles/mateIn3_2.png">
-      <button onclick="redirect(mateIn3_2FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn3_2Button">Set Board</button>
-    </div>
-    <br>
-    <div id="mateIn3_3">
-      <img src="Assets/Puzzles/mateIn3_3.png">
-      <button onclick="redirect(mateIn3_3FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn3_3Button">Set Board</button>
-    </div>''
-    <br>
-    <h2>Mate In 4 Puzzles</h2>
-    <div id="mateIn4_1">
-      <img src="Assets/Puzzles/mateIn4_1.png">
-      <button onclick="redirect(mateIn4_1FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn4_1Button">Set Board</button>
-    </div>
-    <br>
-    <div id="mateIn4_2">
-      <img src="Assets/Puzzles/mateIn4_2.png">
-      <button onclick="redirect(mateIn4_2FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn4_2Button">Set Board</button>
-    </div>
-    <br>
-    <div id="mateIn4_3">
-      <img src="Assets/Puzzles/mateIn4_3.png">
-      <button onclick="redirect(mateIn4_3FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn4_3Button">Set Board</button>
+    <div class="puzzle-row" id="MI4">
+      <h2>Mate In 4 Puzzles</h2>
+      <div class="puzzle-container" id="mateIn4_1">
+        <img src="Assets/Puzzles/mateIn4_1.png">
+        <button onclick="redirect(mateIn4_1FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn4_1Button">Set Board</button>
+      </div>
+      <div class="puzzle-container" id="mateIn4_2">
+        <img src="Assets/Puzzles/mateIn4_2.png">
+        <button onclick="redirect(mateIn4_2FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn4_2Button">Set Board</button>
+      </div>
+      <div class="puzzle-container" id="mateIn4_3">
+        <img src="Assets/Puzzles/mateIn4_3.png">
+        <button onclick="redirect(mateIn4_3FEN)" class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="mateIn4_3Button">Set Board</button>
+      </div>
     </div>
     
 

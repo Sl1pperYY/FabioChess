@@ -1,11 +1,17 @@
 #FenInDiv {
     position: relative;
-    left: 60px;
+    width: 50%;
+    margin: auto;
+    align-content: center;
 }
 
-#fenIn {
-    width: 550px;
-    left: 60px;
+#SetFen {
+  margin-left: 50%;
+}
+
+.player {
+  background: white;
+  color: black;
 }
 
 section {
@@ -16,6 +22,36 @@ h1 {
     margin: 20px;
 }
 
+h2 {
+  text-align: center;
+}
+
+div.puzzle-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 5fr;
+
+}
+
+.puzzle-row h2 {
+  grid-column-start: 2;
+}
+
+div.puzzle-container {
+  grid-row-start: 2;
+  margin: auto;
+  display: grid;
+}
+
+.puzzle-container img {
+  height: 30rem;
+}
+
+.puzzle-container .btn-small {
+  margin: auto;
+  margin-top: 1rem;
+}
+
 #logo {
   width: 60px;
   margin: 10px;
@@ -23,16 +59,6 @@ h1 {
 
 #large-button{
   margin: 360px 210px;
-}
-
-.flex-container {
-  display: flex;
-  justify-content: center;
-}
-
-.flex-container > div {
-  margin: 10px;
-  line-height: 75px;
 }
 
 .piece{
