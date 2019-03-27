@@ -81,15 +81,11 @@ function NewGame(fenStr) {
 function drag(ev) {
     ev.dataTransfer.effectAllowed = 'move';
     ev.dataTransfer.setData("text", ev.target.id);
-    // ev.currentTarget.style.boxShadow = '0 0 0 0.2rem cyan';
-    var pce = ev.target.id;
-    pce = pce[0] + pce[1];
     side = $(ev.target).children().attr('style');
     pceType = $(ev.target).children().attr('class');
 
     SetFromSq($(ev.target).parent().attr('id'));
 
-    // $(ev.target).addClass('.selected');
     var img = new Image();
     
     // Sets the correct drag image
@@ -144,6 +140,7 @@ function drop(ev) {
         SetToSq(squareid);
 
         var move = ParseMove(UserMove.from, UserMove.to);
+        var toastMessage = UserMove.fromId + UserMove.toId;
 
         if(move != NOMOVE) {
             MakeMove(move);
@@ -384,7 +381,7 @@ function UpdateDOMStats(dom_score, dom_depth) {
 function StartSearch() {
     SearchController.depth = MAXDEPTH;
     var t = $.now();
-    var tt = 1; // Thinking time
+    var tt = 2; // Thinking time
 
     $(SearchController.fromId).removeClass("selected");
     $(SearchController.toId).removeClass("selected");
@@ -412,7 +409,9 @@ function StartSearch() {
     $(toId).append(piece);
     $(fromId).addClass("selected");
     $(toId).addClass("selected");
-	
+    
+    M.toast({html: PrMove(SearchController.best), classes: 'rounded', displayLength: 6000});
+
 	if(SearchController.best & MFLAGEP) {
         var enPassantCap;
         if (GameBoard.side == COLOURS.BLACK){
