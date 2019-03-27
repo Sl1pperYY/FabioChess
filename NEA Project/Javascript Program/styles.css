@@ -25,6 +25,16 @@ h1 {
   margin: 360px 210px;
 }
 
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-container > div {
+  margin: 10px;
+  line-height: 75px;
+}
+
 .piece{
   cursor: pointer;
 }
