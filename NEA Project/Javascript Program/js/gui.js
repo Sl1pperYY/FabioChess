@@ -4,7 +4,8 @@
 
 $('#Undo').click( function () {
 	if(GameBoard.hisPly > 0) {
-		TakeMove();
+        TakeMove();
+        TakeMove();
 		GameBoard.ply = 0;
         SetInitialBoardPieces();
         $(SearchController.fromId).removeClass("selected");
