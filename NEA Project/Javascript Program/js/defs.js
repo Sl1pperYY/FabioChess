@@ -179,6 +179,8 @@ GameController.GameOver = false;
 var UserMove = {};
 UserMove.from = SQUARES.NO_SQ;
 UserMove.to = SQUARES.NO_SQ;
+UserMove.fromId;
+UserMove.toId;
 
 // Drag Images
 bPImg = new Image();

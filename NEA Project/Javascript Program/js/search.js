@@ -323,7 +323,7 @@ function SearchPosition() {
         if(currentDepth != 1) {
             line += (' Ordering:' + ((SearchController.fhf/SearchController.fh)*100).toFixed(2) + '%');
         }
-        console.log(line);
+        // console.log(line);
     }
     SearchController.best = bestMove;
 	SearchController.thinking = false;

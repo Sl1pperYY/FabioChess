@@ -20,13 +20,25 @@ h1 {
   position: relative;
 }
 
-#logo {
-  width: 60px;
-  margin: 10px;
+h2 {
+  text-align: center;
 }
 
-#large-button{
-  margin: 360px 210px;
+div.puzzle-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 5fr;
+
+}
+
+.puzzle-row h2 {
+  grid-column-start: 2;
+}
+
+div.puzzle-container {
+  grid-row-start: 2;
+  margin: auto;
+  display: grid;
 }
 
 .piece{
@@ -39,7 +51,8 @@ h1 {
 }
 
 .selected {
-  box-shadow: 0 0 3px 0.2rem #006064;
+  box-shadow: 0px 0px 3px 0.2rem #006064;
+  z-index: 1;
 }
 
 #chess-board .chess-row .dark{
@@ -59,18 +72,27 @@ h1 {
 }
 
 #chess-board {
-  margin: 0 auto;
   width: 640px;
   height: 640px;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: repeat(9, 1fr);
-  position: absolute;
-  top: 200px;
+  grid-column-start: 2;
+  margin-top: 100px;
 }
 
 #EngineOutput {
-  position: absolute;
-  left: 400px;
-  top: 0px;
+  grid-column-start: 3;
+}
+
+#container {
+  display: grid;
+  margin: auto;
+  grid-template-columns: repeat(4, 1fr);
+  height: auto;
+  width: 100%;
+}
+
+html,body {
+  height: 100%;
 }

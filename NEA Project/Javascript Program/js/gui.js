@@ -2,16 +2,10 @@
 // Buttons
 //================================================================================
 
-$("#SetFen").click(function() {
-    var fenStr = $("#fenIn").val();
-    NewGame(fenStr);
-    $(SearchController.fromId).removeClass("selected");
-    $(SearchController.toId).removeClass("selected");
-});
-
 $('#Undo').click( function () {
 	if(GameBoard.hisPly > 0) {
-		TakeMove();
+        TakeMove();
+        TakeMove();
 		GameBoard.ply = 0;
         SetInitialBoardPieces();
         $(SearchController.fromId).removeClass("selected");
@@ -88,15 +82,11 @@ function NewGame(fenStr) {
 function drag(ev) {
     ev.dataTransfer.effectAllowed = 'move';
     ev.dataTransfer.setData("text", ev.target.id);
-    // ev.currentTarget.style.boxShadow = '0 0 0 0.2rem cyan';
-    var pce = ev.target.id;
-    pce = pce[0] + pce[1];
     side = $(ev.target).children().attr('style');
     pceType = $(ev.target).children().attr('class');
 
     SetFromSq($(ev.target).parent().attr('id'));
 
-    // $(ev.target).addClass('.selected');
     var img = new Image();
     
     // Sets the correct drag image
@@ -151,6 +141,7 @@ function drop(ev) {
         SetToSq(squareid);
 
         var move = ParseMove(UserMove.from, UserMove.to);
+        var toastMessage = UserMove.fromId + UserMove.toId;
 
         if(move != NOMOVE) {
             MakeMove(move);
@@ -167,7 +158,10 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().removeClass();
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
-            PreSearch();
+            M.toast({html: toastMessage, classes: 'rounded player', displayLength: 6000});
+            setTimeout(function() {
+                PreSearch();
+            }, 300);
         } else {
             $("#GameStatus").text("Illegal Move");
         }
@@ -177,6 +171,7 @@ function drop(ev) {
         SetToSq(squareid);
 
         var move = ParseMove(UserMove.from, UserMove.to);
+        var toastMessage = UserMove.fromId + UserMove.toId;
 
         if(move != NOMOVE) {
             MakeMove(move);
@@ -228,8 +223,10 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().removeClass();
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
-
-            PreSearch();
+            M.toast({html: toastMessage, classes: 'rounded player', displayLength: 6000});
+            setTimeout(function() {
+                PreSearch();
+            }, 300);
         } else {
             $("#GameStatus").text("Illegal Move");
         }
@@ -247,6 +244,7 @@ function SetFromSq(sq) {
     rank = (parseInt(sq[1], 10) - 1);
     coordinate = FR2SQ(file,rank);
     UserMove.from = coordinate;
+    UserMove.fromId = sq;
 }
 
 // Function to set the square which the piece is being moved to
@@ -255,6 +253,7 @@ function SetToSq(sq) {
     rank = (parseInt(sq[1], 10) - 1);
     coordinate = FR2SQ(file,rank);
     UserMove.to = coordinate;
+    UserMove.toId = sq;
 }
 
 //================================================================================
@@ -276,19 +275,19 @@ function CheckResult() {
 
     // Fifty move rule draw
     if(GameBoard.fiftyMove >= 100) {
-        $("#GameStatus").text("GAME DRAWN {fifty move rule}"); 
+        $("#GameStatus").text("GAME DRAWN fifty move rule"); 
         return true;
     }
 
     // 3-fold repetition draw
     if (ThreeFoldRep() >= 2) {
-        $("#GameStatus").text("GAME DRAWN {3-fold repetition}"); 
+        $("#GameStatus").text("GAME DRAWN 3-fold repetition"); 
         return true;
     }
 
     // Insufficient material to mate draw
     if (DrawMaterial() == true) {
-        $("#GameStatus").text("GAME DRAWN {insufficient material to mate}"); 
+        $("#GameStatus").text("GAME DRAWN insufficient material to mate"); 
         return true;
     }
 
@@ -315,18 +314,18 @@ function CheckResult() {
         if(GameBoard.side == COLOURS.WHITE) {
 
             // Black wins
-            $("#GameStatus").text("GAME OVER {black mates}");
+            $("#GameStatus").text("GAME OVER black mates");
             return true;
         } else {
 
             // White wins
-            $("#GameStatus").text("GAME OVER {white mates}");
+            $("#GameStatus").text("GAME OVER white mates");
             return true;
         }
     } else {
         
         // Stalemate draw
-        $("#GameStatus").text("GAME DRAWN {stalemate}");return true;
+        $("#GameStatus").text("GAME DRAWN stalemate");return true;
     }
 }
 
@@ -383,7 +382,7 @@ function UpdateDOMStats(dom_score, dom_depth) {
 function StartSearch() {
     SearchController.depth = MAXDEPTH;
     var t = $.now();
-    var tt = 1; // Thinking time
+    var tt = 2; // Thinking time
 
     $(SearchController.fromId).removeClass("selected");
     $(SearchController.toId).removeClass("selected");
@@ -410,7 +409,9 @@ function StartSearch() {
     $(toId).append(piece);
     $(fromId).addClass("selected");
     $(toId).addClass("selected");
-	
+    
+    M.toast({html: PrMove(SearchController.best), classes: 'rounded', displayLength: 6000});
+
 	if(SearchController.best & MFLAGEP) {
         var enPassantCap;
         if (GameBoard.side == COLOURS.BLACK){
@@ -422,7 +423,6 @@ function StartSearch() {
         }
 	}
 	
-	console.log(to);
 	if(SearchController.best & MFLAGCA) {
         var rook;
 		switch(to) {

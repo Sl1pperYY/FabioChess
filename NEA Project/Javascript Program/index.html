@@ -18,17 +18,126 @@
             <nav class="nav-extended cyan">
                 <div class="nav-wrapper">
                     <a href="index.html" class="brand-logo"><img id='logo' src="Assets/logo.svg" alt="Home"></a>
-                </div>
-                <div class="nav-content">
-                    <ul class="tabs tabs-transparent">
-                        <li class="tab"><a  href="index.html"><i class="fas fa-chess"></i>  New Game</a></li>
-                        <li class="tab"><a href="puzzles.html"><i class="fas fa-puzzle-piece"></i>  Puzzles</a></li>
-                        <li class="tab"><a href="help.html"><i class="fas fa-question"></i>  Help</a></li>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a  href="index.html"><i class="fas fa-chess"></i>  New Game</a></li>
+                        <li><a href="puzzles.html"><i class="fas fa-puzzle-piece"></i>  Puzzles</a></li>
+                        <li><a href="help.html"><i class="fas fa-question"></i>  Help</a></li>
                     </ul>
                 </div>
             </nav>
         </header>
+        <div id="container">
+            <section id="chess-board">
+                <div class="chess-row">
+                    <div>8</div>
+                    <div class="dark square" id='a8' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='b8' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='c8' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='d8' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='e8' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='f8' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='g8' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='h8' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                </div>
+        
+                <div class="chess-row">
+                    <div>7</div>
+                    <div class="light square" id='a7' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='b7' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='c7' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='d7' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='e7' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='f7' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='g7' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='h7' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                </div>
+        
+                <div class="chess-row">
+                    <div>6</div>
+                    <div class="dark square" id='a6' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='b6' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='c6' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='d6' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='e6' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='f6' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='g6' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='h6' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                </div>
+        
+                <div class="chess-row">
+                    <div>5</div>
+                    <div class="light square" id='a5' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='b5' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='c5' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='d5' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='e5' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='f5' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='g5' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='h5' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                </div>
+        
+                <div class="chess-row">
+                    <div>4</div>
+                    <div class="dark square" id='a4' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='b4' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='c4' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='d4' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='e4' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='f4' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='g4' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='h4' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                </div>
+        
+                <div class="chess-row">
+                    <div>3</div>
+                    <div class="light square" id='a3' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='b3' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='c3' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='d3' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='e3' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='f3' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='g3' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='h3' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                </div>
+        
+                <div class="chess-row">
+                    <div>2</div>
+                    <div class="dark square" id='a2' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='b2' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='c2' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='d2' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='e2' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='f2' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='g2' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='h2' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                </div>
+        
+                <div class="chess-row">
+                    <div>1</div>
+                    <div class="light square" id='a1' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='b1' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='c1' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='d1' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='e1' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='f1' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="light square" id='g1' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div class="dark square" id='h1' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                </div>
+        
+                <div class="chess-row">
+                    <div></div>
+                    <div>a</div>
+                    <div>b</div>
+                    <div>c</div>
+                    <div>d</div>
+                    <div>e</div>
+                    <div>f</div>
+                    <div>g</div>
+                    <div>h</div>
+                </div>
+            </section>
 
+<<<<<<< HEAD
         <section id="chess-board">
             <div class="chess-row">
                 <div>8</div>
@@ -145,6 +254,7 @@
             <a class="waves-effect hoverable waves-cyan lighten-3 cyan darken-2 btn-small" id="Hint">Hint</a>
             <span id="GameStatus"></span>
         </section>
+
 
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
