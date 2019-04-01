@@ -1,19 +1,23 @@
 #FenInDiv {
-    position: relative;
-    left: 60px;
+  position: relative;
+  left: 60px;
 }
 
 #fenIn {
-    width: 550px;
-    left: 60px;
+  width: 550px;
+  left: 60px;
 }
 
 section {
-    margin: 300px;
+  margin: 300px;
 }
 
 h1 {
-    margin: 20px;
+  margin: 20px;
+}
+
+.square {
+  position: relative;
 }
 
 #logo {
@@ -25,18 +29,9 @@ h1 {
   margin: 360px 210px;
 }
 
-.flex-container {
-  display: flex;
-  justify-content: center;
-}
-
-.flex-container > div {
-  margin: 10px;
-  line-height: 75px;
-}
-
 .piece{
   cursor: pointer;
+  position: relative;
 }
 
 .invisible {

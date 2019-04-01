@@ -390,8 +390,7 @@ function StartSearch() {
 
     SearchController.time = tt * 1000;
     SearchPosition();
-
-    
+  
     MakeMove(SearchController.best);
 
     var from = FROMSQ(SearchController.best);
@@ -474,8 +473,11 @@ function transformToAssocArray( prmstr ) {
         var tmparr = prmarr[i].split("=");
         params[tmparr[0]] = tmparr[1];
     }
-    console.log(params);
     return params;
 }
 
 var params = getSearchParameters();
+
+//================================================================================
+// Possible Moves
+//================================================================================
