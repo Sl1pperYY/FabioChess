@@ -100,7 +100,7 @@ function MIRROR64(sq) {
     return Mirror64[sq];
 }
 
-// Functions to interchange between the two values of in the arrays
+// Functions to interchange between the two values in the arrays
 function SQ64(sq120) {
     return Sq120ToSq64[(sq120)];
 }
