@@ -43,13 +43,12 @@ function FR2SQ(f,r) {
     return ( (21 + (f) ) + ( (r) * 10 ) );
 }
 
-// (empty,white pawn,white knight,white bishop,white rook,white queen,white king,black pawn,black knight,black bishop,blackt rook,black queen,black king)
+// (empty, white pawn, white knight, white bishop, white rook, white queen, white king, black pawn, black knight, black bishop, blackt rook, black queen, black king)
 var PieceBig = [ false, false, true, true, true, true, true, false, true, true, true, true, true ]; // Array to show if a piece is a big piece(non pawn)
 var PieceMaj = [ false, false, false, false, true, true, true, false, false, false, true, true, true ]; // Array to show if a piece is a major piece(Queen or Rook)
 var PieceMin = [ false, false, true, true, false, false, false, false, true, true, false, false, false ]; // Array to show if a piece is a minor piece(Bishop or Knight)
 var PieceVal= [ 0, 100, 325, 325, 550, 1000, 50000, 100, 325, 325, 550, 1000, 50000  ]; // Piece value for each piece
-var PieceCol = [ COLOURS.BOTH, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE,
-	COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK ]; // Index of the pieces colour
+var PieceCol = [ COLOURS.BOTH, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK ]; // Index of the pieces colour
 
 var PiecePawn = [ false, true, false, false, false, false, false, true, false, false, false, false, false ]; // Array to show if the piece is a pawn
 var PieceKnight = [ false, false, true, false, false, false, false, false, true, false, false, false, false ]; // Array to show if the piece is a knight
@@ -63,12 +62,15 @@ var RkDir = [ -1, -10,	1, 10 ]; // Array for the rook directions
 var BiDir = [ -9, -11, 11, 9 ]; // Array for the bishop directions
 var KiDir = [ -1, -10,	1, 10, -9, -11, 11, 9 ]; // Array for the king directions
 
-var DirNum = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8];
-var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0];
 
+var DirNum = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8]; // Array of how many times we have to loop through each pieces moves
+var PceDir = [0, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0, KnDir, BiDir, RkDir, KiDir, KiDir, 0]; // Array where each piece can move ()
+
+// Arrays to loop through when generating non slide moves
 var LoopNonSlidePce = [PIECES.wN, PIECES.wK, 0, PIECES.bN,  PIECES.bK, 0];
 var LoopNonSlideIndex = [0, 3];
 
+// Arrays to loop through when generating slide moves
 var LoopSlidePce = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB,  PIECES.bR, PIECES.bQ, 0];
 var LoopSlideIndex = [0, 4];
 
@@ -147,7 +149,7 @@ function CAPTURED(m) { return ( (m >> 14) & 0xF); }
 function PROMOTED(m) { return ( (m >> 20) & 0xF); }
 
 // Move flags
-var MFLAGEP = 0x40000; // En passant
+var MOVEFLAGEP = 0x40000; // En passant
 var MFLAGPS = 0x80000; // Pawn start
 var MFLAGCA = 0x1000000; // Castling
 
@@ -156,15 +158,14 @@ var MFLAGPROM = 0xF00000; // Promoted piece
 
 var NOMOVE = 0;
 
+// Checks if a square is off the board
 function SQOFFBOARD(sq) {
     if(FilesBrd[sq]==SQUARES.OFFBOARD) return true;
     return false;
 }
 
-function HASH_PCE(pce, sq) {
-    GameBoard.posKey ^= PieceKeys[(pce * 120) + sq];
-}
-
+// Hashing functions
+function HASH_PCE(pce, sq) {GameBoard.posKey ^= PieceKeys[(pce * 120) + sq];}
 function HASH_CA() {GameBoard.posKey ^= CastleKeys[GameBoard.castlePerm];}
 function HASH_SIDE() {GameBoard.posKey ^= SideKey;}
 function HASH_EP() {GameBoard.posKey ^= PieceKeys[GameBoard.enPas];}
