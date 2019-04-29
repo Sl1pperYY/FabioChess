@@ -18,6 +18,29 @@ margin: auto;
 margin-top: 100px;
 }
 
+#EngineOutput {
+  grid-column-start: 3;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+#NewGameButton {
+  margin: 0.5rem;
+  grid-row-start: 1;
+}
+
+#Undo {
+  margin: 0.5rem;
+  grid-row-start: 1;
+
+}
+
+#GameStatus {
+  margin: auto;
+  grid-row-start: 2;
+  grid-column: 1/4;
+}
+
 .player {
 background-color: white !important;
 color: black !important;
@@ -107,7 +130,7 @@ display: grid;
 grid-template-columns: auto;
 grid-template-rows: repeat(9, 1fr);
 grid-column-start: 2;
-margin-top: 100px;
+margin-top: 2rem;
 }
 
 #EngineOutput {

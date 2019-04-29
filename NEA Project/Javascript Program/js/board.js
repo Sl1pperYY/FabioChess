@@ -14,7 +14,7 @@ GameBoard.ply = 0; // Counter for number of half moves made in the search tree
 GameBoard.enPas = 0; // Square set if a pawn advances 2 squares as its starting move (en Passant rule)
 GameBoard.castlePerm = 0; // Castling permission
 GameBoard.material = new Array(2); // WHITE,Black material of pieces
-GameBoard.pceNum = new Array(13); // index by Piece
+GameBoard.pceNum = new Array(13); // index by Piece 
 GameBoard.pList = new Array(14*10); // Piece list
 GameBoard.posKey = 0; // Position Key
 
@@ -32,7 +32,7 @@ function CheckBoard() {
  
 	var t_pceNum = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	var t_material = [ 0, 0];
-	var sq64, t_piece, t_pce_num, sq120, colour, pcount;
+	var sq64, t_piece, t_pce_num, sq120;
 	
 	for(t_piece = PIECES.wP; t_piece <= PIECES.bK; ++t_piece) {
 		for(t_pce_num = 0; t_pce_num < GameBoard.pceNum[t_piece]; ++t_pce_num) {

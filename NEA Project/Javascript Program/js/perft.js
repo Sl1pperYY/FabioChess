@@ -23,7 +23,7 @@ function Perft(depth) {
 	} 
     
     return;
-}
+} 
 
 function PerftTest(depth) {    
 

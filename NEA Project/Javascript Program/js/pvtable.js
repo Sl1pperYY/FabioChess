@@ -38,4 +38,4 @@ function StorePvMove(move) {
 	var index = GameBoard.posKey % PVENTRIES;
 	GameBoard.PvTable[index].posKey = GameBoard.posKey;
 	GameBoard.PvTable[index].move = move;
-}
+} 

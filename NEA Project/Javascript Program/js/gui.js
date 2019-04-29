@@ -2,6 +2,7 @@
 // Buttons
 //================================================================================
 
+// Undo Button which will undo the move which black made (the engine), and the move which white makes (player move)
 $('#Undo').click( function () {
 	if(GameBoard.hisPly > 0) {
         TakeMove();
@@ -13,6 +14,7 @@ $('#Undo').click( function () {
 	}
 });
 
+// New Game Button which resets the board to the starting position
 $('#NewGameButton').click( function () {
     NewGame(START_FEN);
     $(SearchController.fromId).removeClass("selected");
@@ -28,7 +30,7 @@ function ClearAllPieces() {
     $(".piece").remove();
 }
 
-// Function to add a piece on the board
+// Function to add a piece on to the board
 function AddGUIPiece(sq, pce) {
 
 	var file = FileChar[FilesBrd[sq]];
@@ -37,14 +39,18 @@ function AddGUIPiece(sq, pce) {
     var colour = '';
     var piece = PceName[pce];
 
-
+    // Sets the colour of the piece (original colour is black so no styling needed)
     if (PieceCol[pce] == COLOURS.WHITE) {
         colour = ' style=\'color:white\'';
     }
 
-	var pieceImageString = "<i class=\'fas fa-chess-" + piece + "\'" + colour + "></i>";
-    var	pieceString = "<div class=\'piece\' id=\'" + id + "piece\' draggable=\'true\' ondragstart=\'drag(event)\'>" + pieceImageString + "</div>";
+    // Setting up the the correct drag image for the piece being added
+    var pieceImageString = "<i class=\'fas fa-chess-" + piece + "\'" + colour + "></i>";
+    // Making the div of the piece being added
+    var	pieceString = "<div class=\'piece\' id=\'"+ id + "piece\' draggable=\'true\' ondragstart=\'drag(event)\'>" + pieceImageString + "</div>";
     id = '#' + id;
+
+    // Appending the piece string to the correct square and removing the square class
     $(id).append(pieceString);
     $(id).removeClass("square");
 }
@@ -54,13 +60,14 @@ function SetInitialBoardPieces() {
 
 	var sq;
 	var sq120;
-	var pce;
+    var pce;
 	ClearAllPieces();
-	
+    
+    // Loops through all 64 squares using the 120 square board
 	for(sq = 0; sq < 64; ++sq) {
-
 		sq120 = SQ120(sq);
-		pce = GameBoard.pieces[sq120];
+        pce = GameBoard.pieces[sq120];
+        // Checks if the square has a piece on it and adds the correct piece on to the board
 		if(pce >= PIECES.wP && pce <= PIECES.bK) {
 			AddGUIPiece(sq120, pce);
 		}
@@ -79,17 +86,21 @@ function NewGame(fenStr) {
 // Drag and Drop
 //================================================================================
 
+// Function which gets called when the piece is being dragged
 function drag(ev) {
     ev.dataTransfer.effectAllowed = 'move';
     ev.dataTransfer.setData("text", ev.target.id);
+
+    // Determines what side the piece is on and what kind of piece it is
     side = $(ev.target).children().attr('style');
     pceType = $(ev.target).children().attr('class');
 
+    // Sets the from square
     SetFromSq($(ev.target).parent().attr('id'));
 
     var img = new Image();
     
-    // Sets the correct drag image
+    // Sets the correct drag image using the drag images set in defs.js
     if (side == 'color:white') {
         if (pceType == 'fas fa-chess-pawn') {
             img = wPImg;
@@ -133,22 +144,32 @@ function drag(ev) {
         }
     }
 }
-  
+
+// Function which gets called when a piece is dropped
 function drop(ev) {
 
+    // Checks if the piece is being dropped on another piece
+    // If it is and the move is legal than it removes the piece being taken and replaces it with the piece being dropped
+    // If it isnt being dropped on another piece and it is a legal move then it moves the piece
     if ($(ev.target).parent().attr('class') == 'piece') {
+        // Sets the to square
         squareid = $(ev.target).parent().parent().attr('id');
         SetToSq(squareid);
 
         var move = ParseMove(UserMove.from, UserMove.to);
         var toastMessage = UserMove.fromId + UserMove.toId;
 
+        // Checks if the move is legal or not
         if(move != NOMOVE) {
+            // Makes the move in the engine
             MakeMove(move);
+            // Removes the piece being taken from the board
             $(ev.target).parent().remove();
 
+            // Gets the to square from the move string
             var to = TOSQ(move);
 
+            // Adds the piece being moved to the square its being moved to
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             ev.currentTarget.appendChild(document.getElementById(data));
@@ -158,14 +179,16 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().removeClass();
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
+
+            // Displays a toast message of the move which was just made
             M.toast({html: toastMessage, classes: 'rounded player', displayLength: 6000});
             setTimeout(function() {
                 PreSearch();
             }, 300);
+        // If the move is illegal than it displays a message
         } else {
             $("#GameStatus").text("Illegal Move");
         }
-        
     } else {
         squareid = $(ev.target).attr('id');
         SetToSq(squareid);
@@ -173,27 +196,36 @@ function drop(ev) {
         var move = ParseMove(UserMove.from, UserMove.to);
         var toastMessage = UserMove.fromId + UserMove.toId;
 
+        // Checks if the move is legal or not
         if(move != NOMOVE) {
+            // Makes the move in the engine
             MakeMove(move);
             $(ev.target).children().remove();
 
             var to = TOSQ(move);
     
             // Removing the pawn on an enpassant move
-            if(move & MFLAGEP) {
+            if(move & MOVEFLAGEP) {
+                // Checks which side made the enpassant move (if GameBoard.side == COLOURS.BLACK than it means it was white that made the move)
                 if(GameBoard.side == COLOURS.BLACK) {
+                    // Sets the id of the piece which is being taken
                     var enPassantSqRank = (parseInt(squareid[1]) - 1).toString();
                     var enPassantSqId = ("#" + squareid[0] + enPassantSqRank);
+                    // Removes the piece from the board
                     $(enPassantSqId).children().remove();
                 } else {
+                    // Sets the id of the piece which is being taken
                     var enPassantSqRank = (parseInt(squareid[1]) + 1).toString();
                     var enPassantSqId = ("#" + squareid[0] + enPassantSqRank);
+                    // Removes the piece from the board
                     $(enPassantSqId).children().remove();
                 }
             }
 
             // Moving the rook if its a castling move
-            if (move & MFLAGCA) {
+            // Only have to move the rook because the king is already being moved when a legal move is made
+            if (move & MOVEFLAGCA) {
+                // Switch statement to move the correct rook to the correct square by checking where the king was moved
                 switch(to) {
                     case SQUARES.G1:
                         rook = $("#h1").children().detach();
@@ -214,6 +246,7 @@ function drop(ev) {
                 }
             }
             
+            // Adds the piece being moved to the correct square on the board
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             ev.currentTarget.appendChild(document.getElementById(data));
@@ -223,10 +256,13 @@ function drop(ev) {
                 $(ev.currentTarget).children().children().removeClass();
                 $(ev.currentTarget).children().children().addClass("fas fa-chess-queen");
             }
+
+            // Displays a toast message of the move which was just made
             M.toast({html: toastMessage, classes: 'rounded player', displayLength: 6000});
             setTimeout(function() {
                 PreSearch();
             }, 300);
+        // If the move is illegal than it displays a message
         } else {
             $("#GameStatus").text("Illegal Move");
         }
@@ -310,6 +346,7 @@ function CheckResult() {
 
     var InCheck = SqAttacked(GameBoard.pList[PCEINDEX(Kings[GameBoard.side],0)], GameBoard.side^1);
 
+    // Checks if the King is in check mate or not
     if(InCheck == true) {
         if(GameBoard.side == COLOURS.WHITE) {
 
@@ -357,6 +394,7 @@ function ThreeFoldRep() {
 // Searching
 //================================================================================
 
+// PreSearch function which calls the StartSearch function if the game is not over.
 function PreSearch() {
 	if(GameController.GameOver == false) {
 		SearchController.thinking = true;
@@ -364,6 +402,10 @@ function PreSearch() {
 	}
 }
 
+
+
+// Function to output data about the engine, such as ordering, depth it searched to and the score of the move.
+/*
 function UpdateDOMStats(dom_score, dom_depth) {
 
     var scoreText = "Score: " + (dom_score / 100).toFixed(2);
@@ -378,22 +420,30 @@ function UpdateDOMStats(dom_score, dom_depth) {
 	$("#TimeOut").text("Time: " + (($.now()-SearchController.start)/1000).toFixed(1) + "s");
 	$("#BestOut").text("BestMove: " + PrMove(SearchController.best));
 }
+*/
 
+// Function to search for the best possible move and make the move
 function StartSearch() {
     SearchController.depth = MAXDEPTH;
     var t = $.now();
-    var tt = 2; // Thinking time
+    // Thinking time (How long the engine thinks about the best move)
+    var thinkingTime = 2; 
 
+    // Removes the selected class from the from square and the to square of the players last move
     $(SearchController.fromId).removeClass("selected");
     $(SearchController.toId).removeClass("selected");
 
-    SearchController.time = tt * 1000;
+    // Converting Thinking time into miliseconds
+    SearchController.time = thinkingTime * 1000;
+
     SearchPosition();
-  
     MakeMove(SearchController.best);
 
+    // Getting the form square from the move found by the SearchPosition function
     var from = FROMSQ(SearchController.best);
+    // Getting the to square from the move found by the SearchPosition function
     var to = TOSQ(SearchController.best);
+    // Converting the from square and to square to fit the id notation
     var fromFile = String.fromCharCode(FilesBrd[from] + 97);
     var fromRank = (RanksBrd[from] + 1).toString();
     var toFile = String.fromCharCode(FilesBrd[to] + 97);
@@ -401,19 +451,25 @@ function StartSearch() {
     var fromId = ("#" + fromFile + fromRank);
     var toId = ("#" + toFile + toRank);
 
+    // Setting from id and to id to searchController so the selected class can be removed from the last move the engine makes
     SearchController.fromId = fromId;
     SearchController.toId = toId;
     
+    // Making the move on the gui
     var piece = $(fromId).children().detach();
     $(toId).children().remove();
     $(toId).append(piece);
+    // adding the selected class to the from square and to square to make it easier to see for the player what the engine moved
     $(fromId).addClass("selected");
     $(toId).addClass("selected");
     
+    // Displays toast message of the move which was just made
     M.toast({html: PrMove(SearchController.best), classes: 'rounded', displayLength: 6000});
 
-	if(SearchController.best & MFLAGEP) {
+    // Removes the pawn if there was an enpassant capture
+	if(SearchController.best & MOVEFLAGEP) {
         var enPassantCap;
+        // Checks what side made the en passant move (If its black's turn to move then it was white who made the enpassant capture)
         if (GameBoard.side == COLOURS.BLACK){
             enPassantCap = (RanksBrd[to]).toString();
             $("#" + toFile + enPassantCap).children().remove()
@@ -422,9 +478,11 @@ function StartSearch() {
             $("#" + toFile + enPassantCap).children().remove()
         }
 	}
-	
-	if(SearchController.best & MFLAGCA) {
+    
+    // Checks if the move was a castling move
+	if(SearchController.best & MOVEFLAGCA) {
         var rook;
+        // Switch statement which moves the rook depending on where the king was moved
 		switch(to) {
             case SQUARES.G1:
                 rook = $("#h1").children().detach();
@@ -442,7 +500,8 @@ function StartSearch() {
                 rook = $("#a8").children().detach();
                 $("#d8").append(rook);
                 break;
-		}
+        }
+    // Checks if the move was a promotion move and promotes the pawn to a queen
 	} else if (PROMOTED(SearchController.best)) {
         $(toId).children().children().removeClass();
         $(toId).children().children().addClass("fas fa-chess-queen");
@@ -454,11 +513,13 @@ function StartSearch() {
 // Puzzle
 //================================================================================
 
+// Function which redirects the user to the main page with the puzzle set up which they chose or put in
 function redirect(puzzle) {
     var index = "/bf/index.html?puzzle="
     window.location.href= index + puzzle;
 }
 
+// Creates a dictionary for the parameters in the url
 function getSearchParameters() {
     var prmstr = window.location.search.substr(1);
     prmstr = decodeURIComponent(prmstr);
@@ -466,6 +527,7 @@ function getSearchParameters() {
     return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
 }
 
+// Converts the content of the url parameters into a string
 function transformToAssocArray( prmstr ) {
     var params = {};
     var prmarr = prmstr.split("&");
@@ -477,7 +539,3 @@ function transformToAssocArray( prmstr ) {
 }
 
 var params = getSearchParameters();
-
-//================================================================================
-// Possible Moves
-//================================================================================

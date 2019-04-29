@@ -1,5 +1,4 @@
-
-
+// Function which removes a piece from the square which was input
 function ClearPiece(sq) {
 
     var pce = GameBoard.pieces[sq];
@@ -8,7 +7,7 @@ function ClearPiece(sq) {
     var t_pceNum = -1;
 
     HASH_PCE(pce, sq);
-
+ 
     GameBoard.pieces[sq] = PIECES.EMPTY;
     GameBoard.material[col] -= PieceVal[pce];
 
@@ -18,11 +17,11 @@ function ClearPiece(sq) {
             break;
         }
     }
-
     GameBoard.pceNum[pce]--;
     GameBoard.pList[PCEINDEX(pce, t_pceNum)] = GameBoard.pList[PCEINDEX(pce, GameBoard.pceNum[pce])];
 }
 
+// Function which adds a piece to the board
 function AddPiece(sq, pce) {
 
     var col = PieceCol[pce];
@@ -35,6 +34,7 @@ function AddPiece(sq, pce) {
     GameBoard.pceNum[pce]++;
 }
 
+// Function which moves a piece from the square input onto the square input
 function MovePiece(from, to) {
 
     var index = 0;
@@ -55,6 +55,7 @@ function MovePiece(from, to) {
 
 }
 
+// Function which makes the move which is input using the move string format
 function MakeMove(move) {
 	
 	var from = FROMSQ(move);
@@ -63,13 +64,16 @@ function MakeMove(move) {
 
 	GameBoard.history[GameBoard.hisPly].posKey = GameBoard.posKey;
 
-	if( (move & MFLAGEP) != 0) {
+    // If the move is an enpassant move than it removes the correct pawn
+	if( (move & MOVEFLAGEP) != 0) {
 		if(side == COLOURS.WHITE) {
 			ClearPiece(to-10);
 		} else {
 			ClearPiece(to+10);
-		}
-	} else if( (move & MFLAGCA) != 0) {
+        }
+    // Checks if the move was a castling move or not
+	} else if( (move & MOVEFLAGCA) != 0) {
+        // Switch statement which moves the correct rook according to where the king was moved
 		switch(to) {
 			case SQUARES.C1:
                 MovePiece(SQUARES.A1, SQUARES.D1);
@@ -101,20 +105,27 @@ function MakeMove(move) {
     
     HASH_CA();
     
+
     var captured = CAPTURED(move);
+    // Incrementing the fifty move rule counter
     GameBoard.fiftyMove++;
     
+    // If the move is a capturing move it clears the to square of the piece than sets the fifty move rule back to 0
     if(captured != PIECES.EMPTY) {
         ClearPiece(to);
         GameBoard.fiftyMove = 0;
     }
     
+    // Incrementing the hisPly counter and the ply counter
     GameBoard.hisPly++;
 	GameBoard.ply++;
-	
+    
+    // If statement which checks if the piece is a pawn
 	if(PiecePawn[GameBoard.pieces[from]] == true) {
+        // Sets the fifty move rule back to 0
         GameBoard.fiftyMove = 0;
-        if( (move & MFLAGPS) != 0) {
+        // If the its the first move for the pawn being moved than it sets the GameBoard.enPas to the correct square
+        if( (move & MOVEFLAGPS) != 0) {
             if(side==COLOURS.WHITE) {
                 GameBoard.enPas=from+10;
             } else {
@@ -165,13 +176,13 @@ function TakeMove() {
     GameBoard.side ^= 1;
     HASH_SIDE();
     
-    if( (MFLAGEP & move) != 0) {
+    if( (MOVEFLAGEP & move) != 0) {
         if(GameBoard.side == COLOURS.WHITE) {
             AddPiece(to-10, PIECES.bP);
         } else {
             AddPiece(to+10, PIECES.wP);
         }
-    } else if( (MFLAGCA & move) != 0) {
+    } else if( (MOVEFLAGCA & move) != 0) {
         switch(to) {
         	case SQUARES.C1: MovePiece(SQUARES.D1, SQUARES.A1); break;
             case SQUARES.C8: MovePiece(SQUARES.D8, SQUARES.A8); break;

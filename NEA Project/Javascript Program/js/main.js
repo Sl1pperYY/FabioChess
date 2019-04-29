@@ -1,12 +1,14 @@
 // Main Init
 $(function() {
 	init();
+	// Sets up the board according to the FEN string stored in the puzzle variable in the url
 	if (params.puzzle != null) {
-        NewGame(params.puzzle);
+		NewGame(params.puzzle);
+	// If it is empty than the START_FEN FEN string is used to set up the board
     } else {
 		NewGame(START_FEN);
 	}
-});
+}); 
  
 // Init of the files and ranks boards
 function InitFilesRanksBrd() {
@@ -48,6 +50,7 @@ function InitHashKeys(){
     }
 }
 
+// Function to help interchange between the 64 square board and the 120 square board array
 function InitSq120To64() {
 
 	var index = 0;
@@ -77,8 +80,8 @@ function InitSq120To64() {
 
 }
 
+// Function to initialise board variables
 function InitBoardVars() {
-
 	var index = 0;
 	for(index = 0; index < MAXGAMEMOVES; ++index){
 		GameBoard.history.push( {
@@ -95,6 +98,7 @@ function InitBoardVars() {
 	}
 }
 
+// Main init function
 function init() {
     InitFilesRanksBrd();
 	InitHashKeys();

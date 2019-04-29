@@ -38,7 +38,7 @@ var RookTable = [35,  29,  33,   4,  37,  33,  56,  50,
                 -53, -38, -31, -26, -29, -43, -44, -53,
                 -30, -24, -18,   5,  -2, -18, -31, -32];
 
-// Bonus if a side has 2 bishops
+// Bonus score if a side has 2 bishops
 var BishopPair = 40;
 
 

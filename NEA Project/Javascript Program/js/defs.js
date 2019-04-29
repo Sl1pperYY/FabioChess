@@ -5,12 +5,15 @@ var SideChar = "wb-";
 var RankChar = "12345678";
 var FileChar = "abcdefgh";
 
-var PIECES =  { EMPTY : 0, wP : 1, wN : 2, wB : 3,wR : 4, wQ : 5, wK : 6, bP : 7, bN : 8, bB : 9, bR : 10, bQ : 11, bK : 12  }; // Number representation of each piece
+// Number representation of each piece
+var PIECES =  { EMPTY : 0, wP : 1, wN : 2, wB : 3,wR : 4, wQ : 5, wK : 6, bP : 7, bN : 8, bB : 9, bR : 10, bQ : 11, bK : 12  };
 
 var BRD_SQ_NUM = 120; // Number of squares on the board
 
-var FILES =  { FILE_A:0, FILE_B:1, FILE_C:2, FILE_D:3, FILE_E:4, FILE_F:5, FILE_G:6, FILE_H:7, FILE_NONE:8 }; // Number representation of each file
-var RANKS =  { RANK_1:0, RANK_2:1, RANK_3:2, RANK_4:3, RANK_5:4, RANK_6:5, RANK_7:6, RANK_8:7, RANK_NONE:8 }; // Number representation of each rank
+// Number representation of each file
+var FILES =  { FILE_A:0, FILE_B:1, FILE_C:2, FILE_D:3, FILE_E:4, FILE_F:5, FILE_G:6, FILE_H:7, FILE_NONE:8 };
+ // Number representation of each rank
+var RANKS =  { RANK_1:0, RANK_2:1, RANK_3:2, RANK_4:3, RANK_5:4, RANK_6:5, RANK_7:6, RANK_8:7, RANK_NONE:8 };
 
 var COLOURS = { WHITE:0, BLACK:1, BOTH:2 }; // Number representation for the colours
 
@@ -23,7 +26,9 @@ var SQUARES = {
     NO_SQ:99, OFFBOARD:100
 }; // Array of important squares 
 
-// Maximum values for amount of moves in one game, amount of moves for one position, the max depth at which the engine will search to and an infinite value and a mate value which is in the range of the infinite value and the amount of entries we will have in pvtable
+// Maximum values for amount of moves in one game, amount of moves for one position, 
+// the max depth at which the engine will search to and an infinite value and a mate value which is in the range of the infinite value 
+// and the amount of entries we will have in pvtable
 var MAXGAMEMOVES = 2048;
 var MAXPOSITIONMOVES = 256;
 var MAXDEPTH = 64;
@@ -43,19 +48,33 @@ function FR2SQ(f,r) {
     return ( (21 + (f) ) + ( (r) * 10 ) );
 }
 
-// (empty, white pawn, white knight, white bishop, white rook, white queen, white king, black pawn, black knight, black bishop, blackt rook, black queen, black king)
-var PieceBig = [ false, false, true, true, true, true, true, false, true, true, true, true, true ]; // Array to show if a piece is a big piece(non pawn)
-var PieceMaj = [ false, false, false, false, true, true, true, false, false, false, true, true, true ]; // Array to show if a piece is a major piece(Queen or Rook)
-var PieceMin = [ false, false, true, true, false, false, false, false, true, true, false, false, false ]; // Array to show if a piece is a minor piece(Bishop or Knight)
-var PieceVal= [ 0, 100, 325, 325, 550, 1000, 50000, 100, 325, 325, 550, 1000, 50000  ]; // Piece value for each piece
-var PieceCol = [ COLOURS.BOTH, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK ]; // Index of the pieces colour
+// (empty, white pawn, white knight, white bishop, white rook, white queen, white king,
+// black pawn, black knight, black bishop, blackt rook, black queen, black king)
 
-var PiecePawn = [ false, true, false, false, false, false, false, true, false, false, false, false, false ]; // Array to show if the piece is a pawn
-var PieceKnight = [ false, false, true, false, false, false, false, false, true, false, false, false, false ]; // Array to show if the piece is a knight
-var PieceKing = [ false, false, false, false, false, false, true, false, false, false, false, false, true ]; // Array to show if the piece is a king
-var PieceRookQueen = [ false, false, false, false, true, true, false, false, false, false, true, true, false ]; // Array to show if the piece is a rook or a queen
-var PieceBishopQueen = [ false, false, false, true, false, true, false, false, false, true, false, true, false ]; // Array to show if the piece is a pawn bishop or a queen
-var PieceSlides = [ false, false, false, true, true, true, false, false, false, true, true, true, false ]; // Array to show if the piece slides or not
+// Array to show if a piece is a big piece(non pawn)
+var PieceBig = [ false, false, true, true, true, true, true, false, true, true, true, true, true ]; 
+// Array to show if a piece is a major piece(Queen, Rook or King)
+var PieceMaj = [ false, false, false, false, true, true, true, false, false, false, true, true, true ]; 
+// Array to show if a piece is a minor piece(Bishop or Knight)
+var PieceMin = [ false, false, true, true, false, false, false, false, true, true, false, false, false ]; 
+// Piece value for each piece
+var PieceVal= [ 0, 100, 325, 325, 550, 1000, 50000, 100, 325, 325, 550, 1000, 50000  ]; 
+// Index of the pieces colour
+var PieceCol = [ COLOURS.BOTH, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE, COLOURS.WHITE,
+                 COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK, COLOURS.BLACK ]; 
+
+// Array to show if the piece is a pawn
+var PiecePawn = [ false, true, false, false, false, false, false, true, false, false, false, false, false ];
+// Array to show if the piece is a knight 
+var PieceKnight = [ false, false, true, false, false, false, false, false, true, false, false, false, false ]; 
+// Array to show if the piece is a king
+var PieceKing = [ false, false, false, false, false, false, true, false, false, false, false, false, true ]; 
+// Array to show if the piece is a rook or a queen
+var PieceRookQueen = [ false, false, false, false, true, true, false, false, false, false, true, true, false ]; 
+// Array to show if the piece is a pawn bishop or a queen
+var PieceBishopQueen = [ false, false, false, true, false, true, false, false, false, true, false, true, false ];
+// Array to show if the piece slides or not 
+var PieceSlides = [ false, false, false, true, true, true, false, false, false, true, true, true, false ]; 
 
 var KnDir = [ -8, -19,	-21, -12, 8, 19, 21, 12 ]; // Array for the knight directions
 var RkDir = [ -1, -10,	1, 10 ]; // Array for the rook directions
@@ -84,7 +103,8 @@ var Sq64ToSq120 = new Array(64);
 
 // Function to generate a random number
 function RAND_32() {
-    return (Math.floor((Math.random()*255)+1) << 23) | (Math.floor((Math.random()*255)+1) << 16) | (Math.floor((Math.random()*255)+1) << 8) | Math.floor((Math.random()*255)+1);
+    return (Math.floor((Math.random()*255)+1) << 23) | (Math.floor((Math.random()*255)+1) << 16) 
+    | (Math.floor((Math.random()*255)+1) << 8) | Math.floor((Math.random()*255)+1);
 }
 
 // Array of the mirrored 64 square board
@@ -150,11 +170,11 @@ function PROMOTED(m) { return ( (m >> 20) & 0xF); }
 
 // Move flags
 var MOVEFLAGEP = 0x40000; // En passant
-var MFLAGPS = 0x80000; // Pawn start
-var MFLAGCA = 0x1000000; // Castling
+var MOVEFLAGPS = 0x80000; // Pawn start
+var MOVEFLAGCA = 0x1000000; // Castling
 
-var MFLAGCAP = 0x7C000; // Captured
-var MFLAGPROM = 0xF00000; // Promoted piece
+var MOVEFLAGCAP = 0x7C000; // Captured
+var MOVEFLAGPROM = 0xF00000; // Promoted piece
 
 var NOMOVE = 0;
 
@@ -170,10 +190,8 @@ function HASH_CA() {GameBoard.posKey ^= CastleKeys[GameBoard.castlePerm];}
 function HASH_SIDE() {GameBoard.posKey ^= SideKey;}
 function HASH_EP() {GameBoard.posKey ^= PieceKeys[GameBoard.enPas];}
 
-// GameController variable for engine side
+// GameController variables for engine side
 var GameController = {};
-GameController.EngineSide = COLOURS.BOTH;
-GameController.PlayerSide = COLOURS.BOTH;
 GameController.GameOver = false;
 
 // User Move variables

@@ -158,14 +158,14 @@ function AlphaBeta(alpha, beta, depth) {
                 }
                 SearchController.fh++; // fhf divided by fh tells us how often we get a beta cut off in the first move
                 // Update killer moves
-                if((Move & MFLAGCAP) == 0) {
+                if((Move & MOVEFLAGCAP) == 0) {
 					GameBoard.searchKillers[MAXDEPTH + GameBoard.ply] = GameBoard.searchKillers[GameBoard.ply];
 					GameBoard.searchKillers[GameBoard.ply] = Move;
 				}
 				return beta;
             }
             // Update History table
-            if((Move & MFLAGCAP) == 0) {
+            if((Move & MOVEFLAGCAP) == 0) {
 				GameBoard.searchHistory[GameBoard.pieces[FROMSQ(Move)] * BRD_SQ_NUM + TOSQ(Move)] += depth * depth;
 			}
             alpha = Score;
@@ -217,7 +217,7 @@ function Quiescence(alpha, beta) {
 	if(Score > alpha) {
 		alpha = Score;
 	}
-	
+	 
 	GenerateCaptures();
 	
 	var MoveNum = 0;
@@ -323,9 +323,7 @@ function SearchPosition() {
         if(currentDepth != 1) {
             line += (' Ordering:' + ((SearchController.fhf/SearchController.fh)*100).toFixed(2) + '%');
         }
-        // console.log(line);
     }
     SearchController.best = bestMove;
 	SearchController.thinking = false;
-	UpdateDOMStats(bestScore, currentDepth);
 }
