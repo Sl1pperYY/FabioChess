@@ -10,7 +10,7 @@ var PawnTable = [0,   0,   0,   0,   0,   0,   0,   0,
                 -22,   9,   5, -11, -10,  -2,   3, -19,
                 -31,   8,  -7, -37, -36, -14,   3, -31,
                  0,   0,   0,   0,   0,   0,   0,   0];
-  
+   
 var KnightTable = [ -66, -53, -75, -75, -10, -55, -58, -70,
                     -3,  -6, 100, -36,   4,  62,  -4, -14,
                     10,  67,   1,  74,  73,  27,  62,  -2,
@@ -47,7 +47,7 @@ var BishopPair = 40;
 //================================================================================
 
 function EvalPosition() {
-    var score = GameBoard.material[COLOURS.WHITE] - GameBoard.material[COLOURS.BLACK];
+    var score = Board.material[COLOURS.WHITE] - Board.material[COLOURS.BLACK];
 
     var pce;
     var sq;
@@ -55,84 +55,84 @@ function EvalPosition() {
 
     // Using the Piece-Square Tables for white pawns
     pce = PIECES.wP;
-    for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-        sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+    for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+        sq = Board.pList[PCEINDEX(pce,pceNum)];
         score += PawnTable[SQ64(sq)];
     }
 
     // Using the Piece-Square Tables for black pawns
     pce = PIECES.wP;
-    for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-        sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+    for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+        sq = Board.pList[PCEINDEX(pce,pceNum)];
         score -= PawnTable[MIRROR64(SQ64(sq))];
     }
 
     // Using the Piece-Square Tables for white knights
     pce = PIECES.wN;	
-	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+	for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+		sq = Board.pList[PCEINDEX(pce,pceNum)];
 		score += KnightTable[SQ64(sq)];
 	}	
 
     // Using the Piece-Square Tables for black knights
 	pce = PIECES.bN;	
-	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+	for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+		sq = Board.pList[PCEINDEX(pce,pceNum)];
 		score -= KnightTable[MIRROR64(SQ64(sq))];
 	}			
     
     // Using the Piece-Square Tables for white bishops
 	pce = PIECES.wB;	
-	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+	for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+		sq = Board.pList[PCEINDEX(pce,pceNum)];
 		score += BishopTable[SQ64(sq)];
 	}	
 
     // Using the Piece-Square Tables for black bishops
 	pce = PIECES.bB;	
-	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+	for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+		sq = Board.pList[PCEINDEX(pce,pceNum)];
 		score -= BishopTable[MIRROR64(SQ64(sq))];
     }
     
     // Using the Piece-Square Tables for white rooks
 	pce = PIECES.wR;	
-	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+	for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+		sq = Board.pList[PCEINDEX(pce,pceNum)];
 		score += RookTable[SQ64(sq)];
     }
 
     // Using the Piece-Square Tables for black rooks
 	pce = PIECES.bR;	
-	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+	for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+		sq = Board.pList[PCEINDEX(pce,pceNum)];
 		score -= RookTable[MIRROR64(SQ64(sq))];
     }
 
     // Using the Piece-Square Tables for white queens
 	pce = PIECES.wQ;	
-	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+	for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+		sq = Board.pList[PCEINDEX(pce,pceNum)];
 		score += RookTable[SQ64(sq)];
 	}	
 
     // Using the Piece-Square Tables for black queens
 	pce = PIECES.bQ;	
-	for(pceNum = 0; pceNum < GameBoard.pceNum[pce]; ++pceNum) {
-		sq = GameBoard.pList[PCEINDEX(pce,pceNum)];
+	for(pceNum = 0; pceNum < Board.pceNum[pce]; ++pceNum) {
+		sq = Board.pList[PCEINDEX(pce,pceNum)];
 		score -= RookTable[MIRROR64(SQ64(sq))];
     }	
     
     // Bishop pair bonuses for each side
-	if(GameBoard.pceNum[PIECES.wB] >= 2) {
+	if(Board.pceNum[PIECES.wB] >= 2) {
 		score += BishopPair;
 	}
-	if(GameBoard.pceNum[PIECES.bB] >= 2) {
+	if(Board.pceNum[PIECES.bB] >= 2) {
 		score -= BishopPair;
 	}
     
     // Fliping the score if the side to move is black
-    if (GameBoard.side == COLOURS.WHITE) {
+    if (Board.side == COLOURS.WHITE) {
         return score;
     } else {
         return -score;

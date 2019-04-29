@@ -20,9 +20,9 @@ function PickNextMove(MoveNum) {
 	var bestNum = MoveNum;
     
     // For loop to check if the move score at the index is better than the best score than make that move the new best score
-	for(index = MoveNum; index < GameBoard.moveListStart[GameBoard.ply+1]; ++index) {
-		if(GameBoard.moveScores[index] > bestScore) {
-			bestScore = GameBoard.moveScores[index];
+	for(index = MoveNum; index < Board.moveListStart[Board.ply+1]; ++index) {
+		if(Board.moveScores[index] > bestScore) {
+			bestScore = Board.moveScores[index];
 			bestNum = index;			
 		}
 	} 
@@ -31,23 +31,22 @@ function PickNextMove(MoveNum) {
         var temp = 0;
         
         // Switching the Score
-		temp = GameBoard.moveScores[MoveNum];
-		GameBoard.moveScores[MoveNum] = GameBoard.moveScores[bestNum];
-		GameBoard.moveScores[bestNum] = temp;
+		temp = Board.moveScores[MoveNum];
+		Board.moveScores[MoveNum] = Board.moveScores[bestNum];
+		Board.moveScores[bestNum] = temp;
         
         // Switching the move
-		temp = GameBoard.moveList[MoveNum];
-		GameBoard.moveList[MoveNum] = GameBoard.moveList[bestNum];
-		GameBoard.moveList[bestNum] = temp;
+		temp = Board.moveList[MoveNum];
+		Board.moveList[MoveNum] = Board.moveList[bestNum];
+		Board.moveList[bestNum] = temp;
 	}
-
-}
+} 
 
 // Function to clear the PvTable
 function ClearPvTable() {
 	for(var index = 0; index < PVENTRIES; index++) {
-			GameBoard.PvTable[index].move = NOMOVE;
-			GameBoard.PvTable[index].posKey = 0;	
+			Board.PvTable[index].move = NOMOVE;
+			Board.PvTable[index].posKey = 0;	
 	}
 }
 
@@ -62,8 +61,8 @@ function CheckUp() {
 function IsRepetition() {
     var index = 0;
 
-    for(index = GameBoard.hisPly - GameBoard.fiftyMove; index < GameBoard.hisPly - 1; ++index) {
-        if(GameBoard.posKey == GameBoard.history[index].posKey) {
+    for(index = Board.hisPly - Board.fiftyMove; index < Board.hisPly - 1; ++index) {
+        if(Board.posKey == Board.history[index].posKey) {
             return true;
         }
     }
@@ -88,17 +87,17 @@ function AlphaBeta(alpha, beta, depth) {
     SearchController.nodes++;
 
     // Checks for repetition
-    if ((IsRepetition() || GameBoard.fiftyMove >= 100) && GameBoard.ply != 0) {
+    if ((IsRepetition() || Board.fiftyMove >= 100) && Board.ply != 0) {
         return 0;
     }
 
-    if(GameBoard.ply > MAXDEPTH - 1) {
+    if(Board.ply > MAXDEPTH - 1) {
         return EvalPosition();
     }
 
 
     // Checking if we are in check
-    var InCheck = SqAttacked(GameBoard.pList[PCEINDEX(Kings[GameBoard.side],0)], GameBoard.side^1);
+    var InCheck = SqAttacked(Board.pList[PCEINDEX(Kings[Board.side],0)], Board.side^1);
     if(InCheck == true) {
         depth++;
     }
@@ -121,19 +120,19 @@ function AlphaBeta(alpha, beta, depth) {
     // Get Principal Variation move
     var PvMove = ProbePvTable();
 	if(PvMove != NOMOVE) {
-		for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum) {
-			if(GameBoard.moveList[MoveNum] == PvMove) {
-				GameBoard.moveScores[MoveNum] = 2000000;
+		for(MoveNum = Board.moveListStart[Board.ply]; MoveNum < Board.moveListStart[Board.ply + 1]; ++MoveNum) {
+			if(Board.moveList[MoveNum] == PvMove) {
+				Board.moveScores[MoveNum] = 2000000;
 				break;
 			}
 		}
 	}
     
-    for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum) {
+    for(MoveNum = Board.moveListStart[Board.ply]; MoveNum < Board.moveListStart[Board.ply + 1]; ++MoveNum) {
 
         PickNextMove(MoveNum);
         
-		Move = GameBoard.moveList[MoveNum];	
+		Move = Board.moveList[MoveNum];	
 		if(MakeMove(Move) == false) {
 			continue;
         }
@@ -159,14 +158,14 @@ function AlphaBeta(alpha, beta, depth) {
                 SearchController.fh++; // fhf divided by fh tells us how often we get a beta cut off in the first move
                 // Update killer moves
                 if((Move & MOVEFLAGCAP) == 0) {
-					GameBoard.searchKillers[MAXDEPTH + GameBoard.ply] = GameBoard.searchKillers[GameBoard.ply];
-					GameBoard.searchKillers[GameBoard.ply] = Move;
+					Board.searchKillers[MAXDEPTH + Board.ply] = Board.searchKillers[Board.ply];
+					Board.searchKillers[Board.ply] = Move;
 				}
 				return beta;
             }
             // Update History table
             if((Move & MOVEFLAGCAP) == 0) {
-				GameBoard.searchHistory[GameBoard.pieces[FROMSQ(Move)] * BRD_SQ_NUM + TOSQ(Move)] += depth * depth;
+				Board.searchHistory[Board.pieces[FROMSQ(Move)] * BRD_SQ_NUM + TOSQ(Move)] += depth * depth;
 			}
             alpha = Score;
             BestMove = Move;
@@ -177,7 +176,7 @@ function AlphaBeta(alpha, beta, depth) {
     // Mate check
     if(Legal == 0) {
 		if(InCheck == true) {
-			return -MATE + GameBoard.ply; // Distance to mate from root
+			return -MATE + Board.ply; // Distance to mate from root
 		} else {
 			return 0;
 		}
@@ -199,11 +198,11 @@ function Quiescence(alpha, beta) {
 	
 	SearchController.nodes++;
 	
-	if( (IsRepetition() || GameBoard.fiftyMove >= 100) && GameBoard.ply != 0) {
+	if( (IsRepetition() || Board.fiftyMove >= 100) && Board.ply != 0) {
 		return 0;
 	}
 	
-	if(GameBoard.ply > MAXDEPTH -1) {
+	if(Board.ply > MAXDEPTH -1) {
 		return EvalPosition();
 	}	
 	
@@ -226,11 +225,11 @@ function Quiescence(alpha, beta) {
 	var BestMove = NOMOVE;
 	var Move = NOMOVE;	
 	
-	for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum) {
+	for(MoveNum = Board.moveListStart[Board.ply]; MoveNum < Board.moveListStart[Board.ply + 1]; ++MoveNum) {
 	
 		PickNextMove(MoveNum);
 		
-		Move = GameBoard.moveList[MoveNum];	
+		Move = Board.moveList[MoveNum];	
 
 		if(MakeMove(Move) == false) {
 			continue;
@@ -270,16 +269,16 @@ function ClearForSearch() {
     
     // Clearing search history array
 	for(index = 0; index < 14 * BRD_SQ_NUM; ++index) {				
-		GameBoard.searchHistory[index] = 0;	
+		Board.searchHistory[index] = 0;	
 	}
     
     // Clearing search killers array
 	for(index = 0; index < 3 * MAXDEPTH; ++index) {
-		GameBoard.searchKillers[index] = 0;
+		Board.searchKillers[index] = 0;
 	}	
 	
 	ClearPvTable();
-	GameBoard.ply = 0;
+	Board.ply = 0;
 	SearchController.nodes = 0;
 	SearchController.fh = 0;
 	SearchController.fhf = 0;
@@ -311,12 +310,12 @@ function SearchPosition() {
         }
 
         bestMove = ProbePvTable();
-        line = 'Depth:' + currentDepth + ' Best:' + PrMove(bestMove) + ' Score:' + bestScore + ' nodes:' + SearchController.nodes;
+        line = 'Depth:' + currentDepth + ' Best:' + PrintMove(bestMove) + ' Score:' + bestScore + ' nodes:' + SearchController.nodes;
 
         PvNum = GetPvLine(currentDepth);
 		line += ' Pv:';
 		for( c = 0; c < PvNum; ++c) {
-			line += ' ' + PrMove(GameBoard.PvArray[c]);
+			line += ' ' + PrintMove(Board.PvArray[c]);
         }
 
         // Checking how good the move is

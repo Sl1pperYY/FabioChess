@@ -4,16 +4,16 @@
 
 // Undo Button which will undo the move which black made (the engine), and the move which white makes (player move)
 $('#Undo').click( function () {
-	if(GameBoard.hisPly > 0) {
+	if(Board.hisPly > 0) {
         TakeMove();
         TakeMove();
-		GameBoard.ply = 0;
+		Board.ply = 0;
         SetInitialBoardPieces();
         $(SearchController.fromId).removeClass("selected");
         $(SearchController.toId).removeClass("selected");
 	}
 });
-
+ 
 // New Game Button which resets the board to the starting position
 $('#NewGameButton').click( function () {
     NewGame(START_FEN);
@@ -66,7 +66,7 @@ function SetInitialBoardPieces() {
     // Loops through all 64 squares using the 120 square board
 	for(sq = 0; sq < 64; ++sq) {
 		sq120 = SQ120(sq);
-        pce = GameBoard.pieces[sq120];
+        pce = Board.pieces[sq120];
         // Checks if the square has a piece on it and adds the correct piece on to the board
 		if(pce >= PIECES.wP && pce <= PIECES.bK) {
 			AddGUIPiece(sq120, pce);
@@ -77,7 +77,6 @@ function SetInitialBoardPieces() {
 // Function to reposition all the pieces in the right location given by an FEN string
 function NewGame(fenStr) {
     ParseFen(fenStr);
-    PrintBoard();
     SetInitialBoardPieces();
     CheckAndSet();
 }
@@ -204,10 +203,10 @@ function drop(ev) {
 
             var to = TOSQ(move);
     
-            // Removing the pawn on an enpassant move
+            // Removing the pawn on an en passant move
             if(move & MOVEFLAGEP) {
-                // Checks which side made the enpassant move (if GameBoard.side == COLOURS.BLACK than it means it was white that made the move)
-                if(GameBoard.side == COLOURS.BLACK) {
+                // Checks which side made the en passant move (if Board.side == COLOURS.BLACK than it means it was white that made the move)
+                if(Board.side == COLOURS.BLACK) {
                     // Sets the id of the piece which is being taken
                     var enPassantSqRank = (parseInt(squareid[1]) - 1).toString();
                     var enPassantSqId = ("#" + squareid[0] + enPassantSqRank);
@@ -310,7 +309,7 @@ function CheckAndSet() {
 function CheckResult() {
 
     // Fifty move rule draw
-    if(GameBoard.fiftyMove >= 100) {
+    if(Board.fiftyMove >= 100) {
         $("#GameStatus").text("GAME DRAWN fifty move rule"); 
         return true;
     }
@@ -332,9 +331,9 @@ function CheckResult() {
     var MoveNum = 0;
     var found = 0;
 
-    for(MoveNum = GameBoard.moveListStart[GameBoard.ply]; MoveNum < GameBoard.moveListStart[GameBoard.ply + 1]; ++MoveNum)  {	
+    for(MoveNum = Board.moveListStart[Board.ply]; MoveNum < Board.moveListStart[Board.ply + 1]; ++MoveNum)  {	
       
-        if ( MakeMove(GameBoard.moveList[MoveNum]) == false)  {
+        if ( MakeMove(Board.moveList[MoveNum]) == false)  {
             continue;
         }
         found++;
@@ -344,11 +343,11 @@ function CheckResult() {
 
     if(found != 0) {return false};
 
-    var InCheck = SqAttacked(GameBoard.pList[PCEINDEX(Kings[GameBoard.side],0)], GameBoard.side^1);
+    var InCheck = SqAttacked(Board.pList[PCEINDEX(Kings[Board.side],0)], Board.side^1);
 
     // Checks if the King is in check mate or not
     if(InCheck == true) {
-        if(GameBoard.side == COLOURS.WHITE) {
+        if(Board.side == COLOURS.WHITE) {
 
             // Black wins
             $("#GameStatus").text("GAME OVER black mates");
@@ -368,12 +367,12 @@ function CheckResult() {
 
 // Function to determine a material draw
 function DrawMaterial() {
-	if (GameBoard.pceNum[PIECES.wP]!=0 || GameBoard.pceNum[PIECES.bP]!=0) return false;
-	if (GameBoard.pceNum[PIECES.wQ]!=0 || GameBoard.pceNum[PIECES.bQ]!=0 || GameBoard.pceNum[PIECES.wR]!=0 || GameBoard.pceNum[PIECES.bR]!=0) return false;
-	if (GameBoard.pceNum[PIECES.wB] > 1 || GameBoard.pceNum[PIECES.bB] > 1) {return false;}
-    if (GameBoard.pceNum[PIECES.wN] > 1 || GameBoard.pceNum[PIECES.bN] > 1) {return false;}
-	if (GameBoard.pceNum[PIECES.wN]!=0 && GameBoard.pceNum[PIECES.wB]!=0) {return false;}
-	if (GameBoard.pceNum[PIECES.bN]!=0 && GameBoard.pceNum[PIECES.bB]!=0) {return false;}
+	if (Board.pceNum[PIECES.wP]!=0 || Board.pceNum[PIECES.bP]!=0) return false;
+	if (Board.pceNum[PIECES.wQ]!=0 || Board.pceNum[PIECES.bQ]!=0 || Board.pceNum[PIECES.wR]!=0 || Board.pceNum[PIECES.bR]!=0) return false;
+	if (Board.pceNum[PIECES.wB] > 1 || Board.pceNum[PIECES.bB] > 1) {return false;}
+    if (Board.pceNum[PIECES.wN] > 1 || Board.pceNum[PIECES.bN] > 1) {return false;}
+	if (Board.pceNum[PIECES.wN]!=0 && Board.pceNum[PIECES.wB]!=0) {return false;}
+	if (Board.pceNum[PIECES.bN]!=0 && Board.pceNum[PIECES.bB]!=0) {return false;}
 	 
 	return true;
 }
@@ -382,8 +381,8 @@ function DrawMaterial() {
 function ThreeFoldRep() {
     var i = 0, r = 0;
 	
-	for(i = 0; i < GameBoard.hisPly; ++i) {
-		if (GameBoard.history[i].posKey == GameBoard.posKey) {
+	for(i = 0; i < Board.hisPly; ++i) {
+		if (Board.history[i].posKey == Board.posKey) {
 		    r++;
 		}
 	}
@@ -464,13 +463,13 @@ function StartSearch() {
     $(toId).addClass("selected");
     
     // Displays toast message of the move which was just made
-    M.toast({html: PrMove(SearchController.best), classes: 'rounded', displayLength: 6000});
+    M.toast({html: PrintMove(SearchController.best), classes: 'rounded', displayLength: 6000});
 
-    // Removes the pawn if there was an enpassant capture
+    // Removes the pawn if there was an en passant capture
 	if(SearchController.best & MOVEFLAGEP) {
         var enPassantCap;
-        // Checks what side made the en passant move (If its black's turn to move then it was white who made the enpassant capture)
-        if (GameBoard.side == COLOURS.BLACK){
+        // Checks what side made the en passant move (If its black's turn to move then it was white who made the en passant capture)
+        if (Board.side == COLOURS.BLACK){
             enPassantCap = (RanksBrd[to]).toString();
             $("#" + toFile + enPassantCap).children().remove()
         } else {
@@ -523,7 +522,6 @@ function redirect(puzzle) {
 function getSearchParameters() {
     var prmstr = window.location.search.substr(1);
     prmstr = decodeURIComponent(prmstr);
-    console.log(prmstr);
     return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
 }
 

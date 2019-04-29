@@ -4,7 +4,7 @@ var PceChar = ".PNBRQKpnbrqk";
 var SideChar = "wb-";
 var RankChar = "12345678";
 var FileChar = "abcdefgh";
-
+ 
 // Number representation of each piece
 var PIECES =  { EMPTY : 0, wP : 1, wN : 2, wB : 3,wR : 4, wQ : 5, wK : 6, bP : 7, bN : 8, bB : 9, bR : 10, bQ : 11, bK : 12  };
 
@@ -135,7 +135,9 @@ function PCEINDEX(pce, pceNum) {
 	return (pce * 10 + pceNum);
 }
 
+// Used to check if the king is under attack or not
 var Kings = [PIECES.wK, PIECES.bK];
+// Used to bitwise and the castling permissions
 var CastlePerm = [
     15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
     15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
@@ -185,10 +187,16 @@ function SQOFFBOARD(sq) {
 }
 
 // Hashing functions
-function HASH_PCE(pce, sq) {GameBoard.posKey ^= PieceKeys[(pce * 120) + sq];}
-function HASH_CA() {GameBoard.posKey ^= CastleKeys[GameBoard.castlePerm];}
-function HASH_SIDE() {GameBoard.posKey ^= SideKey;}
-function HASH_EP() {GameBoard.posKey ^= PieceKeys[GameBoard.enPas];}
+// We use these create a hash table that is indexed by a board position and is going to be used to avoid analyzing the same position more than once
+
+// Hashes the piece in or out
+function HASH_PCE(pce, sq) {Board.posKey ^= PieceKeys[(pce * 120) + sq];}
+// Hashes the castling permissions in or out
+function HASH_CA() {Board.posKey ^= CastleKeys[Board.castlePerm];}
+// Hashes which side's turn it is in or out
+function HASH_SIDE() {Board.posKey ^= SideKey;}
+// Hashes the En Passant square in or out
+function HASH_EP() {Board.posKey ^= PieceKeys[Board.enPas];}
 
 // GameController variables for engine side
 var GameController = {};

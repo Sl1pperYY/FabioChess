@@ -1,7 +1,9 @@
 var perft_leafNodes;
 
+// Recursive Perft function
 function Perft(depth) { 	
 
+	// Base case
 	if(depth == 0) {
         perft_leafNodes++;
         return;
@@ -12,12 +14,15 @@ function Perft(depth) {
 
 	GenerateMoves();
 
-	for(index = GameBoard.moveListStart[GameBoard.ply]; index < GameBoard.moveListStart[GameBoard.ply + 1]; ++index) {
+	// Loops through the move list generated with GenerateMoves()
+	for(index = Board.moveListStart[Board.ply]; index < Board.moveListStart[Board.ply + 1]; ++index) {
 	
-		move = GameBoard.moveList[index];	
+		move = Board.moveList[index];	
+		// Continue and dont do anything if the move is illegal
 		if(MakeMove(move) == false) {
 			continue;
-		}		
+		}
+		// Recursive call of the function
 		Perft(depth-1);
 		TakeMove();
 	} 
@@ -25,6 +30,7 @@ function Perft(depth) {
     return;
 } 
 
+// Function which starts the perft test and helps with debugging
 function PerftTest(depth) {    
 
 	PrintBoard();
@@ -33,25 +39,27 @@ function PerftTest(depth) {
 
 	GenerateMoves();
 
-	console.log("GameBoard.moveListStart[GameBoard.ply] " + GameBoard.moveListStart[GameBoard.ply]);
-	console.log("GameBoard.moveListStart[GameBoard.ply + 1] " + GameBoard.moveListStart[GameBoard.ply+1]);
-
 	var index;
 	var move;
 	var moveNum = 0;
 	
-	for(index = GameBoard.moveListStart[GameBoard.ply]; index < GameBoard.moveListStart[GameBoard.ply + 1]; ++index) {
+	// Loops through all possible moves
+	for(index = Board.moveListStart[Board.ply]; index < Board.moveListStart[Board.ply + 1]; ++index) {
 	
-		move = GameBoard.moveList[index];
+		move = Board.moveList[index];
+		// Continue and print the result if the move is illegal
 		if(MakeMove(move) == false) {
 			continue;
 		}
 		moveNum++;
 		var cumnodes = perft_leafNodes;
+		// Call of the recursive Perft function
 		Perft(depth-1);
 		TakeMove();
+
+		// Prints out how many nodes were visited fro each possible move
 		var oldnodes = perft_leafNodes - cumnodes;
-        console.log("move:" + moveNum + " " + PrMove(move) + " " + oldnodes);
+        console.log("move:" + moveNum + " " + PrintMove(move) + " " + oldnodes);
 	}
     
 	console.log("Test Complete : " + perft_leafNodes + " leaf nodes visited");      

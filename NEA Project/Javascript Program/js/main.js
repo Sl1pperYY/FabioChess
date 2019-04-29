@@ -22,7 +22,7 @@ function InitFilesRanksBrd() {
 	for(index = 0; index < BRD_SQ_NUM; ++index) {
 		FilesBrd[index] = SQUARES.OFFBOARD;
 		RanksBrd[index] = SQUARES.OFFBOARD;
-	}
+	} 
     
     // For loop to change the files to the correct values in the files board and to change the ranks to the correct values in the ranks board
 	for(rank = RANKS.RANK_1; rank <= RANKS.RANK_8; ++rank) {
@@ -82,9 +82,9 @@ function InitSq120To64() {
 
 // Function to initialise board variables
 function InitBoardVars() {
-	var index = 0;
-	for(index = 0; index < MAXGAMEMOVES; ++index){
-		GameBoard.history.push( {
+	// Initialises the history array
+	for(var index = 0; index < MAXGAMEMOVES; ++index){
+		Board.history.push( {
 			move: NOMOVE,
 			castelPerm: 0,
 			enPas: 0,
@@ -93,8 +93,9 @@ function InitBoardVars() {
 		});
 	}
 
+	// Initialises the PvTable array
 	for(index = 0; index < PVENTRIES; ++index) {
-		GameBoard.PvTable.push({move : NOMOVE, posKey : 0});
+		Board.PvTable.push({move : NOMOVE, posKey : 0});
 	}
 }
 
