@@ -62,8 +62,5 @@ function PerftTest(depth) {
         console.log("move:" + moveNum + " " + PrintMove(move) + " " + oldnodes);
 	}
     
-	console.log("Test Complete : " + perft_leafNodes + " leaf nodes visited");      
-
-    return;
-
+	console.log("Test Complete : " + perft_leafNodes + " leaf nodes visited");
 }

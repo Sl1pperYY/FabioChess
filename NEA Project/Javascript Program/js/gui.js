@@ -309,7 +309,7 @@ function CheckAndSet() {
 function CheckResult() {
 
     // Fifty move rule draw
-    if(Board.fiftyMove >= 100) {
+    if(Board.fiftyMove >= 50) {
         $("#GameStatus").text("GAME DRAWN fifty move rule"); 
         return true;
     }

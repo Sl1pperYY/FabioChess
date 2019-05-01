@@ -3,7 +3,7 @@ function PrintSq(sq) {
     return (FileChar[FilesBrd[sq]] + RankChar[RanksBrd[sq]]);
 }
 
-// Function to return move string
+// Function to return move in algebraic form
 function PrintMove(move) {
 	var MvStr;
 	

@@ -1,0 +1,122 @@
+INCORRECT MOVEMENT TESTING
+
+Try to move  a pawn more than 2 squares forward and try moving it backwards
+Try to move a knight to a square which the knight should be unable to move to as well as to a square which is occupied by a piece which is on the same side
+Try to move a bishop to a square which is blocked by another piece and try to move a bishop to a non-diagonal square
+Try to move a rook to a square which is blocked by another piece and try to move the rook to a diagonal square
+Try to move a queen to a square which is blocked by another piece and try to move the queen to a square which it cannot move to
+Try to move a king more than one square in any direction
+
+CORRECT MOVEMENT TESTING
+
+Quiet moves
+
+4k3/8/8/8/8/8/4PPPP/RNBQKBNR w KQkq - 0 1
+
+Pawn capture
+
+4k3/8/8/2p1p3/3P4/8/8/4K3 w KQkq - 0 1
+
+Bishop capture
+
+4k3/8/1p3p2/8/3B4/8/1p3p2/7K w KQkq - 0 1
+
+Knight capture
+
+4k3/8/2p1p3/1p3p2/3N4/1p3p2/2p1p3/7K w KQkq - 0 1
+
+Rook capture
+
+4k3/8/3p4/8/p2R3p/8/3p4/7K w KQkq - 0 1
+
+Queen capture
+
+4k3/8/1p1p1p2/8/p2Q3p/8/1p1p1p2/7K w KQkq - 0 1
+
+King capture
+
+4k3/8/8/2ppp3/3K4/2ppp3/8/8 w KQkq - 0 1
+
+4k3/8/8/8/2pKp3/8/8/8 w KQkq - 0 1
+
+Castling move
+
+r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1
+
+r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1
+
+En Passant capture move
+
+k7/8/8/pP6/8/8/8/K7 w - a6 0 1
+
+TESTING OF THE GENERATEMOVES FUNCTION
+
+Starting position
+
+r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+k7/6P1/8/8/8/8/7p/K7 b - - 0 1
+
+n1n5/1Pk5/8/8/8/8/5Kp1/5N1N b - - 0 1
+
+MOVE THE KNIGHT FIRST rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 49 1
+
+CHECK THE KING 5k2/p4p2/1p2q3/5RQp/6n1/4P3/PP6/6K1 w - - 0 1 
+
+CAPTURE THE PAWN k7/8/8/p7/8/1N6/8/K7 w - - 0 1 
+
+MOVE F2F3 THEN G2G4
+
+CHECK MATE k/7R/6R1/8/8/8/8/K7 w - - 0 1 
+
+STALEMATE DRAW 3k4/3P4/8/3K4/8/8/8/8 w - - 0 1 
+
+MI2 PUZZLE 1
+
+Nf6 2. Bxf7
+
+MI2 PUZZLE 2
+
+Qd8 2. Re8
+
+MI2 PUZZLE 3
+
+Qg6 2. Rg7
+
+MI3 PUZZLE 1
+
+Ng6 2. Qh4 3. Qh6
+
+MI3 PUZZLE 2
+
+Rf1 2. Ng7 3. Rf8
+
+MI3 PUZZLE 3
+
+Ng6 2. Qh4 3. Qh6
+
+MI4 PUZZLE 1
+
+Bg5 2. Rh6 3. Bf6 4. Rh8
+
+MI4 PUZZLE 2
+
+Rg7 2. Bh6 3. Qf8 4. Bg7
+
+MI4 PUZZLE 3
+
+Rh7 2. Rd4 3. Rh4 4. Rh6
+
+TESTING WEBSITE FUNCTIONS
+
+New game button
+
+Undo button
+
+Pressing logo
+
+Pressing new game
+
+Pressing Puzzles
+
+Pressing help

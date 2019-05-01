@@ -253,7 +253,7 @@ function ParseFen(fen) {
     var sq120 = 0;
     var fenCnt = 0; // Index for the FEN string
 
-    // Iterating through FEN string
+    // Iterating through FEN string to add the pieces
     while((rank >= RANKS.RANK_1) && fenCnt < fen.length) {
         count = 1;
 
@@ -333,14 +333,13 @@ function ParseFen(fen) {
     if (fen[fenCnt] != '-') {
         console.log(fen[fenCnt].charCodeAt(), 'a'.charCodeAt())
         file = fen[fenCnt].charCodeAt() - 'a'.charCodeAt();
-        rank = parseInt(fen[fenCnt], 10);
+        rank = parseInt(fen[fenCnt+1], 10);
         console.log("fen[fenCnt]:" + fen[fenCnt] + " File:" + file + " Rank:" + rank);
         Board.enPas = FR2SQ(file,rank);
     }
 
     Board.posKey = GeneratePosKey();
     UpdateListsMaterial();
-    SqAttacked(21, 0);
 
 }
 
@@ -439,6 +438,3 @@ function SqAttacked(sq, side) {
 	
 
 }
-
-
-

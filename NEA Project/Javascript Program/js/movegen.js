@@ -121,6 +121,10 @@ function AddBlackPawnQuietMove(from, to) {
 	}
 }
 
+//================================================================================
+// Move generation
+//================================================================================
+
 function GenerateMoves() {
 	Board.moveListStart[Board.ply+1] = Board.moveListStart[Board.ply];
 	
@@ -353,7 +357,11 @@ function GenerateMoves() {
 	}
 }
 
-// Same function as generatemoves with only the capturing moves
+//================================================================================
+// Capture Generation
+//================================================================================
+
+// Same function as GenerateMoves() with only the capturing moves
 function GenerateCaptures() {
 	Board.moveListStart[Board.ply+1] = Board.moveListStart[Board.ply];
 	
