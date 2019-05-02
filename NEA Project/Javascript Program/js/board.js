@@ -13,7 +13,7 @@ Board.history = [];
 Board.ply = 0; // Counter for number of half moves made in the search tree
 Board.enPas = 0; // Square set if a pawn advances 2 squares as its starting move (en Passant rule)
 Board.castlePerm = 0; // Castling permission
-Board.material = new Array(2); // WHITE,Black material of pieces
+Board.material = new Array(2); // White, Black material score of pieces
 Board.pceNum = new Array(13); // index by Piece 
 Board.pList = new Array(14*10); // Piece list
 Board.posKey = 0; // Position Key
@@ -327,7 +327,7 @@ function ParseFen(fen) {
         }
         fenCnt++;
     }
-    fenCnt++;
+    fenCnt =+ 2;
 
     // If it is not looking at a dash set the En Passant Square
     if (fen[fenCnt] != '-') {
@@ -336,7 +336,15 @@ function ParseFen(fen) {
         rank = parseInt(fen[fenCnt+1], 10);
         console.log("fen[fenCnt]:" + fen[fenCnt] + " File:" + file + " Rank:" + rank);
         Board.enPas = FR2SQ(file,rank);
+        fenCnt++;
     }
+
+    fenCnt =+ 2;
+    
+    if (fen[fenCnt] != '-') {
+        Board.fiftyMove = parseInt(fen[fenCnt], 10);
+    }
+
 
     Board.posKey = GeneratePosKey();
     UpdateListsMaterial();
